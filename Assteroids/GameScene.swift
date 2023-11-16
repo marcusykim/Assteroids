@@ -5,6 +5,7 @@
 //  Created by Marcus Y. Kim on 11/8/23.
 //
 
+
 import SpriteKit
 import GameplayKit
 
@@ -18,7 +19,31 @@ class GameScene: SKScene {
     private var spinnyNode : SKShapeNode?
     
     override func sceneDidLoad() {
+        
+        print(self.size)
+        
+        print(self.size.width / 2)
+        
+        print(self.size.height / 2)
 
+        if let symbolImage = UIImage(systemName: "paperplane") {
+            let texture = SKTexture(image: symbolImage)
+
+            // Step 2: Create an SKSpriteNode with the SKTexture
+            let spriteNode = SKSpriteNode(texture: texture)
+            
+            spriteNode.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+            
+            spriteNode.size = CGSize(width: CGFloat(100.0), height: CGFloat(100.0))
+
+            // Set position, scale, or any other properties as needed
+            spriteNode.position = CGPoint(x: 20 / 2, y: 40)
+            //spriteNode.position = CGPoint(x: self.size.width / 2, y: self.size.height / 2)
+
+            // Add the spriteNode to your scene or another SKNode
+            self.addChild(spriteNode)
+        }
+        
         self.lastUpdateTime = 0
         
         // Get label node from scene and store it for use later
