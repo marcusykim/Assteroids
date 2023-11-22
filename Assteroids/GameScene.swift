@@ -5,14 +5,20 @@
 //  Created by Marcus Y. Kim on 11/8/23.
 //
 
-
 import SpriteKit
 import GameplayKit
 
 class GameScene: SKScene {
-    
+    var scoreLabel: SKLabelNode!
     var entities = [GKEntity]()
     var graphs = [String : GKGraph]()
+    
+    var score: Int = 0 {
+         didSet {
+             // Update the label text when the score changes
+             scoreLabel.text = "Score: \(score)"
+         }
+     }
     
 
     
@@ -22,25 +28,28 @@ class GameScene: SKScene {
             self.size = view.bounds.size
         }
         
+        
+        
         //print(self.size)
         //
         //        print(self.size.width)
         //
         //        print(self.size.height)
         
-        if let symbolImage = UIImage(systemName: "paperplane") {
-            let texture = SKTexture(image: symbolImage)
+        if let symbolImage = UIImage(systemName: "paperplane")?.withTintColor(.white) {
+            
+            let data = symbolImage.pngData()
+            let newImage = UIImage(data: data!)
+        
+            let texture = SKTexture(image: newImage!)
             
             // Step 2: Create an SKSpriteNode with the SKTexture
             let spriteNode = SKSpriteNode(texture: texture)
             
+            
+            //spriteNode.inputView?.tintColor = .white
+            
             spriteNode.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-            
-            //            let anchorOffsetX = (spriteNode.size.width / 2) / spriteNode.size.width
-            //            let anchorOffsetY = (spriteNode.size.height / 2) / spriteNode.size.height
-            
-            // Adjust the anchor point
-            //spriteNode.anchorPoint = CGPoint(x: 0.5 + anchorOffsetX, y: 0.5 + anchorOffsetY)
             
             
             spriteNode.size = CGSize(width: CGFloat(50.0), height: CGFloat(50.0))
@@ -79,9 +88,23 @@ class GameScene: SKScene {
             }
         }
         
-        print(self.children)
+        
+        scoreLabel = SKLabelNode(text: "1000000")
+        scoreLabel.fontSize = 30
+        scoreLabel.position = CGPoint(x: -225.0, y: 125.0)
+        scoreLabel.color = .white
+                scoreLabel.horizontalAlignmentMode = .right
+
+                // Add the score label to the scene
+                addChild(scoreLabel)
         
         
     }
+    
+    func incrementScore() {
+            // Call this method when the player earns points
+            score += 10 // Adjust the score based on your game's rules
+        }
+    
 }
 
