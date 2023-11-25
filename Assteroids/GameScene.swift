@@ -20,85 +20,56 @@ class GameScene: SKScene {
          }
      }
     
-
-    
     override func sceneDidLoad() {
         
         if let view = self.view {
             self.size = view.bounds.size
         }
+       
+        self.addChild(generateSpaceShip()!)
+        
+        scoreLabel = SKLabelNode(text: "99990")
+        scoreLabel.fontSize = 30
+        scoreLabel.position = CGPoint(x: -250.0, y: 125.0)
+        scoreLabel.color = .white
+        scoreLabel.horizontalAlignmentMode = .right
+
+        addChild(scoreLabel)
         
         
-        
-        //print(self.size)
-        //
-        //        print(self.size.width)
-        //
-        //        print(self.size.height)
-        
-        if let symbolImage = UIImage(systemName: "paperplane")?.withTintColor(.white) {
+    }
+    
+    
+    // Call this whenever the game starts, the user dies, and when we need to add ships to our lives gallery
+    func generateSpaceShip() -> SKSpriteNode? {
+        if let paperPlaneSymbolImage = UIImage(systemName: "paperplane")?.withTintColor(.white) {
             
-            let data = symbolImage.pngData()
+            let data = paperPlaneSymbolImage.pngData()
             let newImage = UIImage(data: data!)
-        
             let texture = SKTexture(image: newImage!)
-            
-            // Step 2: Create an SKSpriteNode with the SKTexture
             let spriteNode = SKSpriteNode(texture: texture)
             
-            
-            //spriteNode.inputView?.tintColor = .white
-            
             spriteNode.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-            
-            
             spriteNode.size = CGSize(width: CGFloat(50.0), height: CGFloat(50.0))
-            
-            //            print(spriteNode.size.width)
-            //
-            //            print(spriteNode.size.height)
-            
-            // Set position, scale, or any other properties as needed
             spriteNode.position = CGPoint(x: 0, y: 0)
-            //spriteNode.position = CGPoint(x: self.size.width / 2, y: self.size.height / 2)
             
-            //            print(self.size.width)
-            //            print(self.size.width / 2)
-            //            print(self.size.height)
-            //            print(self.size.height / 2)
+           
             
-            // print(spriteNode.position)
+            //            let anchorPointInScene = spriteNode.convert(spriteNode.anchorPoint, to: self)
+            //
+            //            let isVisible = self.frame.contains(anchorPointInScene)
+            //
+            //            if isVisible {
+            //                print("Anchor point is within the visible area.")
+            //            } else {
+            //                print("Anchor point is outside the visible area.")
+            //            }
             
-            print("Sprite anchor point: \(spriteNode.anchorPoint)")
+            return spriteNode
             
-            
-            // Add the spriteNode to your scene or another SKNode
-            self.addChild(spriteNode)
-            
-            // Convert the anchor point to the scene's coordinate system
-            let anchorPointInScene = spriteNode.convert(spriteNode.anchorPoint, to: self)
-            
-            // Check if the converted anchor point is within the visible area
-            let isVisible = self.frame.contains(anchorPointInScene)
-            
-            if isVisible {
-                print("Anchor point is within the visible area.")
-            } else {
-                print("Anchor point is outside the visible area.")
-            }
         }
         
-        
-        scoreLabel = SKLabelNode(text: "1000000")
-        scoreLabel.fontSize = 30
-        scoreLabel.position = CGPoint(x: -225.0, y: 125.0)
-        scoreLabel.color = .white
-                scoreLabel.horizontalAlignmentMode = .right
-
-                // Add the score label to the scene
-                addChild(scoreLabel)
-        
-        
+        return nil
     }
     
     func incrementScore() {
