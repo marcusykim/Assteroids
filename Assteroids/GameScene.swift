@@ -13,6 +13,7 @@ class GameScene: SKScene {
     var customContainer: CustomContainerNode!
     var entities = [GKEntity]()
     var graphs = [String : GKGraph]()
+    let imageName = "FlippedButt"
     
     var score: Int = 0 {
          didSet {
@@ -43,6 +44,19 @@ class GameScene: SKScene {
         
         addChild(scoreLabel)
         generateLife()
+        
+        // Replace with the name of your image file
+        if let texture = SKTextureAtlas(named: imageName).textureNamed(imageName) as? SKTexture {
+            let imageNode = SKSpriteNode(texture: texture)
+                    // Set the position, scale, or any other properties as needed
+                    imageNode.position = CGPoint(x: size.width / 2, y: size.height / 2)
+
+                    // Add the SKSpriteNode to the scene
+                    addChild(imageNode)
+                } else {
+                    print("Failed to load texture for image: \(imageName)")
+                }
+        
         
     }
     
