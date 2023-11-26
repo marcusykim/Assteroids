@@ -33,15 +33,15 @@ class GameScene: SKScene {
         
         scoreLabel = SKLabelNode(text: "99990")
         scoreLabel.fontSize = 30
-        scoreLabel.position = CGPoint(x: -250.0, y: 125.0)
         scoreLabel.color = .white
         scoreLabel.horizontalAlignmentMode = .right
+        scoreLabel.scene?.anchorPoint = CGPoint(x: 1.0, y: 0.5)
 
-        addChild(scoreLabel)
-
-        customContainer.position.x = scoreLabel.position.x
-        customContainer.position.y = scoreLabel.position.y - 10
         
+        scoreLabel.position = CGPoint(x: -245, y: 120)
+        customContainer.position = CGPoint(x: -255, y: 100)
+        
+        addChild(scoreLabel)
         generateLife()
         
     }
@@ -82,16 +82,19 @@ class GameScene: SKScene {
     func generateLife() {
         if let paperPlaneSymbolImage = UIImage(systemName: "paperplane")?.withTintColor(.white) {
             
-            let data = paperPlaneSymbolImage.pngData()
-            let newImage = UIImage(data: data!)
-            let texture = SKTexture(image: newImage!)
-            let spriteNode = SKSpriteNode(texture: texture)
             
-            spriteNode.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-            spriteNode.size = CGSize(width: CGFloat(50.0), height: CGFloat(50.0))
                 
-            customContainer.addNode(spriteNode)
-            //customContainer.addNode(spriteNode)
+            for _ in 0..<3 {
+                
+                let data = paperPlaneSymbolImage.pngData()
+                let newImage = UIImage(data: data!)
+                let texture = SKTexture(image: newImage!)
+                let spriteNode = SKSpriteNode(texture: texture)
+                
+                spriteNode.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+                spriteNode.size = CGSize(width: CGFloat(20.0), height: CGFloat(20.0))
+                customContainer.addNode(spriteNode)
+            }
                 
             addChild(customContainer)
             //            let anchorPointInScene = spriteNode.convert(spriteNode.anchorPoint, to: self)
@@ -136,7 +139,7 @@ class CustomContainerNode: SKNode {
 
         for node in childNodes {
             node.position = CGPoint(x: offsetX, y: 0)
-            offsetX += node.size.width + 10  // Adjust the spacing between nodes
+            offsetX += node.size.width - 45  // Adjust the spacing between nodes
         }
     }
 }
