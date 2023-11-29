@@ -46,17 +46,17 @@ class GameScene: SKScene {
         generateLife()
         
         // Replace with the name of your image file
-        if let texture = SKTextureAtlas(named: imageName).textureNamed(imageName) as? SKTexture {
-            let imageNode = SKSpriteNode(texture: texture)
-                    // Set the position, scale, or any other properties as needed
-                    imageNode.position = CGPoint(x: size.width / 2, y: size.height / 2)
-
-                    // Add the SKSpriteNode to the scene
-                    addChild(imageNode)
-                } else {
-                    print("Failed to load texture for image: \(imageName)")
-                }
-        
+        if let butt = UIImage(named: "FlippedButt")?.withTintColor(.white) {
+            
+            let texture = SKTexture(image: butt)
+            let spriteNode = SKSpriteNode(texture: texture)
+            
+            spriteNode.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+            spriteNode.size = CGSize(width: CGFloat(100.0), height: CGFloat(100.0))
+            spriteNode.position = CGPoint(x: -150, y: 0)
+            
+            addChild(spriteNode)
+        }
         
     }
     
