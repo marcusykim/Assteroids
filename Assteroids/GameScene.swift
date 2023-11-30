@@ -46,6 +46,19 @@ class GameScene: SKScene {
         generateLife()
         
         // Replace with the name of your image file
+        if let poop = UIImage(named: "PoopWhite")?.withTintColor(.white) {
+            
+            let texture = SKTexture(image: poop)
+            let spriteNode = SKSpriteNode(texture: texture)
+            
+            spriteNode.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+            spriteNode.size = CGSize(width: CGFloat(50.0), height: CGFloat(50.0))
+            spriteNode.position = CGPoint(x: 150, y: 0)
+            
+            addChild(spriteNode)
+        }
+        
+        
         if let butt = UIImage(named: "FlippedButt")?.withTintColor(.white) {
             
             let texture = SKTexture(image: butt)
@@ -57,6 +70,7 @@ class GameScene: SKScene {
             
             addChild(spriteNode)
         }
+        
         
     }
     
@@ -153,7 +167,7 @@ class CustomContainerNode: SKNode {
 
         for node in childNodes {
             node.position = CGPoint(x: offsetX, y: 0)
-            offsetX += node.size.width - 45  // Adjust the spacing between nodes
+            offsetX += node.size.width - 37.5  // Adjust the spacing between nodes
         }
     }
 }
