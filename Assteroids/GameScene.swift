@@ -45,31 +45,11 @@ class GameScene: SKScene {
         addChild(scoreLabel)
         generateLife()
         
-        // Replace with the name of your image file
-        if let poop = UIImage(named: "PoopWhite")?.withTintColor(.white) {
-            
-            let texture = SKTexture(image: poop)
-            let spriteNode = SKSpriteNode(texture: texture)
-            
-            spriteNode.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-            spriteNode.size = CGSize(width: CGFloat(50.0), height: CGFloat(50.0))
-            spriteNode.position = CGPoint(x: 150, y: 0)
-            
-            addChild(spriteNode)
-        }
+        self.addChild(generatePoop(position: CGPoint(x: 150, y: 0))!)
         
         
-        if let butt = UIImage(named: "FlippedButt")?.withTintColor(.white) {
-            
-            let texture = SKTexture(image: butt)
-            let spriteNode = SKSpriteNode(texture: texture)
-            
-            spriteNode.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-            spriteNode.size = CGSize(width: CGFloat(100.0), height: CGFloat(100.0))
-            spriteNode.position = CGPoint(x: -150, y: 0)
-            
-            addChild(spriteNode)
-        }
+        
+        self.addChild(generateButt(position: CGPoint(x: -150, y: 0))!)
         
         
     }
@@ -110,8 +90,6 @@ class GameScene: SKScene {
     func generateLife() {
         if let paperPlaneSymbolImage = UIImage(systemName: "paperplane")?.withTintColor(.white) {
             
-            
-                
             for _ in 0..<3 {
                 
                 let data = paperPlaneSymbolImage.pngData()
@@ -125,15 +103,6 @@ class GameScene: SKScene {
             }
                 
             addChild(customContainer)
-            //            let anchorPointInScene = spriteNode.convert(spriteNode.anchorPoint, to: self)
-            //
-            //            let isVisible = self.frame.contains(anchorPointInScene)
-            //
-            //            if isVisible {
-            //                print("Anchor point is within the visible area.")
-            //            } else {
-            //                print("Anchor point is outside the visible area.")
-            //            }
             
         }
     }
@@ -143,6 +112,39 @@ class GameScene: SKScene {
             score += 10 // Adjust the score based on your game's rules
         }
     
+    func generatePoop(position: CGPoint = CGPoint(x: 0, y: 0)) -> SKSpriteNode? {
+        if let poop = UIImage(named: "PoopWhite")?.withTintColor(.white) {
+            
+            let texture = SKTexture(image: poop)
+            let spriteNode = SKSpriteNode(texture: texture)
+            
+            spriteNode.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+            spriteNode.size = CGSize(width: CGFloat(50.0), height: CGFloat(50.0))
+            spriteNode.position = position
+            
+            return spriteNode
+        }
+        return nil
+    }
+    
+}
+
+func generateButt(position: CGPoint = CGPoint(x: 0, y: 0)) -> SKSpriteNode? {
+    
+    if let butt = UIImage(named: "FlippedButt")?.withTintColor(.white) {
+        
+        let texture = SKTexture(image: butt)
+        let spriteNode = SKSpriteNode(texture: texture)
+        
+        spriteNode.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        spriteNode.size = CGSize(width: CGFloat(100.0), height: CGFloat(100.0))
+        spriteNode.position = CGPoint(x: -150, y: 0)
+        
+        return spriteNode
+    }
+    
+    
+    return nil
 }
 
 class CustomContainerNode: SKNode {
