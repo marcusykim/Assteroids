@@ -38,7 +38,6 @@ class GameScene: SKScene {
         scoreLabel.horizontalAlignmentMode = .right
         scoreLabel.scene?.anchorPoint = CGPoint(x: 1.0, y: 0.5)
 
-        
         scoreLabel.position = CGPoint(x: -245, y: 120)
         customContainer.position = CGPoint(x: -255, y: 100)
         
@@ -47,9 +46,9 @@ class GameScene: SKScene {
         
         self.addChild(generatePoop(position: CGPoint(x: 150, y: 0))!)
         
-        
-        
         self.addChild(generateButt(position: CGPoint(x: -150, y: 0))!)
+        
+       generateButtons()
         
         
     }
@@ -67,18 +66,6 @@ class GameScene: SKScene {
             spriteNode.anchorPoint = CGPoint(x: 0.5, y: 0.5)
             spriteNode.size = CGSize(width: CGFloat(50.0), height: CGFloat(50.0))
             spriteNode.position = position
-            
-           
-            
-            //            let anchorPointInScene = spriteNode.convert(spriteNode.anchorPoint, to: self)
-            //
-            //            let isVisible = self.frame.contains(anchorPointInScene)
-            //
-            //            if isVisible {
-            //                print("Anchor point is within the visible area.")
-            //            } else {
-            //                print("Anchor point is outside the visible area.")
-            //            }
             
             return spriteNode
             
@@ -127,24 +114,85 @@ class GameScene: SKScene {
         return nil
     }
     
-}
-
-func generateButt(position: CGPoint = CGPoint(x: 0, y: 0)) -> SKSpriteNode? {
     
-    if let butt = UIImage(named: "FlippedButt")?.withTintColor(.white) {
+    func generateButt(position: CGPoint = CGPoint(x: 0, y: 0)) -> SKSpriteNode? {
         
-        let texture = SKTexture(image: butt)
-        let spriteNode = SKSpriteNode(texture: texture)
+        if let butt = UIImage(named: "FlippedButt")?.withTintColor(.white) {
+            
+            let texture = SKTexture(image: butt)
+            let spriteNode = SKSpriteNode(texture: texture)
+            
+            spriteNode.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+            spriteNode.size = CGSize(width: CGFloat(100.0), height: CGFloat(100.0))
+            spriteNode.position = CGPoint(x: -150, y: 0)
+            
+            return spriteNode
+        }
         
-        spriteNode.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        spriteNode.size = CGSize(width: CGFloat(100.0), height: CGFloat(100.0))
-        spriteNode.position = CGPoint(x: -150, y: 0)
         
-        return spriteNode
+        return nil
     }
     
+    func generateButtons() {
+        if let leftArrow = UIImage(systemName: "arrowtriangle.left.square.fill")?.withTintColor(.white) {
+            
+            let data = leftArrow.pngData()
+            let newImage = UIImage(data: data!)
+            let texture = SKTexture(image: newImage!)
+            let spriteNode = SKSpriteNode(texture: texture)
+            
+            spriteNode.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+            spriteNode.size = CGSize(width: CGFloat(30.0), height: CGFloat(30.0))
+            spriteNode.position = CGPoint(x: -312.5, y: -120)
+            
+            self.addChild(spriteNode)
+            
+        }
+        
+        if let rightArrow = UIImage(systemName: "arrowtriangle.right.square.fill")?.withTintColor(.white) {
+            
+            let data = rightArrow.pngData()
+            let newImage = UIImage(data: data!)
+            let texture = SKTexture(image: newImage!)
+            let spriteNode = SKSpriteNode(texture: texture)
+            
+            spriteNode.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+            spriteNode.size = CGSize(width: CGFloat(30.0), height: CGFloat(30.0))
+            spriteNode.position = CGPoint(x: -258, y: -120)
+            
+            self.addChild(spriteNode)
+            
+        }
+        
+        if let thrust = UIImage(named: "thrust")?.withTintColor(.white) {
+            
+            let texture = SKTexture(image: thrust)
+            let spriteNode = SKSpriteNode(texture: texture)
+            
+            spriteNode.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+            spriteNode.size = CGSize(width: CGFloat(35.0), height: CGFloat(35.0))
+            spriteNode.position = CGPoint(x: 312.5, y: -120)
+            
+            self.addChild(spriteNode)
+            
+        }
+
+        if let trigger = UIImage(named: "Crosshair")?.withTintColor(.white) {
+            
+            let texture = SKTexture(image: trigger)
+            let spriteNode = SKSpriteNode(texture: texture)
+            
+            spriteNode.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+            spriteNode.size = CGSize(width: CGFloat(50.0), height: CGFloat(50.0))
+            spriteNode.position = CGPoint(x: 258, y: -120)
+            
+            self.addChild(spriteNode)
+            
+        }
+
+
+    }
     
-    return nil
 }
 
 class CustomContainerNode: SKNode {
