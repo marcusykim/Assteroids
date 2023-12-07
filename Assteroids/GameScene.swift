@@ -15,6 +15,11 @@ class GameScene: SKScene {
     var graphs = [String : GKGraph]()
     let imageName = "FlippedButt"
     
+    var leftArrowNode: SKSpriteNode!
+    var rightArrowNode: SKSpriteNode!
+    var thrustNode: SKSpriteNode!
+    var triggerNode: SKSpriteNode!
+    
     var score: Int = 0 {
          didSet {
              // Update the label text when the score changes
@@ -22,8 +27,8 @@ class GameScene: SKScene {
          }
      }
     
-    override func sceneDidLoad() {
-        
+    override func didMove(to view: SKView) {
+        super.didMove(to: view)
         customContainer = CustomContainerNode()
         
         if let view = self.view {
@@ -50,8 +55,33 @@ class GameScene: SKScene {
         
        generateButtons()
         
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
+        
+        if self.view != nil {
+            print("view exists")
+        } else {
+            print("view does not exist")
+        }
+        
+        self.view?.addGestureRecognizer(tapGesture)
+        
+        
+        
         
     }
+    
+    @objc func handleTap(_ gestureRecognizer: UITapGestureRecognizer) {
+            // Get the location of the tap in the scene
+        let tapLocation = gestureRecognizer.location(in: self.view)
+
+            // Check if the tap is on the sprite node
+            if leftArrowNode.contains(tapLocation) {
+                // Handle the tap on the sprite node
+                print("Left arrow tapped!")
+            } else if rightArrowNode.contains(tapLocation){
+            
+            }
+        }
     
     
     // Call this whenever the game starts, the user dies, and when we need to add ships to our lives gallery
@@ -139,13 +169,13 @@ class GameScene: SKScene {
             let data = leftArrow.pngData()
             let newImage = UIImage(data: data!)
             let texture = SKTexture(image: newImage!)
-            let spriteNode = SKSpriteNode(texture: texture)
+            leftArrowNode = SKSpriteNode(texture: texture)
             
-            spriteNode.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-            spriteNode.size = CGSize(width: CGFloat(30.0), height: CGFloat(30.0))
-            spriteNode.position = CGPoint(x: -312.5, y: -120)
+            leftArrowNode.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+            leftArrowNode.size = CGSize(width: CGFloat(30.0), height: CGFloat(30.0))
+            leftArrowNode.position = CGPoint(x: -312.5, y: -120)
             
-            self.addChild(spriteNode)
+            self.addChild(leftArrowNode)
             
         }
         
@@ -154,39 +184,39 @@ class GameScene: SKScene {
             let data = rightArrow.pngData()
             let newImage = UIImage(data: data!)
             let texture = SKTexture(image: newImage!)
-            let spriteNode = SKSpriteNode(texture: texture)
+            rightArrowNode = SKSpriteNode(texture: texture)
             
-            spriteNode.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-            spriteNode.size = CGSize(width: CGFloat(30.0), height: CGFloat(30.0))
-            spriteNode.position = CGPoint(x: -258, y: -120)
+            rightArrowNode.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+            rightArrowNode.size = CGSize(width: CGFloat(30.0), height: CGFloat(30.0))
+            rightArrowNode.position = CGPoint(x: -258, y: -120)
             
-            self.addChild(spriteNode)
+            self.addChild(rightArrowNode)
             
         }
         
         if let thrust = UIImage(named: "thrust")?.withTintColor(.white) {
             
             let texture = SKTexture(image: thrust)
-            let spriteNode = SKSpriteNode(texture: texture)
+            thrustNode = SKSpriteNode(texture: texture)
             
-            spriteNode.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-            spriteNode.size = CGSize(width: CGFloat(35.0), height: CGFloat(35.0))
-            spriteNode.position = CGPoint(x: 312.5, y: -120)
+            thrustNode.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+            thrustNode.size = CGSize(width: CGFloat(35.0), height: CGFloat(35.0))
+            thrustNode.position = CGPoint(x: 312.5, y: -120)
             
-            self.addChild(spriteNode)
+            self.addChild(thrustNode)
             
         }
 
         if let trigger = UIImage(named: "Crosshair")?.withTintColor(.white) {
             
             let texture = SKTexture(image: trigger)
-            let spriteNode = SKSpriteNode(texture: texture)
+            triggerNode = SKSpriteNode(texture: texture)
             
-            spriteNode.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-            spriteNode.size = CGSize(width: CGFloat(50.0), height: CGFloat(50.0))
-            spriteNode.position = CGPoint(x: 258, y: -120)
+            triggerNode.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+            triggerNode.size = CGSize(width: CGFloat(50.0), height: CGFloat(50.0))
+            triggerNode.position = CGPoint(x: 258, y: -120)
             
-            self.addChild(spriteNode)
+            self.addChild(triggerNode)
             
         }
 
