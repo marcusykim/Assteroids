@@ -65,22 +65,39 @@ class GameScene: SKScene {
         
         self.view?.addGestureRecognizer(tapGesture)
         
+        if let tapGestureRecognizers = self.view?.gestureRecognizers?.compactMap({ $0 as? UITapGestureRecognizer }), !tapGestureRecognizers.isEmpty {
+            // There is at least one UITapGestureRecognizer
+            print("Tap gesture recognizer exists.")
+        } else {
+            // No UITapGestureRecognizer is added to the view
+            print("No tap gesture recognizer.")
+        }
+        
         
         
         
     }
     
     @objc func handleTap(_ gestureRecognizer: UITapGestureRecognizer) {
-            // Get the location of the tap in the scene
-        let tapLocation = gestureRecognizer.location(in: self.view)
+        
+        print("handleTap called")
+        
+        let tapLocationInView = gestureRecognizer.location(in: self.view)
 
-            // Check if the tap is on the sprite node
-            if leftArrowNode.contains(tapLocation) {
-                // Handle the tap on the sprite node
-                print("Left arrow tapped!")
-            } else if rightArrowNode.contains(tapLocation){
+        let tapLocationInScene = convertPoint(fromView: tapLocationInView)
+          
+        if let tappedNode = self.atPoint(tapLocationInScene) as? SKSpriteNode {
+       
+            print("inside optional binding")
             
+            if leftArrowNode == tappedNode{
+              
+                print("Left arrow tapped!")
+            } else if rightArrowNode == tappedNode{
+                print("Right arrow tapped!")
             }
+        }
+           
         }
     
     
