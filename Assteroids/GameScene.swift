@@ -55,7 +55,7 @@ class GameScene: SKScene {
         
        generateButtons()
         
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
+        let tapGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(_:)))
         
         if self.view != nil {
             print("view exists")
@@ -65,11 +65,11 @@ class GameScene: SKScene {
         
         self.view?.addGestureRecognizer(tapGesture)
         
-        if let tapGestureRecognizers = self.view?.gestureRecognizers?.compactMap({ $0 as? UITapGestureRecognizer }), !tapGestureRecognizers.isEmpty {
-            // There is at least one UITapGestureRecognizer
+        if let tapGestureRecognizers = self.view?.gestureRecognizers?.compactMap({ $0 as? UILongPressGestureRecognizer }), !tapGestureRecognizers.isEmpty {
+            // There is at least one UILongPressGestureRecognizer
             print("Tap gesture recognizer exists.")
         } else {
-            // No UITapGestureRecognizer is added to the view
+            // No UILongPressRecognizer is added to the view
             print("No tap gesture recognizer.")
         }
         
@@ -78,9 +78,9 @@ class GameScene: SKScene {
         
     }
     
-    @objc func handleTap(_ gestureRecognizer: UITapGestureRecognizer) {
+    @objc func handleLongPress(_ gestureRecognizer: UILongPressGestureRecognizer) {
         
-        print("handleTap called")
+        print("handleLongPress called")
         
         let tapLocationInView = gestureRecognizer.location(in: self.view)
 
