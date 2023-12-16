@@ -14,6 +14,8 @@ class GameScene: SKScene {
     var entities = [GKEntity]()
     var graphs = [String : GKGraph]()
     let imageName = "FlippedButt"
+    var spaceship: SKSpriteNode!
+    var rotating = false
     
     var leftArrowNode: SKSpriteNode!
     var rightArrowNode: SKSpriteNode!
@@ -92,14 +94,59 @@ class GameScene: SKScene {
             
             if leftArrowNode == tappedNode{
               
-                print("Left arrow tapped!")
+                print("Left arrow pressed!")
+                
+                switch gestureRecognizer.state {
+                        case .began:
+                            // Start rotating when the long press begins
+                            rotating = true
+                    rotateSpaceship(direction: leftArrowNode)
+                        case .ended, .cancelled:
+                            // Stop rotating when the long press ends or is cancelled
+                            rotating = false
+                            rotateSpaceship(direction: leftArrowNode)
+                        default:
+                            break
+                        }
             } else if rightArrowNode == tappedNode{
-                print("Right arrow tapped!")
+                print("Right arrow pressed!")
+                
+                switch gestureRecognizer.state {
+                        case .began:
+                            // Start rotating when the long press begins
+                            rotating = true
+                            rotateSpaceship(direction: rightArrowNode)
+                        case .ended, .cancelled:
+                            // Stop rotating when the long press ends or is cancelled
+                            rotating = false
+                    rotateSpaceship(direction: rightArrowNode)
+                        default:
+                            break
+                        }
             }
         }
            
         }
     
+    func rotateSpaceship(direction: SKSpriteNode) {
+            // Check if rotating is enabled
+            guard rotating else {
+                spaceship.removeAction(forKey: "rotateAction")
+                return
+            }
+
+            // Rotate the spaceship continuously
+        
+        if direction == leftArrowNode {
+            let rotateAction = SKAction.rotate(byAngle: CGFloat.pi/2, duration: 0.5)
+        } else if direction == rightArrowNode {
+            
+        }
+        
+            
+            let repeatAction = SKAction.repeatForever(rotateAction)
+            spaceship.run(repeatAction, withKey: "rotateAction")
+        }
     
     // Call this whenever the game starts, the user dies, and when we need to add ships to our lives gallery
     func generateSpaceShip(position: CGPoint = CGPoint(x: 0, y: 0)) -> SKSpriteNode? {
@@ -108,13 +155,13 @@ class GameScene: SKScene {
             let data = paperPlaneSymbolImage.pngData()
             let newImage = UIImage(data: data!)
             let texture = SKTexture(image: newImage!)
-            let spriteNode = SKSpriteNode(texture: texture)
+            spaceship = SKSpriteNode(texture: texture)
             
-            spriteNode.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-            spriteNode.size = CGSize(width: CGFloat(50.0), height: CGFloat(50.0))
-            spriteNode.position = position
+            spaceship.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+            spaceship.size = CGSize(width: CGFloat(50.0), height: CGFloat(50.0))
+            spaceship.position = position
             
-            return spriteNode
+            return spaceship
             
         }
         
