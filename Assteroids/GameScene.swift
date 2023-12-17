@@ -16,6 +16,7 @@ class GameScene: SKScene {
     let imageName = "FlippedButt"
     var spaceship: SKSpriteNode!
     var rotating = false
+    var thrusting = false
     
     var leftArrowNode: SKSpriteNode!
     var rightArrowNode: SKSpriteNode!
@@ -123,6 +124,21 @@ class GameScene: SKScene {
                         default:
                             break
                         }
+            } else if thrustNode == tappedNode {
+                print("thrust pressed!")
+                
+                switch gestureRecognizer.state {
+                        case .began:
+                            // Start rotating when the long press begins
+                            thrusting = true
+                            activateThrust(thrustNode: thrustNode)
+                        case .ended, .cancelled:
+                            // Stop rotating when the long press ends or is cancelled
+                            thrusting = false
+                            activateThrust(thrustNode: thrustNode)
+                        default:
+                            break
+                        }
             }
         }
            
@@ -137,16 +153,72 @@ class GameScene: SKScene {
 
             // Rotate the spaceship continuously
         
-        if direction == leftArrowNode {
-            let rotateAction = SKAction.rotate(byAngle: CGFloat.pi/2, duration: 0.5)
-        } else if direction == rightArrowNode {
-            
-        }
         
-            
+        if direction == leftArrowNode {
+            let rotateAction = SKAction.rotate(byAngle: CGFloat.pi, duration: 1.0)
+            let repeatAction = SKAction.repeatForever(rotateAction)
+            spaceship.run(repeatAction, withKey: "rotateAction")
+        } else if direction == rightArrowNode {
+            let rotateAction = SKAction.rotate(byAngle: -CGFloat.pi, duration: 1.0)
             let repeatAction = SKAction.repeatForever(rotateAction)
             spaceship.run(repeatAction, withKey: "rotateAction")
         }
+        
+        }
+    
+    func activateThrust(thrustNode: SKSpriteNode) {
+        
+        
+        
+        guard thrusting else {
+            spaceship.removeAction(forKey: "moveAction")
+            return
+        }
+        
+        
+        
+        if thrustNode == self.thrustNode {
+            let distance: CGFloat = 200.0 // Adjust the distance to fit your needs
+            let angleInRadians = spaceship.zRotation // Get the current rotation angle in radians
+
+            // Calculate the new position
+            let deltaX = distance * cos(angleInRadians)
+            let deltaY = distance * sin(angleInRadians)
+
+            // Create an action to move to the new position
+            let moveAction = SKAction.moveBy(x: deltaX, y: deltaY, duration: 1.0)
+            let repeatAction = SKAction.repeatForever(moveAction)
+
+            // Run the move action
+            
+            let screenWidth = self.size.width
+            let screenHeight = self.size.height
+
+            // Check if the spaceship is out of bounds on the right side
+            if spaceship.position.x > screenWidth / 2 {
+                spaceship.position.x = -screenWidth / 2 + spaceship.size.width / 2
+            }
+
+            // Check if the spaceship is out of bounds on the left side
+            if spaceship.position.x < -screenWidth / 2 + spaceship.size.width / 2 {
+                spaceship.position.x = screenWidth / 2 - spaceship.size.width / 2
+            }
+
+            // Check if the spaceship is out of bounds at the top
+            if spaceship.position.y > screenHeight / 2 {
+                spaceship.position.y = -screenHeight / 2 + spaceship.size.height / 2
+            }
+
+            // Check if the spaceship is out of bounds at the bottom
+            if spaceship.position.y < -screenHeight / 2 + spaceship.size.height / 2
+            {
+                spaceship.position.y = screenHeight / 2 - spaceship.size.height / 2
+            }
+            spaceship.run(repeatAction, withKey: "moveAction")
+        }
+        
+        
+    }
     
     // Call this whenever the game starts, the user dies, and when we need to add ships to our lives gallery
     func generateSpaceShip(position: CGPoint = CGPoint(x: 0, y: 0)) -> SKSpriteNode? {
