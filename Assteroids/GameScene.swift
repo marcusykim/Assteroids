@@ -58,7 +58,9 @@ class GameScene: SKScene {
         
        generateButtons()
         
-        let tapGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(_:)))
+        let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(_:)))
+        
+        longPressGesture.minimumPressDuration = 0.01
         
         if self.view != nil {
             print("view exists")
@@ -66,7 +68,7 @@ class GameScene: SKScene {
             print("view does not exist")
         }
         
-        self.view?.addGestureRecognizer(tapGesture)
+        self.view?.addGestureRecognizer(longPressGesture)
         
         if let tapGestureRecognizers = self.view?.gestureRecognizers?.compactMap({ $0 as? UILongPressGestureRecognizer }), !tapGestureRecognizers.isEmpty {
             // There is at least one UILongPressGestureRecognizer
@@ -168,8 +170,6 @@ class GameScene: SKScene {
     
     func activateThrust(thrustNode: SKSpriteNode) {
         
-        
-        
         guard thrusting else {
             spaceship.removeAction(forKey: "moveAction")
             return
@@ -191,33 +191,42 @@ class GameScene: SKScene {
 
             // Run the move action
             
-            let screenWidth = self.size.width
-            let screenHeight = self.size.height
-
-            // Check if the spaceship is out of bounds on the right side
-            if spaceship.position.x > screenWidth / 2 {
-                spaceship.position.x = -screenWidth / 2 + spaceship.size.width / 2
-            }
-
-            // Check if the spaceship is out of bounds on the left side
-            if spaceship.position.x < -screenWidth / 2 + spaceship.size.width / 2 {
-                spaceship.position.x = screenWidth / 2 - spaceship.size.width / 2
-            }
-
-            // Check if the spaceship is out of bounds at the top
-            if spaceship.position.y > screenHeight / 2 {
-                spaceship.position.y = -screenHeight / 2 + spaceship.size.height / 2
-            }
-
-            // Check if the spaceship is out of bounds at the bottom
-            if spaceship.position.y < -screenHeight / 2 + spaceship.size.height / 2
-            {
-                spaceship.position.y = screenHeight / 2 - spaceship.size.height / 2
-            }
             spaceship.run(repeatAction, withKey: "moveAction")
         }
         
         
+    }
+    
+    override func update(_ currentTime: TimeInterval) {
+        // Check if the spaceship is out of bounds
+        checkOutOfBounds(for: spaceship)
+        
+        // Other update logic if needed
+    }
+    
+    func checkOutOfBounds(for node: SKSpriteNode) {
+        let screenWidth = self.size.width
+        let screenHeight = self.size.height
+
+        // Check if the spaceship is out of bounds on the right side
+        if node.position.x > screenWidth / 2 {
+            node.position.x = -screenWidth / 2 + node.size.width / 2
+        }
+
+        // Check if the spaceship is out of bounds on the left side
+        if node.position.x < -screenWidth / 2 + node.size.width / 2 {
+            node.position.x = screenWidth / 2 - node.size.width / 2
+        }
+
+        // Check if the spaceship is out of bounds at the top
+        if node.position.y > screenHeight / 2 {
+            node.position.y = -screenHeight / 2 + node.size.height / 2
+        }
+
+        // Check if the spaceship is out of bounds at the bottom
+        if node.position.y < -screenHeight / 2 + node.size.height / 2 {
+            node.position.y = screenHeight / 2 - node.size.height / 2
+        }
     }
     
     // Call this whenever the game starts, the user dies, and when we need to add ships to our lives gallery
