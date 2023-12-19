@@ -205,28 +205,31 @@ class GameScene: SKScene {
     }
     
     func checkOutOfBounds(for node: SKSpriteNode) {
-        let screenWidth = self.size.width
-        let screenHeight = self.size.height
-
-        // Check if the spaceship is out of bounds on the right side
-        if node.position.x > screenWidth / 2 {
-            node.position.x = -screenWidth / 2 + node.size.width / 2
-        }
-
-        // Check if the spaceship is out of bounds on the left side
-        if node.position.x < -screenWidth / 2 + node.size.width / 2 {
-            node.position.x = screenWidth / 2 - node.size.width / 2
-        }
-
-        // Check if the spaceship is out of bounds at the top
-        if node.position.y > screenHeight / 2 {
-            node.position.y = -screenHeight / 2 + node.size.height / 2
-        }
-
-        // Check if the spaceship is out of bounds at the bottom
-        if node.position.y < -screenHeight / 2 + node.size.height / 2 {
-            node.position.y = screenHeight / 2 - node.size.height / 2
-        }
+//        let screenWidth = self.size.width
+//        let screenHeight = self.size.height
+//
+//        // Check if the spaceship is out of bounds on the right side
+//        if node.position.x > screenWidth / 2 {
+//            node.position.x = -screenWidth / 2 + node.size.width / 2
+//        }
+//
+//        // Check if the spaceship is out of bounds on the left side
+//        if node.position.x < -screenWidth / 2 + node.size.width / 2 {
+//            node.position.x = screenWidth / 2 - node.size.width / 2
+//        }
+//
+//        // Check if the spaceship is out of bounds at the top
+//        if node.position.y > screenHeight / 2 {
+//            node.position.y = -screenHeight / 2 + node.size.height / 2
+//        }
+//
+//        // Check if the spaceship is out of bounds at the bottom
+//        if node.position.y < -screenHeight / 2 + node.size.height / 2 {
+//            node.position.y = screenHeight / 2 - node.size.height / 2
+//        }
+        
+        
+        
     }
     
     // Call this whenever the game starts, the user dies, and when we need to add ships to our lives gallery
