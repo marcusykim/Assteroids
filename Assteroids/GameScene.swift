@@ -54,7 +54,7 @@ class GameScene: SKScene {
         
         self.addChild(generatePoop(position: CGPoint(x: 150, y: 0))!)
         
-        self.addChild(generateButt(position: CGPoint(x: -150, y: 0))!)
+        self.addChild(generateButt()
         
        generateButtons()
         
@@ -259,7 +259,7 @@ class GameScene: SKScene {
             spaceship.physicsBody?.linearDamping = 1.0
             spaceship.physicsBody?.velocity = CGVector(dx: 0, dy: 0)  // Ensure no initial velocity
             spaceship.physicsBody?.angularVelocity = 0  // Ensure no initial angular velocity
-            spaceship.physicsBody?.affectedByGravity = false 
+            spaceship.physicsBody?.affectedByGravity = false
             
             return spaceship
             
@@ -311,18 +311,25 @@ class GameScene: SKScene {
     
     func generateButt(position: CGPoint = CGPoint(x: 0, y: 0)) -> SKSpriteNode? {
         
-        if let butt = UIImage(named: "FlippedButt")?.withTintColor(.white) {
+        for _ in 1...5 {
             
-            let texture = SKTexture(image: butt)
-            let spriteNode = SKSpriteNode(texture: texture)
+            if let butt = UIImage(named: "FlippedButt")?.withTintColor(.white) {
+                
+                let texture = SKTexture(image: butt)
+                let spriteNode = SKSpriteNode(texture: texture)
+                
+                spriteNode.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+                spriteNode.size = CGSize(width: CGFloat(100.0), height: CGFloat(100.0))
+                
+                
+                
+                spriteNode.position = CGPoint(x: -150, y: 0)
+                
+                return spriteNode
+            }
             
-            spriteNode.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-            spriteNode.size = CGSize(width: CGFloat(100.0), height: CGFloat(100.0))
-            spriteNode.position = CGPoint(x: -150, y: 0)
             
-            return spriteNode
         }
-        
         
         return nil
     }
