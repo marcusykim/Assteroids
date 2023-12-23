@@ -171,7 +171,7 @@ class GameScene: SKScene {
     func activateThrust(thrustNode: SKSpriteNode) {
         
         guard thrusting else {
-            spaceship.removeAction(forKey: "moveAction")
+            spaceship.removeAllActions()
             return
         }
         
@@ -185,13 +185,22 @@ class GameScene: SKScene {
             let deltaX = distance * cos(angleInRadians)
             let deltaY = distance * sin(angleInRadians)
 
-            // Create an action to move to the new position
-            let moveAction = SKAction.moveBy(x: deltaX, y: deltaY, duration: 1.0)
-            let repeatAction = SKAction.repeatForever(moveAction)
+            let accelerationAction = SKAction.repeatForever(SKAction.customAction(withDuration: 99999.9) { _, elapsedTime in
+                            // Adjust acceleration as needed
+                                        let velocity = CGVector(dx: deltaX * elapsedTime, dy: deltaY * elapsedTime)  // Example acceleration
+                                        self.spaceship.physicsBody?.velocity = velocity
+                                    })
 
-            // Run the move action
+                        // Run the custom action
+            spaceship.run(accelerationAction)
             
-            spaceship.run(repeatAction, withKey: "moveAction")
+            // Create an action to move to the new position
+//            let moveAction = SKAction.moveBy(x: deltaX, y: deltaY, duration: 1.0)
+//            let repeatAction = SKAction.repeatForever(moveAction)
+//
+//            // Run the move action
+//            
+//            spaceship.run(repeatAction, withKey: "moveAction")
         }
         
         
@@ -244,6 +253,13 @@ class GameScene: SKScene {
             spaceship.anchorPoint = CGPoint(x: 0.5, y: 0.5)
             spaceship.size = CGSize(width: CGFloat(50.0), height: CGFloat(50.0))
             spaceship.position = position
+            
+            spaceship.physicsBody = SKPhysicsBody(rectangleOf: spaceship.size)
+            spaceship.physicsBody?.isDynamic = true
+            spaceship.physicsBody?.linearDamping = 1.0
+            spaceship.physicsBody?.velocity = CGVector(dx: 0, dy: 0)  // Ensure no initial velocity
+            spaceship.physicsBody?.angularVelocity = 0  // Ensure no initial angular velocity
+            spaceship.physicsBody?.affectedByGravity = false 
             
             return spaceship
             
