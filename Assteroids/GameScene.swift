@@ -54,9 +54,9 @@ class GameScene: SKScene {
         
         self.addChild(generatePoop(position: CGPoint(x: 150, y: 0))!)
         
-        self.addChild(generateButt()
+        //self.addChild(generateButt()
         
-       generateButtons()
+      // generateButtons()
         
         let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(_:)))
         
