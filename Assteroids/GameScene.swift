@@ -31,6 +31,11 @@ class GameScene: SKScene {
      }
     
     override func didMove(to view: SKView) {
+        
+        print("\(UIScreen.main.bounds.width)     \(UIScreen.main.bounds.height)")
+        
+        print(self.view!.bounds.size)
+        
         super.didMove(to: view)
         customContainer = CustomContainerNode()
         
@@ -54,9 +59,9 @@ class GameScene: SKScene {
         
         self.addChild(generatePoop(position: CGPoint(x: 150, y: 0))!)
         
-        //self.addChild(generateButt()
+        generateButt()
         
-      // generateButtons()
+        generateButtons()
         
         let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(_:)))
         
@@ -309,9 +314,10 @@ class GameScene: SKScene {
     }
     
     
-    func generateButt(position: CGPoint = CGPoint(x: 0, y: 0)) -> SKSpriteNode? {
+    func generateButt(position: CGPoint = CGPoint(x: 0, y: 0))
+    {
         
-        for _ in 1...5 {
+        for _ in 1...10 {
             
             if let butt = UIImage(named: "FlippedButt")?.withTintColor(.white) {
                 
@@ -321,17 +327,23 @@ class GameScene: SKScene {
                 spriteNode.anchorPoint = CGPoint(x: 0.5, y: 0.5)
                 spriteNode.size = CGSize(width: CGFloat(100.0), height: CGFloat(100.0))
                 
+                let randomNegX = Int.random(in: -426 ... -150)
+                let randomPosX = Int.random(in: 150...426)
+                let randomNegY = Int.random(in: -196 ... -75)
+                let randomPosY = Int.random(in: 75...196)
+                
+                let xCoordinate = [randomNegX, randomPosX]
+                let yCoordinate = [randomNegY, randomPosY]
                 
                 
-                spriteNode.position = CGPoint(x: -150, y: 0)
+                spriteNode.position = CGPoint(x: xCoordinate[Int.random(in: 0...1)], y: yCoordinate[Int.random(in: 0...1)])
                 
-                return spriteNode
+                self.addChild(spriteNode)
             }
             
             
         }
         
-        return nil
     }
     
     func generateButtons() {
