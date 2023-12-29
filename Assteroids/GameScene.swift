@@ -22,6 +22,7 @@ class GameScene: SKScene {
     var rightArrowNode: SKSpriteNode!
     var thrustNode: SKSpriteNode!
     var triggerNode: SKSpriteNode!
+    var buttNode: SKSpriteNode!
     
     var score: Int = 0 {
          didSet {
@@ -59,7 +60,7 @@ class GameScene: SKScene {
         
         self.addChild(generatePoop(position: CGPoint(x: 150, y: 0))!)
         
-        generateButt()
+        buttNode = generateButt()
         
         generateButtons()
         
@@ -215,6 +216,11 @@ class GameScene: SKScene {
         // Check if the spaceship is out of bounds
         checkOutOfBounds(for: spaceship)
         
+        for _ in 1...10 {
+                    
+            checkOutOfBounds(for: self.buttNode)
+            
+        }
         // Other update logic if needed
     }
     
@@ -313,8 +319,7 @@ class GameScene: SKScene {
         return nil
     }
     
-    
-    func generateButt(position: CGPoint = CGPoint(x: 0, y: 0))
+    func generateButt(position: CGPoint = CGPoint(x: 0, y: 0)) -> SKSpriteNode?
     {
         
         for _ in 1...10 {
@@ -338,11 +343,22 @@ class GameScene: SKScene {
                 
                 spriteNode.position = CGPoint(x: xCoordinate[Int.random(in: 0...1)], y: yCoordinate[Int.random(in: 0...1)])
                 
+                let velocity = Int.random(in: 5...20)
+                
+                spriteNode.physicsBody = SKPhysicsBody(rectangleOf: spriteNode.size)
+                spriteNode.physicsBody?.isDynamic = true
+                spriteNode.physicsBody?.velocity = CGVector(dx: velocity, dy: velocity)  // Ensure no initial velocity
+                spriteNode.physicsBody?.angularVelocity = CGFloat(integerLiteral: velocity)  // Ensure no initial angular velocity
+                spriteNode.physicsBody?.affectedByGravity = false
+                
                 self.addChild(spriteNode)
+                return spriteNode
             }
             
             
         }
+        
+        return nil
         
     }
     
