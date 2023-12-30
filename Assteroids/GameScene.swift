@@ -22,7 +22,7 @@ class GameScene: SKScene {
     var rightArrowNode: SKSpriteNode!
     var thrustNode: SKSpriteNode!
     var triggerNode: SKSpriteNode!
-    var buttNode: SKSpriteNode!
+    var buttNode: [Int: SKSpriteNode] = [:]
     
     var score: Int = 0 {
          didSet {
@@ -60,7 +60,7 @@ class GameScene: SKScene {
         
         self.addChild(generatePoop(position: CGPoint(x: 150, y: 0))!)
         
-        buttNode = generateButt()
+        generateButt()
         
         generateButtons()
         
@@ -214,12 +214,10 @@ class GameScene: SKScene {
     
     override func update(_ currentTime: TimeInterval) {
         // Check if the spaceship is out of bounds
-        checkOutOfBounds(for: spaceship)
+        checkOutOfBounds(for: self.spaceship)
         
-        for _ in 1...10 {
-                    
-            checkOutOfBounds(for: self.buttNode)
-            
+        for counter in 1...10 {
+            checkOutOfBounds(for: self.buttNode[counter]!)
         }
         // Other update logic if needed
     }
@@ -319,10 +317,10 @@ class GameScene: SKScene {
         return nil
     }
     
-    func generateButt(position: CGPoint = CGPoint(x: 0, y: 0)) -> SKSpriteNode?
+    func generateButt(position: CGPoint = CGPoint(x: 0, y: 0))// -> SKSpriteNode?
     {
         
-        for _ in 1...10 {
+        for counter in 1...10 {
             
             if let butt = UIImage(named: "FlippedButt")?.withTintColor(.white) {
                 
@@ -352,13 +350,14 @@ class GameScene: SKScene {
                 spriteNode.physicsBody?.affectedByGravity = false
                 
                 self.addChild(spriteNode)
-                return spriteNode
+                self.buttNode[counter] = spriteNode
+                
+                
+                
             }
             
             
         }
-        
-        return nil
         
     }
     
