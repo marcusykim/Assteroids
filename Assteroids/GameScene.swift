@@ -17,6 +17,8 @@ class GameScene: SKScene {
     var spaceship: SKSpriteNode!
     var rotating = false
     var thrusting = false
+    var firing = false
+    var flame: SKSpriteNode!
     
     var leftArrowNode: SKSpriteNode!
     var rightArrowNode: SKSpriteNode!
@@ -65,24 +67,22 @@ class GameScene: SKScene {
         generateButtons()
         
         let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(_:)))
-        
         longPressGesture.minimumPressDuration = 0.01
-        
-        if self.view != nil {
-            print("view exists")
-        } else {
-            print("view does not exist")
-        }
         
         self.view?.addGestureRecognizer(longPressGesture)
         
-        if let tapGestureRecognizers = self.view?.gestureRecognizers?.compactMap({ $0 as? UILongPressGestureRecognizer }), !tapGestureRecognizers.isEmpty {
-            // There is at least one UILongPressGestureRecognizer
-            print("Tap gesture recognizer exists.")
-        } else {
-            // No UILongPressRecognizer is added to the view
-            print("No tap gesture recognizer.")
-        }
+        //        if self.view != nil {
+        //            print("view exists")
+        //        } else {
+        //            print("view does not exist")
+        //        }
+//        if let tapGestureRecognizers = self.view?.gestureRecognizers?.compactMap({ $0 as? UILongPressGestureRecognizer }), !tapGestureRecognizers.isEmpty {
+//            // There is at least one UILongPressGestureRecognizer
+//            print("Tap gesture recognizer exists.")
+//        } else {
+//            // No UILongPressRecognizer is added to the view
+//            print("No tap gesture recognizer.")
+//        }
         
         
         
@@ -147,6 +147,20 @@ class GameScene: SKScene {
                         default:
                             break
                         }
+            } else if triggerNode == tappedNode {
+                print("trigger pressed!")
+                
+                switch gestureRecognizer.state {
+                        case .began:
+                            // Start rotating when the long press begins
+                            firing = true
+                            handleFiring()
+                        case .ended, .cancelled:
+                            // Stop rotating when the long press ends or is cancelled
+                            thrusting = false
+                        default:
+                            break
+                        }
             }
         }
            
@@ -200,25 +214,90 @@ class GameScene: SKScene {
                         // Run the custom action
             spaceship.run(accelerationAction)
             
-            // Create an action to move to the new position
-//            let moveAction = SKAction.moveBy(x: deltaX, y: deltaY, duration: 1.0)
-//            let repeatAction = SKAction.repeatForever(moveAction)
-//
-//            // Run the move action
-//            
-//            spaceship.run(repeatAction, withKey: "moveAction")
         }
         
         
     }
     
+    func handleFiring() {
+        // Create a missile
+        let missile = createMissile()!
+        missile.position = spaceship.position
+        addChild(missile)
+
+        let angleInRadians = spaceship.zRotation
+        
+        let forceMagnitude: CGFloat = 2500.0
+        
+        let deltaX = forceMagnitude * cos(angleInRadians)
+        let deltaY = forceMagnitude * sin(angleInRadians)
+        
+        // Apply an upward force to the missile
+        
+        let force = CGVector(dx: deltaX, dy: deltaY)
+        
+        // Apply the force to the missile's physics body
+        missile.physicsBody?.applyForce(force)
+    }
+    
+    func createMissile() -> SKSpriteNode? {
+        
+        if let paperPlaneSymbolImage = UIImage(systemName: "hand.point.right.fill")?.withTintColor(.white) {
+            
+            let data = paperPlaneSymbolImage.pngData()
+            let newImage = UIImage(data: data!)
+            let texture = SKTexture(image: newImage!)
+            let missile = SKSpriteNode(texture: texture)
+            
+            missile.zRotation = spaceship.zRotation
+            
+            missile.physicsBody = SKPhysicsBody(rectangleOf: missile.size)
+            missile.physicsBody?.collisionBitMask = 0
+            missile.physicsBody?.isDynamic = true
+            missile.physicsBody?.affectedByGravity = false
+            missile.physicsBody?.mass = 0.1
+            
+            return missile
+            
+        }
+        
+        return nil
+        
+        //let missile = SKSpriteNode(color: .white, size: CGSize(width: 5, height: 15))
+        
+//        if let missileImage = UIImage(named: "missile")?.withTintColor(.white) {
+//            
+//            let texture = SKTexture(image: missileImage)
+//            let missile = SKSpriteNode(texture: texture)
+//
+//            missile.physicsBody = SKPhysicsBody(rectangleOf: missile.size)
+//                missile.physicsBody?.collisionBitMask = 0
+//                missile.physicsBody?.isDynamic = true
+//                missile.physicsBody?.affectedByGravity = false
+//                missile.physicsBody?.mass = 0.1
+//            // Additional configuration (e.g., texture, physics properties)
+//            return missile
+//        }
+        
+        
+     
+    }
+    
+    func removeMissile(_ missile: SKSpriteNode) {
+        missile.removeFromParent()
+    }
+
     override func update(_ currentTime: TimeInterval) {
         // Check if the spaceship is out of bounds
         checkOutOfBounds(for: self.spaceship)
         
-        for counter in 1...10 {
+        for counter in 1...1 {
             checkOutOfBounds(for: self.buttNode[counter]!)
         }
+        
+        flame.position = spaceship.position
+        flame.zRotation = spaceship.zRotation
+        
         // Other update logic if needed
     }
     
@@ -252,7 +331,7 @@ class GameScene: SKScene {
     
     // Call this whenever the game starts, the user dies, and when we need to add ships to our lives gallery
     func generateSpaceShip(position: CGPoint = CGPoint(x: 0, y: 0)) -> SKSpriteNode? {
-        if let paperPlaneSymbolImage = UIImage(systemName: "paperplane")?.withTintColor(.white) {
+        if let paperPlaneSymbolImage = UIImage(systemName: "hand.point.right")?.withTintColor(.white) {
             
             let data = paperPlaneSymbolImage.pngData()
             let newImage = UIImage(data: data!)
@@ -260,8 +339,9 @@ class GameScene: SKScene {
             spaceship = SKSpriteNode(texture: texture)
             
             spaceship.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-            spaceship.size = CGSize(width: CGFloat(50.0), height: CGFloat(50.0))
+            //spaceship.size = CGSize(width: CGFloat(50.0), height: CGFloat(50.0))
             spaceship.position = position
+            spaceship.zRotation = CGFloat.pi / 2
             
             spaceship.physicsBody = SKPhysicsBody(rectangleOf: spaceship.size)
             spaceship.physicsBody?.isDynamic = true
@@ -270,9 +350,30 @@ class GameScene: SKScene {
             spaceship.physicsBody?.angularVelocity = 0  // Ensure no initial angular velocity
             spaceship.physicsBody?.affectedByGravity = false
             
+            if let paperPlaneSymbolImage = UIImage(systemName: "flame")?.withTintColor(.white) {
+                
+                let data = paperPlaneSymbolImage.pngData()
+                let newImage = UIImage(data: data!)
+                let texture = SKTexture(image: newImage!)
+                flame = SKSpriteNode(texture: texture)
+                flame.scale(to: CGSize(width: 32.0, height: 48.0))
+                
+                flame.anchorPoint = CGPoint(x: 0.0, y: 1.0)
+                //spaceship.size = CGSize(width: CGFloat(50.0), height: CGFloat(50.0))
+                
+                flame.position = spaceship.position
+                flame.position.y -= 5
+                flame.zRotation = CGFloat.pi
+                
+                addChild(flame)
+                
+            }
+            
             return spaceship
             
         }
+        
+        
         
         return nil
     }
@@ -320,7 +421,7 @@ class GameScene: SKScene {
     func generateButt(position: CGPoint = CGPoint(x: 0, y: 0))// -> SKSpriteNode?
     {
         
-        for counter in 1...10 {
+        for counter in 1...1 {
             
             if let butt = UIImage(named: "FlippedButt")?.withTintColor(.white) {
                 
