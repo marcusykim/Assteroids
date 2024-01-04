@@ -26,6 +26,8 @@ class GameScene: SKScene {
     var triggerNode: SKSpriteNode!
     var buttNode: [Int: SKSpriteNode] = [:]
     
+    let buttNodeMax: Int = 1
+    
     var score: Int = 0 {
          didSet {
              // Update the label text when the score changes
@@ -142,6 +144,8 @@ class GameScene: SKScene {
                             activateThrust(thrustNode: thrustNode)
                         case .ended, .cancelled:
                             // Stop rotating when the long press ends or is cancelled
+                    
+                            print("thrust ended")
                             thrusting = false
                             activateThrust(thrustNode: thrustNode)
                         default:
@@ -291,12 +295,31 @@ class GameScene: SKScene {
         // Check if the spaceship is out of bounds
         checkOutOfBounds(for: self.spaceship)
         
-        for counter in 1...1 {
+        for counter in 1...buttNodeMax {
             checkOutOfBounds(for: self.buttNode[counter]!)
         }
         
-        flame.position = spaceship.position
-        flame.zRotation = spaceship.zRotation
+//        if thrusting == true {
+//            
+//            var counter = 0
+//            while counter <= 50{
+//                if counter == 50 {
+//                    flame.isHidden.toggle()
+//                }
+//                counter += 1
+//            }
+//            
+//        }
+        
+        if thrusting == true {
+            flame.isHidden.toggle()
+        }
+//        flame.position = spaceship.position
+        
+        if thrusting == false {
+            flame.isHidden = true
+        }
+ 
         
         // Other update logic if needed
     }
@@ -350,22 +373,24 @@ class GameScene: SKScene {
             spaceship.physicsBody?.angularVelocity = 0  // Ensure no initial angular velocity
             spaceship.physicsBody?.affectedByGravity = false
             
-            if let paperPlaneSymbolImage = UIImage(systemName: "flame")?.withTintColor(.white) {
+            if let flameImage = UIImage(systemName: "flame")?.withTintColor(.white) {
                 
-                let data = paperPlaneSymbolImage.pngData()
+                let data = flameImage.pngData()
                 let newImage = UIImage(data: data!)
                 let texture = SKTexture(image: newImage!)
                 flame = SKSpriteNode(texture: texture)
                 flame.scale(to: CGSize(width: 32.0, height: 48.0))
                 
-                flame.anchorPoint = CGPoint(x: 0.0, y: 1.0)
+                flame.anchorPoint = CGPoint(x: 0.5, y: 0.5)
                 //spaceship.size = CGSize(width: CGFloat(50.0), height: CGFloat(50.0))
                 
                 flame.position = spaceship.position
-                flame.position.y -= 5
-                flame.zRotation = CGFloat.pi
+                //flame.position.y -= 5
                 
-                addChild(flame)
+                flame.position = CGPoint(x: -50, y: 0)
+                flame.zRotation = spaceship.zRotation
+                flame.isHidden = true
+                spaceship.addChild(flame)
                 
             }
             
@@ -421,7 +446,7 @@ class GameScene: SKScene {
     func generateButt(position: CGPoint = CGPoint(x: 0, y: 0))// -> SKSpriteNode?
     {
         
-        for counter in 1...1 {
+        for counter in 1...buttNodeMax {
             
             if let butt = UIImage(named: "FlippedButt")?.withTintColor(.white) {
                 
