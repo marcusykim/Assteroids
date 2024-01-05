@@ -19,6 +19,7 @@ class GameScene: SKScene {
     var thrusting = false
     var firing = false
     var flame: SKSpriteNode!
+    var velocity: CGVector!
     
     var leftArrowNode: SKSpriteNode!
     var rightArrowNode: SKSpriteNode!
@@ -193,35 +194,66 @@ class GameScene: SKScene {
         }
     
     func activateThrust(thrustNode: SKSpriteNode) {
-        
         guard thrusting else {
             spaceship.removeAllActions()
             return
         }
-        
-        
-        
+
         if thrustNode == self.thrustNode {
             let distance: CGFloat = 200.0 // Adjust the distance to fit your needs
-            let angleInRadians = spaceship.zRotation // Get the current rotation angle in radians
 
-            // Calculate the new position
-            let deltaX = distance * cos(angleInRadians)
-            let deltaY = distance * sin(angleInRadians)
+            // Function to update acceleration direction based on current rotation
+            func updateAccelerationDirection(_ elapsedTime: CGFloat) {
+                let angleInRadians = spaceship.zRotation
+                let deltaX = distance * cos(angleInRadians)
+                let deltaY = distance * sin(angleInRadians)
 
+                self.velocity = CGVector(dx: deltaX * elapsedTime, dy: deltaY * elapsedTime)
+                self.spaceship.physicsBody?.velocity = self.velocity
+            }
+
+            // Continuous acceleration
             let accelerationAction = SKAction.repeatForever(SKAction.customAction(withDuration: 99999.9) { _, elapsedTime in
-                            // Adjust acceleration as needed
-                                        let velocity = CGVector(dx: deltaX * elapsedTime, dy: deltaY * elapsedTime)  // Example acceleration
-                                        self.spaceship.physicsBody?.velocity = velocity
-                                    })
+                // Adjust acceleration based on the current rotation
+                updateAccelerationDirection(elapsedTime)
+            })
 
-                        // Run the custom action
+            // Run the custom action
             spaceship.run(accelerationAction)
-            
         }
-        
-        
     }
+
+    
+    
+//    func activateThrust(thrustNode: SKSpriteNode) {
+//        
+//        guard thrusting else {
+//            spaceship.removeAllActions()
+//            return
+//        }
+//        
+//        
+//        
+//        if thrustNode == self.thrustNode {
+//            let distance: CGFloat = 200.0 // Adjust the distance to fit your needs
+//            let angleInRadians = spaceship.zRotation // Get the current rotation angle in radians
+//
+//            // Calculate the new position
+//            let deltaX = distance * cos(angleInRadians)
+//            let deltaY = distance * sin(angleInRadians)
+//            
+//           
+//                let accelerationAction = SKAction.repeatForever(SKAction.customAction(withDuration: 99999.9) { _, elapsedTime in
+//                    // Adjust acceleration as needed
+//                    
+//                    self.velocity = CGVector(dx: deltaX * elapsedTime, dy: deltaY * elapsedTime)  // Example acceleration
+//                    self.spaceship.physicsBody?.velocity = self.velocity
+//                })
+//                
+//                // Run the custom action
+//                spaceship.run(accelerationAction)
+//            }
+//    }
     
     func handleFiring() {
         // Create a missile
@@ -267,24 +299,6 @@ class GameScene: SKScene {
         
         return nil
         
-        //let missile = SKSpriteNode(color: .white, size: CGSize(width: 5, height: 15))
-        
-//        if let missileImage = UIImage(named: "missile")?.withTintColor(.white) {
-//            
-//            let texture = SKTexture(image: missileImage)
-//            let missile = SKSpriteNode(texture: texture)
-//
-//            missile.physicsBody = SKPhysicsBody(rectangleOf: missile.size)
-//                missile.physicsBody?.collisionBitMask = 0
-//                missile.physicsBody?.isDynamic = true
-//                missile.physicsBody?.affectedByGravity = false
-//                missile.physicsBody?.mass = 0.1
-//            // Additional configuration (e.g., texture, physics properties)
-//            return missile
-//        }
-        
-        
-     
     }
     
     func removeMissile(_ missile: SKSpriteNode) {
@@ -298,30 +312,17 @@ class GameScene: SKScene {
         for counter in 1...buttNodeMax {
             checkOutOfBounds(for: self.buttNode[counter]!)
         }
-        
-//        if thrusting == true {
-//            
-//            var counter = 0
-//            while counter <= 50{
-//                if counter == 50 {
-//                    flame.isHidden.toggle()
-//                }
-//                counter += 1
-//            }
-//            
-//        }
+
         
         if thrusting == true {
             flame.isHidden.toggle()
         }
-//        flame.position = spaceship.position
         
         if thrusting == false {
             flame.isHidden = true
         }
  
         
-        // Other update logic if needed
     }
     
     func checkOutOfBounds(for node: SKSpriteNode) {
