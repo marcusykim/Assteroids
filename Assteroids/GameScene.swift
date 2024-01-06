@@ -27,7 +27,7 @@ class GameScene: SKScene {
     var triggerNode: SKSpriteNode!
     var buttNode: [Int: SKSpriteNode] = [:]
     
-    let buttNodeMax: Int = 1
+    let buttNodeMax: Int = 10
     
     var score: Int = 0 {
          didSet {
@@ -177,9 +177,6 @@ class GameScene: SKScene {
                 spaceship.removeAction(forKey: "rotateAction")
                 return
             }
-
-            // Rotate the spaceship continuously
-        
         
         if direction == leftArrowNode {
             let rotateAction = SKAction.rotate(byAngle: CGFloat.pi, duration: 1.0)
@@ -222,38 +219,6 @@ class GameScene: SKScene {
             spaceship.run(accelerationAction)
         }
     }
-
-    
-    
-//    func activateThrust(thrustNode: SKSpriteNode) {
-//        
-//        guard thrusting else {
-//            spaceship.removeAllActions()
-//            return
-//        }
-//        
-//        
-//        
-//        if thrustNode == self.thrustNode {
-//            let distance: CGFloat = 200.0 // Adjust the distance to fit your needs
-//            let angleInRadians = spaceship.zRotation // Get the current rotation angle in radians
-//
-//            // Calculate the new position
-//            let deltaX = distance * cos(angleInRadians)
-//            let deltaY = distance * sin(angleInRadians)
-//            
-//           
-//                let accelerationAction = SKAction.repeatForever(SKAction.customAction(withDuration: 99999.9) { _, elapsedTime in
-//                    // Adjust acceleration as needed
-//                    
-//                    self.velocity = CGVector(dx: deltaX * elapsedTime, dy: deltaY * elapsedTime)  // Example acceleration
-//                    self.spaceship.physicsBody?.velocity = self.velocity
-//                })
-//                
-//                // Run the custom action
-//                spaceship.run(accelerationAction)
-//            }
-//    }
     
     func handleFiring() {
         // Create a missile
