@@ -20,6 +20,9 @@ class GameScene: SKScene {
     var firing = false
     var flame: SKSpriteNode!
     var velocity: CGVector!
+    var missile: [Int: SKSpriteNode?] = [:]
+    var whenMissileFired: Date!
+    let maxSecondsForMissiles: Double = 1.25
     
     var leftArrowNode: SKSpriteNode!
     var rightArrowNode: SKSpriteNode!
@@ -27,7 +30,7 @@ class GameScene: SKScene {
     var triggerNode: SKSpriteNode!
     var buttNode: [Int: SKSpriteNode] = [:]
     
-    let buttNodeMax: Int = 10
+    let buttNodeMax: Int = 1
     
     var score: Int = 0 {
          didSet {
@@ -222,9 +225,9 @@ class GameScene: SKScene {
     
     func handleFiring() {
         // Create a missile
-        let missile = createMissile()!
-        missile.position = spaceship.position
-        addChild(missile)
+        let tempMissile = createMissile()!
+        tempMissile.position = spaceship.position
+        addChild(tempMissile)
 
         let angleInRadians = spaceship.zRotation
         
@@ -238,7 +241,18 @@ class GameScene: SKScene {
         let force = CGVector(dx: deltaX, dy: deltaY)
         
         // Apply the force to the missile's physics body
-        missile.physicsBody?.applyForce(force)
+        tempMissile.physicsBody?.applyForce(force)
+
+        whenMissileFired = Date()
+        
+        if missile.isEmpty {
+            missile[1] = tempMissile
+        } else {
+            missile[missile.keys.max()! + 1] = tempMissile
+        }
+        
+        print(self.missile.keys.max()!)
+        
     }
     
     func createMissile() -> SKSpriteNode? {
@@ -274,9 +288,43 @@ class GameScene: SKScene {
         // Check if the spaceship is out of bounds
         checkOutOfBounds(for: self.spaceship)
         
+        var counter: Int = 1
+        
+        
+        
+        for _ in missile {
+            checkOutOfBounds(for: self.missile[counter]!!)
+            
+            let removeAction = SKAction.sequence([
+                        SKAction.wait(forDuration: maxSecondsForMissiles),
+                        SKAction.removeFromParent()
+                        
+                    ])
+
+            if let safeMissile = self.missile[counter] {
+                safeMissile!.run(removeAction)
+                
+            }
+            counter += 1
+        }
+        
+        if !missile.isEmpty {
+            
+            let elapsedTime = Date().timeIntervalSince(whenMissileFired)
+            
+            if elapsedTime == maxSecondsForMissiles {
+                self.missile.removeValue(forKey: self.missile.keys.max()!)
+            }
+        }
+        
+        counter = 1
+        
         for counter in 1...buttNodeMax {
             checkOutOfBounds(for: self.buttNode[counter]!)
         }
+        
+        // loop ten times
+            // check out of bounds for missiles
 
         
         if thrusting == true {
