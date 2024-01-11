@@ -312,7 +312,12 @@ class GameScene: SKScene {
             
             let elapsedTime = Date().timeIntervalSince(whenMissileFired)
             
-            if elapsedTime == maxSecondsForMissiles {
+            //print("elapsedTime: \(elapsedTime)")
+            //print("maxSecondsForMissiles: \(maxSecondsForMissiles)")
+            
+            if elapsedTime > maxSecondsForMissiles {
+                
+                print("inside elapsedTime if statement")
                 self.missile.removeValue(forKey: self.missile.keys.max()!)
             }
         }
