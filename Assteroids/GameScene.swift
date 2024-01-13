@@ -77,22 +77,6 @@ class GameScene: SKScene {
         
         self.view?.addGestureRecognizer(longPressGesture)
         
-        //        if self.view != nil {
-        //            print("view exists")
-        //        } else {
-        //            print("view does not exist")
-        //        }
-//        if let tapGestureRecognizers = self.view?.gestureRecognizers?.compactMap({ $0 as? UILongPressGestureRecognizer }), !tapGestureRecognizers.isEmpty {
-//            // There is at least one UILongPressGestureRecognizer
-//            print("Tap gesture recognizer exists.")
-//        } else {
-//            // No UILongPressRecognizer is added to the view
-//            print("No tap gesture recognizer.")
-//        }
-        
-        
-        
-        
     }
     
     @objc func handleLongPress(_ gestureRecognizer: UILongPressGestureRecognizer) {
@@ -328,9 +312,6 @@ class GameScene: SKScene {
             checkOutOfBounds(for: self.buttNode[counter]!)
         }
         
-        // loop ten times
-            // check out of bounds for missiles
-
         
         if thrusting == true {
             flame.isHidden.toggle()
