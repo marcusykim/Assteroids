@@ -30,7 +30,7 @@ class GameScene: SKScene {
     var triggerNode: SKSpriteNode!
     var buttNode: [Int: SKSpriteNode] = [:]
     
-    let buttNodeMax: Int = 1
+    let buttNodeMax: Int = 10
     
     var score: Int = 0 {
          didSet {
@@ -397,8 +397,6 @@ class GameScene: SKScene {
             return spaceship
             
         }
-        
-        
         
         return nil
     }
