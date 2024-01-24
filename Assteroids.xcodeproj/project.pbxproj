@@ -18,6 +18,8 @@
 		2CB471952AFC7FF100151620 /* AssteroidsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB471942AFC7FF100151620 /* AssteroidsTests.swift */; };
 		2CB4719F2AFC7FF200151620 /* AssteroidsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB4719E2AFC7FF200151620 /* AssteroidsUITests.swift */; };
 		2CB471A12AFC7FF200151620 /* AssteroidsUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB471A02AFC7FF200151620 /* AssteroidsUITestsLaunchTests.swift */; };
+		2CBD45FE2B60C7BD00B5E3DA /* CustomContainerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBD45FD2B60C7BD00B5E3DA /* CustomContainerNode.swift */; };
+		2CBD46002B60C81200B5E3DA /* MediumAsteroid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBD45FF2B60C81200B5E3DA /* MediumAsteroid.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +55,8 @@
 		2CB4719E2AFC7FF200151620 /* AssteroidsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssteroidsUITests.swift; sourceTree = "<group>"; };
 		2CB471A02AFC7FF200151620 /* AssteroidsUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssteroidsUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		2CB471AD2B0DB75300151620 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		2CBD45FD2B60C7BD00B5E3DA /* CustomContainerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomContainerNode.swift; sourceTree = "<group>"; };
+		2CBD45FF2B60C81200B5E3DA /* MediumAsteroid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediumAsteroid.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,6 +112,8 @@
 				2CB4717C2AFC7FEE00151620 /* GameScene.sks */,
 				2CB4717E2AFC7FEE00151620 /* Actions.sks */,
 				2CB471802AFC7FEE00151620 /* GameScene.swift */,
+				2CBD45FF2B60C81200B5E3DA /* MediumAsteroid.swift */,
+				2CBD45FD2B60C7BD00B5E3DA /* CustomContainerNode.swift */,
 				2CB471822AFC7FEE00151620 /* GameViewController.swift */,
 				2CB471842AFC7FEE00151620 /* Main.storyboard */,
 				2CB471872AFC7FF100151620 /* Assets.xcassets */,
@@ -266,7 +272,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2CBD45FE2B60C7BD00B5E3DA /* CustomContainerNode.swift in Sources */,
 				2CB471812AFC7FEE00151620 /* GameScene.swift in Sources */,
+				2CBD46002B60C81200B5E3DA /* MediumAsteroid.swift in Sources */,
 				2CB471832AFC7FEE00151620 /* GameViewController.swift in Sources */,
 				2CB4717B2AFC7FEE00151620 /* AppDelegate.swift in Sources */,
 			);
