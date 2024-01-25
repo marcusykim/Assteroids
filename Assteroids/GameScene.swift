@@ -31,6 +31,8 @@ class GameScene: SKScene {
     var buttNode: [Int: SKSpriteNode] = [:]
     
     let buttNodeMax: Int = 1
+    let missileCategory: UInt32 = 0b0001
+    let asteroidCategory: UInt32 = 0b0010
     
     var score: Int = 0 {
          didSet {
@@ -226,6 +228,9 @@ class GameScene: SKScene {
         
         // Apply the force to the missile's physics body
         tempMissile.physicsBody?.applyForce(force)
+        tempMissile.physicsBody?.categoryBitMask = missileCategory
+        tempMissile.physicsBody?.contactTestBitMask = asteroidCategory
+        tempMissile.physicsBody?.affectedByGravity = false
 
         whenMissileFired = Date()
         
@@ -471,6 +476,8 @@ class GameScene: SKScene {
                 spriteNode.physicsBody?.isDynamic = true
                 spriteNode.physicsBody?.velocity = CGVector(dx: velocity, dy: velocity)  // Ensure no initial velocity
                 spriteNode.physicsBody?.angularVelocity = CGFloat(integerLiteral: velocity)  // Ensure no initial angular velocity
+                spriteNode.physicsBody?.categoryBitMask = asteroidCategory
+                spriteNode.physicsBody?.contactTestBitMask = missileCategory
                 spriteNode.physicsBody?.affectedByGravity = false
                 
                 self.addChild(spriteNode)
@@ -483,6 +490,34 @@ class GameScene: SKScene {
             
         }
         
+    }
+    
+    func splitAsteroid(originalAsteroid: SKSpriteNode) {
+        // Remove the original asteroid from the scene
+        originalAsteroid.removeFromParent()
+
+        // Create smaller asteroids
+        let smallerAsteroid1 = MediumAsteroid(texture: SKTexture(imageNamed: "smallerAsteroidTexture"))
+        let smallerAsteroid2 = MediumAsteroid(texture: SKTexture(imageNamed: "smallerAsteroidTexture"))
+
+        // Set positions relative to the original asteroid
+        smallerAsteroid1.position = CGPoint(x: originalAsteroid.position.x + 20, y: originalAsteroid.position.y + 20)
+        smallerAsteroid2.position = CGPoint(x: originalAsteroid.position.x - 20, y: originalAsteroid.position.y - 20)
+
+        // Add smaller asteroids to the scene
+        addChild(smallerAsteroid1)
+        addChild(smallerAsteroid2)
+    }
+
+    // Step 3: Handle Missile Collisions (Example)
+    func missileDidCollideWithAsteroid(missile: SKSpriteNode, asteroid: SKSpriteNode) {
+        // Your collision logic...
+
+        // Call the function to split the asteroid
+        splitAsteroid(originalAsteroid: asteroid)
+
+        // Remove the missile from the scene
+        missile.removeFromParent()
     }
     
     func generateButtons() {
