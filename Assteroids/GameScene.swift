@@ -8,7 +8,7 @@
 import SpriteKit
 import GameplayKit
 
-class GameScene: SKScene {
+class GameScene: SKScene, SKPhysicsContactDelegate {
     var scoreLabel: SKLabelNode!
     var customContainer: CustomContainerNode!
     var entities = [GKEntity]()
@@ -30,7 +30,7 @@ class GameScene: SKScene {
     var triggerNode: SKSpriteNode!
     var buttNode: [Int: SKSpriteNode] = [:]
     
-    let buttNodeMax: Int = 1
+    let buttNodeMax: Int = 10
     let missileCategory: UInt32 = 0b0001
     let asteroidCategory: UInt32 = 0b0010
     
@@ -42,6 +42,8 @@ class GameScene: SKScene {
      }
     
     override func didMove(to view: SKView) {
+        
+        physicsWorld.contactDelegate = self
         
         print("\(UIScreen.main.bounds.width)     \(UIScreen.main.bounds.height)")
         
@@ -491,25 +493,22 @@ class GameScene: SKScene {
         }
         
     }
+    func didBegin(_ contact: SKPhysicsContact) {
+            // Check which bodies are involved in the collision
+            if (contact.bodyA.categoryBitMask == missileCategory && contact.bodyB.categoryBitMask == asteroidCategory) ||
+               (contact.bodyA.categoryBitMask == asteroidCategory && contact.bodyB.categoryBitMask == missileCategory) {
+
+                // Call your function here
+                if let collidedMissileNode = contact.bodyA.node as? SKSpriteNode, let collidedButtNode = contact.bodyB.node as? SKSpriteNode {
+                        // Now you have references to the SKSpriteNodes involved in the collision
+                        // You can use nodeA and nodeB to perform any actions or changes you need
+                    
+                    missileDidCollideWithAsteroid(missile: collidedMissileNode, asteroid: collidedButtNode)
+                        
+                    }
+            }
+        }
     
-    func splitAsteroid(originalAsteroid: SKSpriteNode) {
-        // Remove the original asteroid from the scene
-        originalAsteroid.removeFromParent()
-
-        // Create smaller asteroids
-        let smallerAsteroid1 = MediumAsteroid(texture: SKTexture(imageNamed: "smallerAsteroidTexture"))
-        let smallerAsteroid2 = MediumAsteroid(texture: SKTexture(imageNamed: "smallerAsteroidTexture"))
-
-        // Set positions relative to the original asteroid
-        smallerAsteroid1.position = CGPoint(x: originalAsteroid.position.x + 20, y: originalAsteroid.position.y + 20)
-        smallerAsteroid2.position = CGPoint(x: originalAsteroid.position.x - 20, y: originalAsteroid.position.y - 20)
-
-        // Add smaller asteroids to the scene
-        addChild(smallerAsteroid1)
-        addChild(smallerAsteroid2)
-    }
-
-    // Step 3: Handle Missile Collisions (Example)
     func missileDidCollideWithAsteroid(missile: SKSpriteNode, asteroid: SKSpriteNode) {
         // Your collision logic...
 
@@ -519,6 +518,73 @@ class GameScene: SKScene {
         // Remove the missile from the scene
         missile.removeFromParent()
     }
+    func splitAsteroid(originalAsteroid: SKSpriteNode) {
+        // Remove the original asteroid from the scene
+        originalAsteroid.removeFromParent()
+
+        // Create smaller asteroids
+        //let mediumAsteroid1 = MediumAsteroid(texture: SKTexture(imageNamed: "flippedButt"))
+        if let mediumAsteroid1 = UIImage(named: "FlippedButt")?.withTintColor(.white) {
+            
+            let texture = SKTexture(image: mediumAsteroid1)
+            let spriteNode = SKSpriteNode(texture: texture)
+            
+            spriteNode.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+            spriteNode.size = CGSize(width: CGFloat(50.0), height: CGFloat(50.0))
+            
+            spriteNode.position = CGPoint(x: originalAsteroid.position.x + 20, y: originalAsteroid.position.y + 20)
+            
+            let velocity = Int.random(in: 5...20)
+            
+            spriteNode.physicsBody = SKPhysicsBody(rectangleOf: spriteNode.size)
+            spriteNode.physicsBody?.isDynamic = true
+            spriteNode.physicsBody?.velocity = CGVector(dx: velocity, dy: velocity)  // Ensure no initial velocity
+            spriteNode.physicsBody?.angularVelocity = CGFloat(integerLiteral: velocity)  // Ensure no initial angular velocity
+            spriteNode.physicsBody?.categoryBitMask = asteroidCategory
+            spriteNode.physicsBody?.contactTestBitMask = missileCategory
+            spriteNode.physicsBody?.affectedByGravity = false
+            
+            
+            addChild(spriteNode)
+        }
+        //let mediumAsteroid2 = MediumAsteroid(texture: SKTexture(imageNamed: "flippedButt"))
+
+        if let mediumAsteroid2 = UIImage(named: "FlippedButt")?.withTintColor(.white) {
+            
+            let texture = SKTexture(image: mediumAsteroid2)
+            let spriteNode = SKSpriteNode(texture: texture)
+            
+            spriteNode.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+            spriteNode.size = CGSize(width: CGFloat(50.0), height: CGFloat(50.0))
+            
+            spriteNode.position = CGPoint(x: originalAsteroid.position.x - 20, y: originalAsteroid.position.y - 20)
+            
+            let velocity = Int.random(in: 5...20)
+            
+            spriteNode.physicsBody = SKPhysicsBody(rectangleOf: spriteNode.size)
+            spriteNode.physicsBody?.isDynamic = true
+            spriteNode.physicsBody?.velocity = CGVector(dx: velocity, dy: velocity)  // Ensure no initial velocity
+            spriteNode.physicsBody?.angularVelocity = CGFloat(integerLiteral: velocity)  // Ensure no initial angular velocity
+            spriteNode.physicsBody?.categoryBitMask = asteroidCategory
+            spriteNode.physicsBody?.contactTestBitMask = missileCategory
+            spriteNode.physicsBody?.affectedByGravity = false
+            
+            
+            addChild(spriteNode)
+            
+        }
+        
+        // Set positions relative to the original asteroid
+        
+        
+
+        // Add smaller asteroids to the scene
+        
+        
+    }
+
+    // Step 3: Handle Missile Collisions (Example)
+    
     
     func generateButtons() {
         if let leftArrow = UIImage(systemName: "arrowtriangle.left.square.fill")?.withTintColor(.white) {
