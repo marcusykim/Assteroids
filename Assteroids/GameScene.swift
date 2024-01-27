@@ -29,8 +29,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var thrustNode: SKSpriteNode!
     var triggerNode: SKSpriteNode!
     var buttNode: [Int: SKSpriteNode] = [:]
+    var mediumButtNode: [Int: SKSpriteNode] = [:]
     
-    let buttNodeMax: Int = 10
+    let buttNodeMax: Int = 9
     let missileCategory: UInt32 = 0b0001
     let asteroidCategory: UInt32 = 0b0010
     
@@ -274,14 +275,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func removeMissile(_ missile: SKSpriteNode) {
         missile.removeFromParent()
     }
-
+    var mediumButtNodeCounter = 0
     override func update(_ currentTime: TimeInterval) {
         // Check if the spaceship is out of bounds
         checkOutOfBounds(for: self.spaceship)
         
         var counter: Int = 1
-        
-        
         
         for _ in missile {
             checkOutOfBounds(for: self.missile[counter]!!)
@@ -313,10 +312,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
         }
         
-        counter = 1
+        counter = 0
         
-        for counter in 1...buttNodeMax {
+        for counter in 0...buttNodeMax {
+            print("buttNode: ", buttNode)
             checkOutOfBounds(for: self.buttNode[counter]!)
+        }
+        
+        
+        
+        for mediumButtNodeCounter in 0...self.mediumButtNode.count {
+            
+            if mediumButtNode[mediumButtNodeCounter] != nil {
+                print("mediumButtNode in update: ", mediumButtNode)
+                checkOutOfBounds(for: self.mediumButtNode[mediumButtNodeCounter]!)
+            }
         }
         
         
@@ -451,7 +461,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func generateButt(position: CGPoint = CGPoint(x: 0, y: 0))// -> SKSpriteNode?
     {
         
-        for counter in 1...buttNodeMax {
+        for counter in 0...buttNodeMax {
             
             if let butt = UIImage(named: "FlippedButt")?.withTintColor(.white) {
                 
@@ -518,6 +528,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         // Remove the missile from the scene
         missile.removeFromParent()
     }
+    
+    
+    
     func splitAsteroid(originalAsteroid: SKSpriteNode) {
         // Remove the original asteroid from the scene
         originalAsteroid.removeFromParent()
@@ -544,8 +557,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             spriteNode.physicsBody?.contactTestBitMask = missileCategory
             spriteNode.physicsBody?.affectedByGravity = false
             
-            
+            mediumButtNode[self.mediumButtNodeCounter] = spriteNode
+            print("mediumButtNodeCounter: ", mediumButtNodeCounter)
+            print("mediumButtNode: ", mediumButtNode)
             addChild(spriteNode)
+            self.mediumButtNodeCounter += 1
         }
         //let mediumAsteroid2 = MediumAsteroid(texture: SKTexture(imageNamed: "flippedButt"))
 
@@ -569,8 +585,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             spriteNode.physicsBody?.contactTestBitMask = missileCategory
             spriteNode.physicsBody?.affectedByGravity = false
             
-            
+            mediumButtNode[mediumButtNodeCounter] = spriteNode
             addChild(spriteNode)
+            mediumButtNodeCounter += 1
             
         }
         
