@@ -315,7 +315,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         counter = 0
         
         for counter in 0...buttNodeMax {
-            print("buttNode: ", buttNode)
+            //print("buttNode: ", buttNode)
             checkOutOfBounds(for: self.buttNode[counter]!)
         }
         
@@ -324,7 +324,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         for mediumButtNodeCounter in 0...self.mediumButtNode.count {
             
             if mediumButtNode[mediumButtNodeCounter] != nil {
-                print("mediumButtNode in update: ", mediumButtNode)
+                //print("mediumButtNode in update: ", mediumButtNode)
                 checkOutOfBounds(for: self.mediumButtNode[mediumButtNodeCounter]!)
             }
         }
@@ -482,7 +482,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 
                 spriteNode.position = CGPoint(x: xCoordinate[Int.random(in: 0...1)], y: yCoordinate[Int.random(in: 0...1)])
                 
-                let velocity = Int.random(in: 5...20)
+                let velocity = Int.random(in: 1...3)
                 
                 spriteNode.physicsBody = SKPhysicsBody(rectangleOf: spriteNode.size)
                 spriteNode.physicsBody?.isDynamic = true
@@ -543,11 +543,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             let spriteNode = SKSpriteNode(texture: texture)
             
             spriteNode.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-            spriteNode.size = CGSize(width: CGFloat(50.0), height: CGFloat(50.0))
+            spriteNode.size = CGSize(width: CGFloat(75.0), height: CGFloat(75.0))
             
             spriteNode.position = CGPoint(x: originalAsteroid.position.x + 20, y: originalAsteroid.position.y + 20)
             
-            let velocity = Int.random(in: 5...20)
+            let velocity = Int.random(in: 4...7)
             
             spriteNode.physicsBody = SKPhysicsBody(rectangleOf: spriteNode.size)
             spriteNode.physicsBody?.isDynamic = true
@@ -571,11 +571,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             let spriteNode = SKSpriteNode(texture: texture)
             
             spriteNode.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-            spriteNode.size = CGSize(width: CGFloat(50.0), height: CGFloat(50.0))
+            spriteNode.size = CGSize(width: CGFloat(75.0), height: CGFloat(75.0))
             
             spriteNode.position = CGPoint(x: originalAsteroid.position.x - 20, y: originalAsteroid.position.y - 20)
             
-            let velocity = Int.random(in: 5...20)
+            let velocity = Int.random(in: 3...6)
             
             spriteNode.physicsBody = SKPhysicsBody(rectangleOf: spriteNode.size)
             spriteNode.physicsBody?.isDynamic = true
