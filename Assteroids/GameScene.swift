@@ -30,10 +30,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var triggerNode: SKSpriteNode!
     var buttNode: [Int: SKSpriteNode] = [:]
     var mediumButtNode: [Int: SKSpriteNode] = [:]
+    var smallButtNode: [Int: SKSpriteNode] = [:]
     
     let buttNodeMax: Int = 9
     let missileCategory: UInt32 = 0b0001
     let asteroidCategory: UInt32 = 0b0010
+    let mediumAsteroidCategory: UInt32 = 0b0100
     
     var score: Int = 0 {
          didSet {
@@ -232,7 +234,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         // Apply the force to the missile's physics body
         tempMissile.physicsBody?.applyForce(force)
         tempMissile.physicsBody?.categoryBitMask = missileCategory
-        tempMissile.physicsBody?.contactTestBitMask = asteroidCategory
+        tempMissile.physicsBody?.contactTestBitMask = asteroidCategory | mediumAsteroidCategory
+        //tempMissile.physicsBody?.contactTestBitMask = asteroidCategory
         tempMissile.physicsBody?.affectedByGravity = false
 
         whenMissileFired = Date()
@@ -276,6 +279,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         missile.removeFromParent()
     }
     var mediumButtNodeCounter = 0
+    var smallButtNodeCounter = 0
+    
+    
     override func update(_ currentTime: TimeInterval) {
         // Check if the spaceship is out of bounds
         checkOutOfBounds(for: self.spaceship)
@@ -329,6 +335,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
         }
         
+        
+        for smallButtNodeCounter in 0...self.mediumButtNode.count {
+            
+            if smallButtNode[smallButtNodeCounter] != nil {
+                //print("mediumButtNode in update: ", mediumButtNode)
+                checkOutOfBounds(for: self.smallButtNode[smallButtNodeCounter]!)
+            }
+        }
         
         if thrusting == true {
             flame.isHidden.toggle()
@@ -505,18 +519,38 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     func didBegin(_ contact: SKPhysicsContact) {
             // Check which bodies are involved in the collision
-            if (contact.bodyA.categoryBitMask == missileCategory && contact.bodyB.categoryBitMask == asteroidCategory) ||
-               (contact.bodyA.categoryBitMask == asteroidCategory && contact.bodyB.categoryBitMask == missileCategory) {
+//            if (contact.bodyA.categoryBitMask == missileCategory && contact.bodyB.categoryBitMask == asteroidCategory) ||
+//               (contact.bodyA.categoryBitMask == asteroidCategory && contact.bodyB.categoryBitMask == missileCategory) {
+//
+//                // Call your function here
+//                if let collidedMissileNode = contact.bodyA.node as? SKSpriteNode, let collidedButtNode = contact.bodyB.node as? SKSpriteNode {
+//                        // Now you have references to the SKSpriteNodes involved in the collision
+//                        // You can use nodeA and nodeB to perform any actions or changes you need
+//                    
+//                    missileDidCollideWithAsteroid(missile: collidedMissileNode, asteroid: collidedButtNode)
+//                        
+//                    }
+//            }
+        
+        let collisionMask = contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask
 
-                // Call your function here
-                if let collidedMissileNode = contact.bodyA.node as? SKSpriteNode, let collidedButtNode = contact.bodyB.node as? SKSpriteNode {
-                        // Now you have references to the SKSpriteNodes involved in the collision
-                        // You can use nodeA and nodeB to perform any actions or changes you need
+                if collisionMask == (missileCategory | asteroidCategory) {
+                    if let collidedMissileNode = contact.bodyA.node as? SKSpriteNode, let collidedButtNode = contact.bodyB.node as? SKSpriteNode {
+                                            // Now you have references to the SKSpriteNodes involved in the collision
+                                            // You can use nodeA and nodeB to perform any actions or changes you need
                     
-                    missileDidCollideWithAsteroid(missile: collidedMissileNode, asteroid: collidedButtNode)
-                        
+                        missileDidCollideWithAsteroid(missile: collidedMissileNode, asteroid: collidedButtNode)
                     }
-            }
+                } else if collisionMask == (missileCategory | mediumAsteroidCategory) {
+                    // Handle collision between missile and medium asteroid
+                    if let collidedMissileNode = contact.bodyA.node as? SKSpriteNode, let collidedButtNode = contact.bodyB.node as? SKSpriteNode {
+                                            // Now you have references to the SKSpriteNodes involved in the collision
+                                            // You can use nodeA and nodeB to perform any actions or changes you need
+                    
+                        missileDidCollideWithMediumAsteroid(missile: collidedMissileNode, asteroid: collidedButtNode)
+                    }
+                    
+                }
         }
     
     func missileDidCollideWithAsteroid(missile: SKSpriteNode, asteroid: SKSpriteNode) {
@@ -528,8 +562,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         // Remove the missile from the scene
         missile.removeFromParent()
     }
-    
-    
     
     func splitAsteroid(originalAsteroid: SKSpriteNode) {
         // Remove the original asteroid from the scene
@@ -553,7 +585,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             spriteNode.physicsBody?.isDynamic = true
             spriteNode.physicsBody?.velocity = CGVector(dx: velocity, dy: velocity)  // Ensure no initial velocity
             spriteNode.physicsBody?.angularVelocity = CGFloat(integerLiteral: velocity)  // Ensure no initial angular velocity
-            spriteNode.physicsBody?.categoryBitMask = asteroidCategory
+            spriteNode.physicsBody?.categoryBitMask = mediumAsteroidCategory
             spriteNode.physicsBody?.contactTestBitMask = missileCategory
             spriteNode.physicsBody?.affectedByGravity = false
             
@@ -581,7 +613,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             spriteNode.physicsBody?.isDynamic = true
             spriteNode.physicsBody?.velocity = CGVector(dx: velocity, dy: velocity)  // Ensure no initial velocity
             spriteNode.physicsBody?.angularVelocity = CGFloat(integerLiteral: velocity)  // Ensure no initial angular velocity
-            spriteNode.physicsBody?.categoryBitMask = asteroidCategory
+            spriteNode.physicsBody?.categoryBitMask = mediumAsteroidCategory
             spriteNode.physicsBody?.contactTestBitMask = missileCategory
             spriteNode.physicsBody?.affectedByGravity = false
             
@@ -600,6 +632,85 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
     }
 
+    
+    func missileDidCollideWithMediumAsteroid(missile: SKSpriteNode, asteroid: SKSpriteNode) {
+        // Your collision logic...
+
+        // Call the function to split the asteroid
+        splitAsteroid(originalAsteroid: asteroid)
+
+        // Remove the missile from the scene
+        missile.removeFromParent()
+    }
+    
+    func splitMediumAsteroid(originalAsteroid: SKSpriteNode) {
+        // Remove the original asteroid from the scene
+        originalAsteroid.removeFromParent()
+
+        // Create smaller asteroids
+        //let mediumAsteroid1 = MediumAsteroid(texture: SKTexture(imageNamed: "flippedButt"))
+        if let smallAsteroid1 = UIImage(named: "FlippedButt")?.withTintColor(.white) {
+            
+            let texture = SKTexture(image: smallAsteroid1)
+            let spriteNode = SKSpriteNode(texture: texture)
+            
+            spriteNode.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+            spriteNode.size = CGSize(width: CGFloat(50.0), height: CGFloat(50.0))
+            
+            spriteNode.position = CGPoint(x: originalAsteroid.position.x + 20, y: originalAsteroid.position.y + 20)
+            
+            let velocity = Int.random(in: 4...7)
+            
+            spriteNode.physicsBody = SKPhysicsBody(rectangleOf: spriteNode.size)
+            spriteNode.physicsBody?.isDynamic = true
+            spriteNode.physicsBody?.velocity = CGVector(dx: velocity, dy: velocity)  // Ensure no initial velocity
+            spriteNode.physicsBody?.angularVelocity = CGFloat(integerLiteral: velocity)  // Ensure no initial angular velocity
+            spriteNode.physicsBody?.categoryBitMask = mediumAsteroidCategory
+            spriteNode.physicsBody?.contactTestBitMask = missileCategory
+            spriteNode.physicsBody?.affectedByGravity = false
+            
+            smallButtNode[self.smallButtNodeCounter] = spriteNode
+//            print("mediumButtNodeCounter: ", mediumButtNodeCounter)
+//            print("mediumButtNode: ", mediumButtNode)
+            addChild(spriteNode)
+            self.smallButtNodeCounter += 1
+        }
+        //let mediumAsteroid2 = MediumAsteroid(texture: SKTexture(imageNamed: "flippedButt"))
+
+        if let smallAsteroid2 = UIImage(named: "FlippedButt")?.withTintColor(.white) {
+            
+            let texture = SKTexture(image: smallAsteroid2)
+            let spriteNode = SKSpriteNode(texture: texture)
+            
+            spriteNode.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+            spriteNode.size = CGSize(width: CGFloat(50.0), height: CGFloat(50.0))
+            
+            spriteNode.position = CGPoint(x: originalAsteroid.position.x - 20, y: originalAsteroid.position.y - 20)
+            
+            let velocity = Int.random(in: 3...6)
+            
+            spriteNode.physicsBody = SKPhysicsBody(rectangleOf: spriteNode.size)
+            spriteNode.physicsBody?.isDynamic = true
+            spriteNode.physicsBody?.velocity = CGVector(dx: velocity, dy: velocity)  // Ensure no initial velocity
+            spriteNode.physicsBody?.angularVelocity = CGFloat(integerLiteral: velocity)  // Ensure no initial angular velocity
+            spriteNode.physicsBody?.categoryBitMask = mediumAsteroidCategory
+            spriteNode.physicsBody?.contactTestBitMask = missileCategory
+            spriteNode.physicsBody?.affectedByGravity = false
+            
+            smallButtNode[smallButtNodeCounter] = spriteNode
+            addChild(spriteNode)
+            smallButtNodeCounter += 1
+            
+        }
+        
+        // Set positions relative to the original asteroid
+        
+        
+
+        // Add smaller asteroids to the scene
+        
+        
+    }
     // Step 3: Handle Missile Collisions (Example)
     
     
