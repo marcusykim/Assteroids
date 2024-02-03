@@ -637,7 +637,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         // Your collision logic...
 
         // Call the function to split the asteroid
-        splitAsteroid(originalAsteroid: asteroid)
+        splitMediumAsteroid(originalAsteroid: asteroid)
 
         // Remove the missile from the scene
         missile.removeFromParent()
