@@ -383,7 +383,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
     }
     
-    // Call this whenever the game starts, the user dies, and when we need to add ships to our lives gallery
+   
     func generateSpaceShip(position: CGPoint = CGPoint(x: 0, y: 0)) -> SKSpriteNode? {
         if let paperPlaneSymbolImage = UIImage(systemName: "hand.point.right")?.withTintColor(.white) {
             
@@ -453,7 +453,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func incrementScore() {
-            // Call this method when the player earns points
+            
             score += 10 // Adjust the score based on your game's rules
         }
     
@@ -518,35 +518,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
     }
     func didBegin(_ contact: SKPhysicsContact) {
-            // Check which bodies are involved in the collision
-//            if (contact.bodyA.categoryBitMask == missileCategory && contact.bodyB.categoryBitMask == asteroidCategory) ||
-//               (contact.bodyA.categoryBitMask == asteroidCategory && contact.bodyB.categoryBitMask == missileCategory) {
-//
-//                // Call your function here
-//                if let collidedMissileNode = contact.bodyA.node as? SKSpriteNode, let collidedButtNode = contact.bodyB.node as? SKSpriteNode {
-//                        // Now you have references to the SKSpriteNodes involved in the collision
-//                        // You can use nodeA and nodeB to perform any actions or changes you need
-//                    
-//                    missileDidCollideWithAsteroid(missile: collidedMissileNode, asteroid: collidedButtNode)
-//                        
-//                    }
-//            }
-        
+          
         let collisionMask = contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask
 
                 if collisionMask == (missileCategory | asteroidCategory) {
                     if let collidedMissileNode = contact.bodyA.node as? SKSpriteNode, let collidedButtNode = contact.bodyB.node as? SKSpriteNode {
-                                            // Now you have references to the SKSpriteNodes involved in the collision
-                                            // You can use nodeA and nodeB to perform any actions or changes you need
                     
                         missileDidCollideWithAsteroid(missile: collidedMissileNode, asteroid: collidedButtNode)
                     }
                 } else if collisionMask == (missileCategory | mediumAsteroidCategory) {
                     // Handle collision between missile and medium asteroid
                     if let collidedMissileNode = contact.bodyA.node as? SKSpriteNode, let collidedButtNode = contact.bodyB.node as? SKSpriteNode {
-                                            // Now you have references to the SKSpriteNodes involved in the collision
-                                            // You can use nodeA and nodeB to perform any actions or changes you need
-                    
+                                           
                         missileDidCollideWithMediumAsteroid(missile: collidedMissileNode, asteroid: collidedButtNode)
                     }
                     
@@ -554,9 +537,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     
     func missileDidCollideWithAsteroid(missile: SKSpriteNode, asteroid: SKSpriteNode) {
-        // Your collision logic...
 
-        // Call the function to split the asteroid
         splitAsteroid(originalAsteroid: asteroid)
 
         // Remove the missile from the scene
@@ -564,11 +545,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func splitAsteroid(originalAsteroid: SKSpriteNode) {
-        // Remove the original asteroid from the scene
+   
         originalAsteroid.removeFromParent()
 
-        // Create smaller asteroids
-        //let mediumAsteroid1 = MediumAsteroid(texture: SKTexture(imageNamed: "flippedButt"))
+  
         if let mediumAsteroid1 = UIImage(named: "FlippedButt")?.withTintColor(.white) {
             
             let texture = SKTexture(image: mediumAsteroid1)
@@ -595,7 +575,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             addChild(spriteNode)
             self.mediumButtNodeCounter += 1
         }
-        //let mediumAsteroid2 = MediumAsteroid(texture: SKTexture(imageNamed: "flippedButt"))
+
 
         if let mediumAsteroid2 = UIImage(named: "FlippedButt")?.withTintColor(.white) {
             
@@ -623,18 +603,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
         }
         
-        // Set positions relative to the original asteroid
-        
-        
 
-        // Add smaller asteroids to the scene
-        
-        
     }
 
     
     func missileDidCollideWithMediumAsteroid(missile: SKSpriteNode, asteroid: SKSpriteNode) {
-        // Your collision logic...
 
         // Call the function to split the asteroid
         splitMediumAsteroid(originalAsteroid: asteroid)
@@ -647,8 +620,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         // Remove the original asteroid from the scene
         originalAsteroid.removeFromParent()
 
-        // Create smaller asteroids
-        //let mediumAsteroid1 = MediumAsteroid(texture: SKTexture(imageNamed: "flippedButt"))
+        
         if let smallAsteroid1 = UIImage(named: "FlippedButt")?.withTintColor(.white) {
             
             let texture = SKTexture(image: smallAsteroid1)
@@ -675,7 +647,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             addChild(spriteNode)
             self.smallButtNodeCounter += 1
         }
-        //let mediumAsteroid2 = MediumAsteroid(texture: SKTexture(imageNamed: "flippedButt"))
+     
 
         if let smallAsteroid2 = UIImage(named: "FlippedButt")?.withTintColor(.white) {
             
@@ -703,15 +675,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
         }
         
-        // Set positions relative to the original asteroid
-        
-        
-
-        // Add smaller asteroids to the scene
+     
         
         
     }
-    // Step 3: Handle Missile Collisions (Example)
+   
     
     
     func generateButtons() {
