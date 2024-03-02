@@ -494,13 +494,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 let xCoordinate = [randomNegX, randomPosX]
                 let yCoordinate = [randomNegY, randomPosY]
                 
-                
                 spriteNode.position = CGPoint(x: xCoordinate[Int.random(in: 0...1)], y: yCoordinate[Int.random(in: 0...1)])
                 
                 let velocity = Int.random(in: 1...3)
                 
                 spriteNode.physicsBody = SKPhysicsBody(rectangleOf: spriteNode.size)
                 spriteNode.physicsBody?.isDynamic = true
+                spriteNode.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
                 spriteNode.physicsBody?.velocity = CGVector(dx: velocity, dy: velocity)  // Ensure no initial velocity
                 spriteNode.physicsBody?.angularVelocity = CGFloat(integerLiteral: velocity)  // Ensure no initial angular velocity
                 spriteNode.physicsBody?.categoryBitMask = asteroidCategory
@@ -590,9 +590,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
             spriteNode.anchorPoint = CGPoint(x: 0.5, y: 0.5)
             spriteNode.size = CGSize(width: CGFloat(75.0), height: CGFloat(75.0))
-            
+        
             spriteNode.position = CGPoint(x: originalAsteroid.position.x - 20, y: originalAsteroid.position.y - 20)
-            
             let velocity = Int.random(in: 3...6)
             
             spriteNode.physicsBody = SKPhysicsBody(rectangleOf: spriteNode.size)
@@ -636,6 +635,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             spriteNode.size = CGSize(width: CGFloat(50.0), height: CGFloat(50.0))
             
             spriteNode.position = CGPoint(x: originalAsteroid.position.x + 20, y: originalAsteroid.position.y + 20)
+         
+            
             
             let velocity = Int.random(in: 4...7)
             
@@ -669,7 +670,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
             spriteNode.physicsBody = SKPhysicsBody(rectangleOf: spriteNode.size)
             spriteNode.physicsBody?.isDynamic = true
-            spriteNode.physicsBody?.velocity = CGVector(dx: velocity, dy: velocity)  // Ensure no initial velocity
             spriteNode.physicsBody?.angularVelocity = CGFloat(integerLiteral: velocity)  // Ensure no initial angular velocity
             spriteNode.physicsBody?.categoryBitMask = smallAsteroidCategory
             spriteNode.physicsBody?.contactTestBitMask = missileCategory
@@ -703,6 +703,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             leftArrowNode.anchorPoint = CGPoint(x: 0.5, y: 0.5)
             leftArrowNode.size = CGSize(width: CGFloat(30.0), height: CGFloat(30.0))
             leftArrowNode.position = CGPoint(x: -312.5, y: -120)
+            leftArrowNode.zPosition = 20
             
             self.addChild(leftArrowNode)
             
@@ -718,6 +719,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             rightArrowNode.anchorPoint = CGPoint(x: 0.5, y: 0.5)
             rightArrowNode.size = CGSize(width: CGFloat(30.0), height: CGFloat(30.0))
             rightArrowNode.position = CGPoint(x: -258, y: -120)
+            rightArrowNode.zPosition = 20
             
             self.addChild(rightArrowNode)
             
@@ -731,6 +733,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             thrustNode.anchorPoint = CGPoint(x: 0.5, y: 0.5)
             thrustNode.size = CGSize(width: CGFloat(35.0), height: CGFloat(35.0))
             thrustNode.position = CGPoint(x: 312.5, y: -120)
+            thrustNode.zPosition = 20
             
             self.addChild(thrustNode)
             
@@ -744,6 +747,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             triggerNode.anchorPoint = CGPoint(x: 0.5, y: 0.5)
             triggerNode.size = CGSize(width: CGFloat(50.0), height: CGFloat(50.0))
             triggerNode.position = CGPoint(x: 258, y: -120)
+            triggerNode.zPosition = 20
             
             self.addChild(triggerNode)
             
