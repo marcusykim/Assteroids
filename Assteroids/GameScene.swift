@@ -11,6 +11,8 @@ import GameplayKit
 class GameScene: SKScene, SKPhysicsContactDelegate {
     var scoreLabel: SKLabelNode!
     var customContainer: CustomContainerNode!
+    var entities = [GKEntity]()
+    var graphs = [String : GKGraph]()
     let imageName = "FlippedButt"
     var spaceship: SKSpriteNode!
     var rotating = false
@@ -38,7 +40,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     var score: Int = 0 {
          didSet {
-             // Update the label text when the score changes
+             
              scoreLabel.text = "Score: \(score)"
          }
      }
@@ -190,7 +192,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
 
         if thrustNode == self.thrustNode {
-            let distance: CGFloat = 200.0 // Adjust the distance to fit your needs
+            let distance: CGFloat = 200.0
 
             // Function to update acceleration direction based on current rotation
             func updateAccelerationDirection(_ elapsedTime: CGFloat) {
@@ -453,7 +455,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func incrementScore() {
             
-            score += 10
+            score += 10 // Adjust the score based on your game's rules
         }
     
     func generatePoop(position: CGPoint = CGPoint(x: 0, y: 0)) -> SKSpriteNode? {
@@ -471,7 +473,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         return nil
     }
     
-    func generateButt(position: CGPoint = CGPoint(x: 0, y: 0))
+    func generateButt(position: CGPoint = CGPoint(x: 0, y: 0))// -> SKSpriteNode?
     {
         
         for counter in 0...buttNodeMax {
@@ -499,8 +501,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 spriteNode.physicsBody = SKPhysicsBody(rectangleOf: spriteNode.size)
                 spriteNode.physicsBody?.isDynamic = true
                 spriteNode.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
-                spriteNode.physicsBody?.velocity = CGVector(dx: velocity, dy: velocity)
-                spriteNode.physicsBody?.angularVelocity = CGFloat(integerLiteral: velocity)
+                spriteNode.physicsBody?.velocity = CGVector(dx: velocity, dy: velocity)  // Ensure no initial velocity
+                spriteNode.physicsBody?.angularVelocity = CGFloat(integerLiteral: velocity)  // Ensure no initial angular velocity
                 spriteNode.physicsBody?.categoryBitMask = asteroidCategory
                 spriteNode.physicsBody?.contactTestBitMask = missileCategory
                 spriteNode.physicsBody?.affectedByGravity = false
@@ -567,8 +569,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
             spriteNode.physicsBody = SKPhysicsBody(rectangleOf: spriteNode.size)
             spriteNode.physicsBody?.isDynamic = true
-            spriteNode.physicsBody?.velocity = CGVector(dx: velocity, dy: velocity)
-            spriteNode.physicsBody?.angularVelocity = CGFloat(integerLiteral: velocity)
+            spriteNode.physicsBody?.velocity = CGVector(dx: velocity, dy: velocity)  // Ensure no initial velocity
+            spriteNode.physicsBody?.angularVelocity = CGFloat(integerLiteral: velocity)  // Ensure no initial angular velocity
             spriteNode.physicsBody?.categoryBitMask = mediumAsteroidCategory
             spriteNode.physicsBody?.contactTestBitMask = missileCategory
             spriteNode.physicsBody?.affectedByGravity = false
@@ -594,8 +596,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
             spriteNode.physicsBody = SKPhysicsBody(rectangleOf: spriteNode.size)
             spriteNode.physicsBody?.isDynamic = true
-            spriteNode.physicsBody?.velocity = CGVector(dx: velocity, dy: velocity)
-            spriteNode.physicsBody?.angularVelocity = CGFloat(integerLiteral: velocity)
+            spriteNode.physicsBody?.velocity = CGVector(dx: velocity, dy: velocity)  // Ensure no initial velocity
+            spriteNode.physicsBody?.angularVelocity = CGFloat(integerLiteral: velocity)  // Ensure no initial angular velocity
             spriteNode.physicsBody?.categoryBitMask = mediumAsteroidCategory
             spriteNode.physicsBody?.contactTestBitMask = missileCategory
             spriteNode.physicsBody?.affectedByGravity = false
@@ -612,13 +614,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func missileDidCollideWithMediumAsteroid(missile: SKSpriteNode, asteroid: SKSpriteNode) {
 
+        // Call the function to split the asteroid
         splitMediumAsteroid(originalAsteroid: asteroid)
 
+        // Remove the missile from the scene
         missile.removeFromParent()
     }
     
     func splitMediumAsteroid(originalAsteroid: SKSpriteNode) {
-        
+        // Remove the original asteroid from the scene
         originalAsteroid.removeFromParent()
 
         
@@ -638,8 +642,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
             spriteNode.physicsBody = SKPhysicsBody(rectangleOf: spriteNode.size)
             spriteNode.physicsBody?.isDynamic = true
-            spriteNode.physicsBody?.velocity = CGVector(dx: velocity, dy: velocity)
-            spriteNode.physicsBody?.angularVelocity = CGFloat(integerLiteral: velocity)
+            spriteNode.physicsBody?.velocity = CGVector(dx: velocity, dy: velocity)  // Ensure no initial velocity
+            spriteNode.physicsBody?.angularVelocity = CGFloat(integerLiteral: velocity)  // Ensure no initial angular velocity
             spriteNode.physicsBody?.categoryBitMask = smallAsteroidCategory
             spriteNode.physicsBody?.contactTestBitMask = missileCategory
             spriteNode.physicsBody?.affectedByGravity = false
@@ -666,7 +670,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
             spriteNode.physicsBody = SKPhysicsBody(rectangleOf: spriteNode.size)
             spriteNode.physicsBody?.isDynamic = true
-            spriteNode.physicsBody?.angularVelocity = CGFloat(integerLiteral: velocity)
+            spriteNode.physicsBody?.angularVelocity = CGFloat(integerLiteral: velocity)  // Ensure no initial angular velocity
             spriteNode.physicsBody?.categoryBitMask = smallAsteroidCategory
             spriteNode.physicsBody?.contactTestBitMask = missileCategory
             spriteNode.physicsBody?.affectedByGravity = false
