@@ -39,6 +39,19 @@ class GameViewController: UIViewController {
             }
         }
     }
+    
+    
+    
+    /*
+     
+     func handleUpdate() {
+     
+        // tell each element what to do
+     
+     }
+     
+     
+     */
 
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         if UIDevice.current.userInterfaceIdiom == .phone {
