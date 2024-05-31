@@ -285,6 +285,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     override func update(_ currentTime: TimeInterval) {
         // Check if the spaceship is out of bounds
+        
+        // Call all methods from here?
+        
+        
         checkOutOfBounds(for: self.spaceship)
         
         var counter: Int = 1

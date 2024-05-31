@@ -48,6 +48,8 @@ class GameViewController: UIViewController {
      
         // tell each element what to do
      
+        // cal
+     
      }
      
      
