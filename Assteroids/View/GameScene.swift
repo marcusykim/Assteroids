@@ -9,6 +9,26 @@ import SpriteKit
 import GameplayKit
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
+    
+    
+    
+    //MARK: - TODOS
+    
+    //TODO: Create subclasses of of SKSpriteNode in their own files/classes and instantiate the classes with the variable names below
+        // scoreCounterNode
+        // liveGallery
+        // rotateLeftNode
+        // rotateRightNode
+        // spaceshipNode
+        // triggerNode
+        // poopNode
+        // thrustNode
+        // smallAssteroidNode
+        // mediumAssteroidNode
+        // largeAssteroidNode
+    
+    
+    
     var scoreLabel: SKLabelNode!
     var customContainer: CustomContainerNode!
     var entities = [GKEntity]()
@@ -477,6 +497,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         return nil
     }
     
+
     func generateButt(position: CGPoint = CGPoint(x: 0, y: 0))// -> SKSpriteNode?
     {
         
