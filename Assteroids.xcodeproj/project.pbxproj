@@ -20,14 +20,13 @@
 		2CB471A12AFC7FF200151620 /* AssteroidsUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB471A02AFC7FF200151620 /* AssteroidsUITestsLaunchTests.swift */; };
 		2CBD45FE2B60C7BD00B5E3DA /* CustomContainerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBD45FD2B60C7BD00B5E3DA /* CustomContainerNode.swift */; };
 		2CBD46002B60C81200B5E3DA /* Asteroid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBD45FF2B60C81200B5E3DA /* Asteroid.swift */; };
-		E2E79A0E2C101EF000621CDA /* ScoreCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2E79A0D2C101EEF00621CDA /* ScoreCounter.swift */; };
-		E2E79A102C101F0A00621CDA /* LivesGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2E79A0F2C101F0A00621CDA /* LivesGallery.swift */; };
-		E2E79A122C101F4000621CDA /* Rotate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2E79A112C101F4000621CDA /* Rotate.swift */; };
-		E2E79A152C101F6E00621CDA /* Spaceship.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2E79A142C101F6E00621CDA /* Spaceship.swift */; };
-		E2E79A172C101F8100621CDA /* Trigger.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2E79A162C101F8100621CDA /* Trigger.swift */; };
-		E2E79A192C101F9B00621CDA /* Poop.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2E79A182C101F9B00621CDA /* Poop.swift */; };
-		E2E79A1B2C101FB500621CDA /* Thrust.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2E79A1A2C101FB500621CDA /* Thrust.swift */; };
-		E2E79A1F2C101FF500621CDA /* Assteroid.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2E79A1E2C101FF500621CDA /* Assteroid.swift */; };
+		E2F634242C1D8A3500270263 /* SpaceshipNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2F634232C1D8A3500270263 /* SpaceshipNode.swift */; };
+		E2F634262C1D8A6200270263 /* MissileNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2F634252C1D8A6200270263 /* MissileNode.swift */; };
+		E2F634282C1D8AC200270263 /* Assteroid.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2F634272C1D8AC200270263 /* Assteroid.swift */; };
+		E2F6342A2C1D8B0200270263 /* LivesGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2F634292C1D8B0200270263 /* LivesGallery.swift */; };
+		E2F6342C2C1D8B3100270263 /* ScoreNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2F6342B2C1D8B3100270263 /* ScoreNode.swift */; };
+		E2F6342E2C1D8C6E00270263 /* RotateButtonNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2F6342D2C1D8C6E00270263 /* RotateButtonNode.swift */; };
+		E2F634302C1D8D1E00270263 /* PoopNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2F6342F2C1D8D1E00270263 /* PoopNode.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,14 +64,13 @@
 		2CB471AD2B0DB75300151620 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		2CBD45FD2B60C7BD00B5E3DA /* CustomContainerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomContainerNode.swift; sourceTree = "<group>"; };
 		2CBD45FF2B60C81200B5E3DA /* Asteroid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Asteroid.swift; sourceTree = "<group>"; };
-		E2E79A0D2C101EEF00621CDA /* ScoreCounter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreCounter.swift; sourceTree = "<group>"; };
-		E2E79A0F2C101F0A00621CDA /* LivesGallery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LivesGallery.swift; sourceTree = "<group>"; };
-		E2E79A112C101F4000621CDA /* Rotate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rotate.swift; sourceTree = "<group>"; };
-		E2E79A142C101F6E00621CDA /* Spaceship.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spaceship.swift; sourceTree = "<group>"; };
-		E2E79A162C101F8100621CDA /* Trigger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trigger.swift; sourceTree = "<group>"; };
-		E2E79A182C101F9B00621CDA /* Poop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Poop.swift; sourceTree = "<group>"; };
-		E2E79A1A2C101FB500621CDA /* Thrust.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Thrust.swift; sourceTree = "<group>"; };
-		E2E79A1E2C101FF500621CDA /* Assteroid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assteroid.swift; sourceTree = "<group>"; };
+		E2F634232C1D8A3500270263 /* SpaceshipNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceshipNode.swift; sourceTree = "<group>"; };
+		E2F634252C1D8A6200270263 /* MissileNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissileNode.swift; sourceTree = "<group>"; };
+		E2F634272C1D8AC200270263 /* Assteroid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assteroid.swift; sourceTree = "<group>"; };
+		E2F634292C1D8B0200270263 /* LivesGallery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LivesGallery.swift; sourceTree = "<group>"; };
+		E2F6342B2C1D8B3100270263 /* ScoreNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreNode.swift; sourceTree = "<group>"; };
+		E2F6342D2C1D8C6E00270263 /* RotateButtonNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RotateButtonNode.swift; sourceTree = "<group>"; };
+		E2F6342F2C1D8D1E00270263 /* PoopNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoopNode.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,10 +121,10 @@
 		2CB471792AFC7FEE00151620 /* Assteroids */ = {
 			isa = PBXGroup;
 			children = (
-				E2E79A0A2C101EAE00621CDA /* View */,
+				E2E79A0C2C101EC600621CDA /* View */,
 				E2E79A0B2C101EB600621CDA /* Controller */,
+				E2E79A0A2C101EAE00621CDA /* Model */,
 				2CB471AD2B0DB75300151620 /* Info.plist */,
-				E2E79A0C2C101EC600621CDA /* Model */,
 				2CB4717A2AFC7FEE00151620 /* AppDelegate.swift */,
 				2CB4717C2AFC7FEE00151620 /* GameScene.sks */,
 				2CB4717E2AFC7FEE00151620 /* Actions.sks */,
@@ -156,12 +154,11 @@
 			path = AssteroidsUITests;
 			sourceTree = "<group>";
 		};
-		E2E79A0A2C101EAE00621CDA /* View */ = {
+		E2E79A0A2C101EAE00621CDA /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				2CB471802AFC7FEE00151620 /* GameScene.swift */,
 			);
-			path = View;
+			path = Model;
 			sourceTree = "<group>";
 		};
 		E2E79A0B2C101EB600621CDA /* Controller */ = {
@@ -172,19 +169,19 @@
 			path = Controller;
 			sourceTree = "<group>";
 		};
-		E2E79A0C2C101EC600621CDA /* Model */ = {
+		E2E79A0C2C101EC600621CDA /* View */ = {
 			isa = PBXGroup;
 			children = (
-				E2E79A0D2C101EEF00621CDA /* ScoreCounter.swift */,
-				E2E79A0F2C101F0A00621CDA /* LivesGallery.swift */,
-				E2E79A112C101F4000621CDA /* Rotate.swift */,
-				E2E79A142C101F6E00621CDA /* Spaceship.swift */,
-				E2E79A162C101F8100621CDA /* Trigger.swift */,
-				E2E79A182C101F9B00621CDA /* Poop.swift */,
-				E2E79A1A2C101FB500621CDA /* Thrust.swift */,
-				E2E79A1E2C101FF500621CDA /* Assteroid.swift */,
+				2CB471802AFC7FEE00151620 /* GameScene.swift */,
+				E2F634232C1D8A3500270263 /* SpaceshipNode.swift */,
+				E2F634252C1D8A6200270263 /* MissileNode.swift */,
+				E2F634272C1D8AC200270263 /* Assteroid.swift */,
+				E2F634292C1D8B0200270263 /* LivesGallery.swift */,
+				E2F6342B2C1D8B3100270263 /* ScoreNode.swift */,
+				E2F6342D2C1D8C6E00270263 /* RotateButtonNode.swift */,
+				E2F6342F2C1D8D1E00270263 /* PoopNode.swift */,
 			);
-			path = Model;
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -320,18 +317,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E2E79A152C101F6E00621CDA /* Spaceship.swift in Sources */,
+				E2F6342E2C1D8C6E00270263 /* RotateButtonNode.swift in Sources */,
+				E2F6342C2C1D8B3100270263 /* ScoreNode.swift in Sources */,
+				E2F634282C1D8AC200270263 /* Assteroid.swift in Sources */,
+				E2F634262C1D8A6200270263 /* MissileNode.swift in Sources */,
+				E2F634242C1D8A3500270263 /* SpaceshipNode.swift in Sources */,
+				E2F634302C1D8D1E00270263 /* PoopNode.swift in Sources */,
 				2CBD45FE2B60C7BD00B5E3DA /* CustomContainerNode.swift in Sources */,
-				E2E79A0E2C101EF000621CDA /* ScoreCounter.swift in Sources */,
-				E2E79A192C101F9B00621CDA /* Poop.swift in Sources */,
 				2CB471812AFC7FEE00151620 /* GameScene.swift in Sources */,
-				E2E79A1B2C101FB500621CDA /* Thrust.swift in Sources */,
 				2CBD46002B60C81200B5E3DA /* Asteroid.swift in Sources */,
-				E2E79A102C101F0A00621CDA /* LivesGallery.swift in Sources */,
+				E2F6342A2C1D8B0200270263 /* LivesGallery.swift in Sources */,
 				2CB471832AFC7FEE00151620 /* GameViewController.swift in Sources */,
-				E2E79A1F2C101FF500621CDA /* Assteroid.swift in Sources */,
-				E2E79A122C101F4000621CDA /* Rotate.swift in Sources */,
-				E2E79A172C101F8100621CDA /* Trigger.swift in Sources */,
 				2CB4717B2AFC7FEE00151620 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

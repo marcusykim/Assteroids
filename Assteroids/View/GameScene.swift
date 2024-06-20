@@ -107,19 +107,22 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
     }
     
+    // @objc func rotateSpaceship(_ gestureRecognizer: UILongPressGestureRecognizer)
+        // we can detect in each of these functions what node has been pressed by using the tapped location in an if statement to check if the appropriate node has be longpressed
+    // @objc func thrust(_ gestureRecognizer: UILongPressGestureRecognizer)
+    // @objc func trigger(_ gestureRecognizer: UILongPressGestureRecognizer)
+    
+    
     @objc func handleLongPress(_ gestureRecognizer: UILongPressGestureRecognizer) {
         
         print("handleLongPress called")
         
         let tapLocationInView = gestureRecognizer.location(in: self.view)
-
         let tapLocationInScene = convertPoint(fromView: tapLocationInView)
-          
+        
         if let tappedNode = self.atPoint(tapLocationInScene) as? SKSpriteNode {
-       
             print("inside optional binding")
-            
-            if leftArrowNode == tappedNode{
+            if leftArrowNode == tappedNode {
               
                 print("Left arrow pressed!")
                 
@@ -185,6 +188,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
            
         }
+    
+    
+    //TODO: - Package UILongPressGestureRecognizer along with the rotation functionality
     
     func rotateSpaceship(direction: SKSpriteNode) {
             // Check if rotating is enabled
