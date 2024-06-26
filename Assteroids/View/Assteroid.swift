@@ -8,6 +8,6 @@
 import Foundation
 import SpriteKit
 
-class Assteroid: SKSpriteNode {
+class Assteroid: PhysicsBodies {
     
 }

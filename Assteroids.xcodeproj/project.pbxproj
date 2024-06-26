@@ -20,6 +20,9 @@
 		2CB471A12AFC7FF200151620 /* AssteroidsUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CB471A02AFC7FF200151620 /* AssteroidsUITestsLaunchTests.swift */; };
 		2CBD45FE2B60C7BD00B5E3DA /* CustomContainerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBD45FD2B60C7BD00B5E3DA /* CustomContainerNode.swift */; };
 		2CBD46002B60C81200B5E3DA /* Asteroid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CBD45FF2B60C81200B5E3DA /* Asteroid.swift */; };
+		E28D5AFB2C2B9AC70015FD7E /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28D5AFA2C2B9AC70015FD7E /* Button.swift */; };
+		E28D5AFD2C2B9AFE0015FD7E /* ThrustButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28D5AFC2C2B9AFE0015FD7E /* ThrustButton.swift */; };
+		E28D5AFF2C2B9BF60015FD7E /* PhysicsBodies.swift in Sources */ = {isa = PBXBuildFile; fileRef = E28D5AFE2C2B9BF60015FD7E /* PhysicsBodies.swift */; };
 		E2F634242C1D8A3500270263 /* SpaceshipNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2F634232C1D8A3500270263 /* SpaceshipNode.swift */; };
 		E2F634262C1D8A6200270263 /* MissileNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2F634252C1D8A6200270263 /* MissileNode.swift */; };
 		E2F634282C1D8AC200270263 /* Assteroid.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2F634272C1D8AC200270263 /* Assteroid.swift */; };
@@ -64,6 +67,9 @@
 		2CB471AD2B0DB75300151620 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		2CBD45FD2B60C7BD00B5E3DA /* CustomContainerNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomContainerNode.swift; sourceTree = "<group>"; };
 		2CBD45FF2B60C81200B5E3DA /* Asteroid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Asteroid.swift; sourceTree = "<group>"; };
+		E28D5AFA2C2B9AC70015FD7E /* Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
+		E28D5AFC2C2B9AFE0015FD7E /* ThrustButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThrustButton.swift; sourceTree = "<group>"; };
+		E28D5AFE2C2B9BF60015FD7E /* PhysicsBodies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhysicsBodies.swift; sourceTree = "<group>"; };
 		E2F634232C1D8A3500270263 /* SpaceshipNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceshipNode.swift; sourceTree = "<group>"; };
 		E2F634252C1D8A6200270263 /* MissileNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissileNode.swift; sourceTree = "<group>"; };
 		E2F634272C1D8AC200270263 /* Assteroid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assteroid.swift; sourceTree = "<group>"; };
@@ -180,6 +186,9 @@
 				E2F6342B2C1D8B3100270263 /* ScoreNode.swift */,
 				E2F6342D2C1D8C6E00270263 /* RotateButtonNode.swift */,
 				E2F6342F2C1D8D1E00270263 /* PoopNode.swift */,
+				E28D5AFA2C2B9AC70015FD7E /* Button.swift */,
+				E28D5AFC2C2B9AFE0015FD7E /* ThrustButton.swift */,
+				E28D5AFE2C2B9BF60015FD7E /* PhysicsBodies.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -318,6 +327,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				E2F6342E2C1D8C6E00270263 /* RotateButtonNode.swift in Sources */,
+				E28D5AFF2C2B9BF60015FD7E /* PhysicsBodies.swift in Sources */,
+				E28D5AFD2C2B9AFE0015FD7E /* ThrustButton.swift in Sources */,
 				E2F6342C2C1D8B3100270263 /* ScoreNode.swift in Sources */,
 				E2F634282C1D8AC200270263 /* Assteroid.swift in Sources */,
 				E2F634262C1D8A6200270263 /* MissileNode.swift in Sources */,
@@ -328,6 +339,7 @@
 				2CBD46002B60C81200B5E3DA /* Asteroid.swift in Sources */,
 				E2F6342A2C1D8B0200270263 /* LivesGallery.swift in Sources */,
 				2CB471832AFC7FEE00151620 /* GameViewController.swift in Sources */,
+				E28D5AFB2C2B9AC70015FD7E /* Button.swift in Sources */,
 				2CB4717B2AFC7FEE00151620 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

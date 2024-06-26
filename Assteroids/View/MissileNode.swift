@@ -8,7 +8,7 @@
 import Foundation
 import SpriteKit
 
-class MissileNode: SKSpriteNode {
+class MissileNode: PhysicsBodies {
     
 }
 

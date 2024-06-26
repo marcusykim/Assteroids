@@ -7,10 +7,17 @@
 
 import Foundation
 import SpriteKit 
+import GameplayKit
 
 
-// RotateButtonNode: SKSpriteNode
+class RotateButtonNode: Button { // just make this class 
 
-// var leftRotateNode: RotateButtonNode {
-    // left rotating specific code
-//}
+    //
+   
+    init() { //
+        self.datatype = parameter
+    }
+    
+    
+     
+}

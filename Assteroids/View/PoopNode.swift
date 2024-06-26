@@ -8,7 +8,7 @@
 import Foundation
 import SpriteKit
 
-class PoopNode: SKSpriteNode {
+class PoopNode: PhysicsBodies {
         
     
 }

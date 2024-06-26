@@ -27,8 +27,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         // mediumAssteroidNode
         // largeAssteroidNode
     
-    
-    
     var scoreLabel: SKLabelNode!
     var customContainer: CustomContainerNode!
     var entities = [GKEntity]()
@@ -60,9 +58,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     var score: Int = 0 {
          didSet {
-             
              scoreLabel.text = "Score: \(score)"
          }
+        
+        //modifier1
+        //modifier2
+        // scoreNode object
+        
+        // return score node object
      }
     
     override func didMove(to view: SKView) {
@@ -98,6 +101,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         generateButt()
         
+        // makeButton(node: SKSpriteNode) pass the data to this method and pass in a different node for each button
         generateButtons()
         
         let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(_:)))
@@ -112,7 +116,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     // @objc func thrust(_ gestureRecognizer: UILongPressGestureRecognizer)
     // @objc func trigger(_ gestureRecognizer: UILongPressGestureRecognizer)
     
-    
+    // if the handleLongPress method was in another class, we could call it by object.handleLongPress(gestureRecognizer)
     @objc func handleLongPress(_ gestureRecognizer: UILongPressGestureRecognizer) {
         
         print("handleLongPress called")
