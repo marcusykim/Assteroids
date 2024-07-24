@@ -8,7 +8,7 @@
 import Foundation
 import SpriteKit
 
-protocol StationaryButtonProtocol: SKSpriteNode{
+protocol StationaryButtonProtocol: SKSpriteNode {
     
     var asset: UIImage {
         get
@@ -24,14 +24,17 @@ protocol StationaryButtonProtocol: SKSpriteNode{
         get
         set
     }
+    
     var size: CGSize {
         get
         set
     }
+    
     var position: CGPoint {
         get
         set
     }
+    
     var zPosition: Int {
         get
         set
@@ -44,7 +47,5 @@ protocol StationaryButtonProtocol: SKSpriteNode{
     // anchorPoint = anchorPoint
     
     func withTintColor() -> UIImage
-    
-    
     
 }
