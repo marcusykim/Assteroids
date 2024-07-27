@@ -10,13 +10,13 @@ import SpriteKit
 
 protocol StationaryButtonProtocol: SKSpriteNode {
     
-    var asset: UIImage {
+    var asset: UIImage {  //UIImage(systemName: ".name") // UIImage(named: "asset name")
         get
         set
     }
     
     var texture: SKTexture { // self.texture = texture
-        get 
+        get
         set
     }
     
