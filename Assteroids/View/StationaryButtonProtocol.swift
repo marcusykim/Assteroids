@@ -40,11 +40,24 @@ protocol StationaryButtonProtocol: SKSpriteNode {
         set
     }
     
-    init(asset: UIImage, texture: SKTexture, anchorPoint: CGPoint, size: CGSize, position: CGPoint, zPosition: Int )
-    
+    init(systemName: String, anchorPoint: CGPoint, size: CGSize, position: CGPoint, zPosition: CGFloat)
+    init(named: String, anchorPoint: CGPoint, size: CGSize, position: CGPoint, zPosition: CGFloat)
     // self.asset = asset
     
     // anchorPoint = anchorPoint
+    
+    /*
+     
+     class StationaryButton: StationaryButtonProtocol {
+     
+     
+     
+     
+     }
+     
+     */
+     
+     */
     
     func withTintColor() -> UIImage
     
