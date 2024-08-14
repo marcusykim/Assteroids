@@ -139,6 +139,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                             // Stop rotating when the long press ends or is cancelled
                             rotating = false
                             rotateSpaceship(direction: leftArrowNode)
+                    
+                    // rotateLeftButton.rotateSpaceship()
+                    
                         default:
                             break
                         }
