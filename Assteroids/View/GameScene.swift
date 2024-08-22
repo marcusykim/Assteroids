@@ -42,8 +42,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var whenMissileFired: Date!
     let maxSecondsForMissiles: Double = 1.25
     
-    var leftArrowNode: SKSpriteNode!
-    var rightArrowNode: SKSpriteNode!
+    var leftArrowNode: RotateButton!
+    var rightArrowNode: RotateButton!
     var thrustNode: SKSpriteNode!
     var triggerNode: SKSpriteNode!
     var buttNode: [Int: SKSpriteNode] = [:]
@@ -134,11 +134,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                         case .began:
                             // Start rotating when the long press begins
                             rotating = true
-                    rotateSpaceship(direction: leftArrowNode)
+                            leftArrowNode.rotateSpaceship()
                         case .ended, .cancelled:
                             // Stop rotating when the long press ends or is cancelled
                             rotating = false
-                            rotateSpaceship(direction: leftArrowNode)
+                            leftArrowNode.rotateSpaceship()
                     
                     // rotateLeftButton.rotateSpaceship()
                     
@@ -152,11 +152,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                         case .began:
                             // Start rotating when the long press begins
                             rotating = true
-                            rotateSpaceship(direction: rightArrowNode)
+                    rightArrowNode.rotateSpaceship()
                         case .ended, .cancelled:
                             // Stop rotating when the long press ends or is cancelled
                             rotating = false
-                    rotateSpaceship(direction: rightArrowNode)
+                        rightArrowNode.rotateSpaceship()
                     
                     // rotateRightButton.rotateSpaceship()
                         default:
@@ -201,24 +201,28 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     //TODO: - Package UILongPressGestureRecognizer along with the rotation functionality
     
-    func rotateSpaceship(direction: SKSpriteNode) {
-            // Check if rotating is enabled
-            guard rotating else {
-                spaceship.removeAction(forKey: "rotateAction")
-                return
-            }
-        
-        if direction == leftArrowNode {
-            let rotateAction = SKAction.rotate(byAngle: CGFloat.pi, duration: 1.0)
-            let repeatAction = SKAction.repeatForever(rotateAction)
-            spaceship.run(repeatAction, withKey: "rotateAction")
-        } else if direction == rightArrowNode {
-            let rotateAction = SKAction.rotate(byAngle: -CGFloat.pi, duration: 1.0)
-            let repeatAction = SKAction.repeatForever(rotateAction)
-            spaceship.run(repeatAction, withKey: "rotateAction")
-        }
-        
-        }
+//    func rotateSpaceship(direction: SKSpriteNode) {
+//            // Check if rotating is enabled
+//            guard rotating else {
+//                spaceship.removeAction(forKey: "rotateAction")
+//                return
+//            }
+//        
+//        if direction == leftArrowNode {
+//            let rotateAction = SKAction.rotate(byAngle: CGFloat.pi, duration: 1.0)
+//            let repeatAction = SKAction.repeatForever(rotateAction)
+//            spaceship.run(repeatAction, withKey: "rotateAction")
+//        } else if direction == rightArrowNode {
+//            let rotateAction = SKAction.rotate(byAngle: -CGFloat.pi, duration: 1.0)
+//            let repeatAction = SKAction.repeatForever(rotateAction)
+//            spaceship.run(repeatAction, withKey: "rotateAction")
+//        }
+//        
+//        }
+    
+    
+    
+    
     
     func activateThrust(thrustNode: SKSpriteNode) {
         guard thrusting else {
@@ -733,37 +737,43 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func generateButtons() {
-        if let leftArrow = UIImage(systemName: "arrowtriangle.left.square.fill")?.withTintColor(.white) {
-            
-            let data = leftArrow.pngData()
-            let newImage = UIImage(data: data!)
-            let texture = SKTexture(image: newImage!)
-            leftArrowNode = SKSpriteNode(texture: texture)
-            
-            leftArrowNode.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-            leftArrowNode.size = CGSize(width: CGFloat(30.0), height: CGFloat(30.0))
-            leftArrowNode.position = CGPoint(x: -312.5, y: -120)
-            leftArrowNode.zPosition = 20
+        let leftArrowNode = RotateButton(systemName: "arrowtriangle.left.square.fill", anchorPoint: CGPoint(x: 0.5, y: 0.5), size: CGSize(width: CGFloat(30.0), height: CGFloat(30.0)), position: CGPoint(x: -312.5, y: -120), zPosition: 20, rotationDirection: "left", spaceship: spaceship)
             
             self.addChild(leftArrowNode)
             
-        }
-        
-        if let rightArrow = UIImage(systemName: "arrowtriangle.right.square.fill")?.withTintColor(.white) {
-            
-            let data = rightArrow.pngData()
-            let newImage = UIImage(data: data!)
-            let texture = SKTexture(image: newImage!)
-            rightArrowNode = SKSpriteNode(texture: texture)
-            
-            rightArrowNode.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-            rightArrowNode.size = CGSize(width: CGFloat(30.0), height: CGFloat(30.0))
-            rightArrowNode.position = CGPoint(x: -258, y: -120)
-            rightArrowNode.zPosition = 20
+        let rightArrowNode = RotateButton(systemName: "arrowtriangle.right.square.fill", anchorPoint: CGPoint(x: 0.5, y: 0.5), size: CGSize(width: CGFloat(30.0), height: CGFloat(30.0)), position: CGPoint(x: -258, y: -120), zPosition: 20, rotationDirection: "right", spaceship: spaceship)
             
             self.addChild(rightArrowNode)
-            
-        }
+        
+        //UIImage(systemName: "arrowtriangle.left.square.fill")?.withTintColor(.white) {
+//
+//            let data = leftArrow.pngData()
+//            let newImage = UIImage(data: data!)
+//            let texture = SKTexture(image: newImage!)
+//            leftArrowNode = SKSpriteNode(texture: texture)
+//
+//            leftArrowNode.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+//            leftArrowNode.size = CGSize(width: CGFloat(30.0), height: CGFloat(30.0))
+//            leftArrowNode.position = CGPoint(x: -312.5, y: -120)
+        
+        //}
+//
+//        if let rightArrow = UIImage(systemName: "arrowtriangle.right.square.fill")?.withTintColor(.white) {
+//
+//            let data = rightArrow.pngData()
+//            let newImage = UIImage(data: data!)
+//            let texture = SKTexture(image: newImage!)
+//            rightArrowNode = SKSpriteNode(texture: texture)
+//
+//            rightArrowNode.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+//            rightArrowNode.size = CGSize(width: CGFloat(30.0), height: CGFloat(30.0))
+//            rightArrowNode.position = CGPoint(x: -258, y: -120)
+//            rightArrowNode.zPosition = 20
+//
+//            self.addChild(rightArrowNode)
+//
+//        }
+        
         
         if let thrust = UIImage(named: "thrust")?.withTintColor(.white) {
             
