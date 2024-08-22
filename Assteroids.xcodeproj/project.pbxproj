@@ -31,7 +31,7 @@
 		E2F634282C1D8AC200270263 /* Assteroid.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2F634272C1D8AC200270263 /* Assteroid.swift */; };
 		E2F6342A2C1D8B0200270263 /* LivesGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2F634292C1D8B0200270263 /* LivesGallery.swift */; };
 		E2F6342C2C1D8B3100270263 /* ScoreNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2F6342B2C1D8B3100270263 /* ScoreNode.swift */; };
-		E2F6342E2C1D8C6E00270263 /* RotateButtonNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2F6342D2C1D8C6E00270263 /* RotateButtonNode.swift */; };
+		E2F6342E2C1D8C6E00270263 /* RotateButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2F6342D2C1D8C6E00270263 /* RotateButton.swift */; };
 		E2F634302C1D8D1E00270263 /* PoopNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2F6342F2C1D8D1E00270263 /* PoopNode.swift */; };
 /* End PBXBuildFile section */
 
@@ -81,7 +81,7 @@
 		E2F634272C1D8AC200270263 /* Assteroid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assteroid.swift; sourceTree = "<group>"; };
 		E2F634292C1D8B0200270263 /* LivesGallery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LivesGallery.swift; sourceTree = "<group>"; };
 		E2F6342B2C1D8B3100270263 /* ScoreNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreNode.swift; sourceTree = "<group>"; };
-		E2F6342D2C1D8C6E00270263 /* RotateButtonNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RotateButtonNode.swift; sourceTree = "<group>"; };
+		E2F6342D2C1D8C6E00270263 /* RotateButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RotateButton.swift; sourceTree = "<group>"; };
 		E2F6342F2C1D8D1E00270263 /* PoopNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoopNode.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -190,7 +190,7 @@
 				E2F634272C1D8AC200270263 /* Assteroid.swift */,
 				E2F634292C1D8B0200270263 /* LivesGallery.swift */,
 				E2F6342B2C1D8B3100270263 /* ScoreNode.swift */,
-				E2F6342D2C1D8C6E00270263 /* RotateButtonNode.swift */,
+				E2F6342D2C1D8C6E00270263 /* RotateButton.swift */,
 				E2F6342F2C1D8D1E00270263 /* PoopNode.swift */,
 				E28D5AFA2C2B9AC70015FD7E /* StationaryButtonProtocol.swift */,
 				E291AE9C2C4C8BE300A22EE3 /* LibraryAssetProtocol.swift */,
@@ -335,7 +335,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E2F6342E2C1D8C6E00270263 /* RotateButtonNode.swift in Sources */,
+				E2F6342E2C1D8C6E00270263 /* RotateButton.swift in Sources */,
 				E28D5AFF2C2B9BF60015FD7E /* PhysicsBodies.swift in Sources */,
 				E28D5AFD2C2B9AFE0015FD7E /* ThrustButton.swift in Sources */,
 				E2AE714E2C5093AB00E541FB /* SystemAssetProtocol.swift in Sources */,

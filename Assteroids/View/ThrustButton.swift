@@ -7,10 +7,10 @@
 
 import Foundation
 
-class ThrustButton: Button {
-    
-    // custom animation & physics
-    // func activateThrust() { definition
-    // }
-    
-}
+//class ThrustButton: Button {
+//    
+//    // custom animation & physics
+//    // func activateThrust() { definition
+//    // }
+//    
+//}

@@ -4,9 +4,6 @@ import SpriteKit
 
 
 class RotateButton: SKSpriteNode, StationaryButtonProtocol {
-    func withTintColor(_ color: UIColor) -> UIImage {
-        <#code#>
-    }
     
     var asset: UIImage {
         didSet {
@@ -14,30 +11,31 @@ class RotateButton: SKSpriteNode, StationaryButtonProtocol {
         }
     }
     var rotationDirection: String?
-    var spaceship: SKSpriteNode!
-
+    var spaceship: SKSpriteNode
 
     // Implement both initializers with default values for `rotationDirection`
     required init(systemName: String, anchorPoint: CGPoint, size: CGSize = CGSize(width: 50, height: 50), position: CGPoint = CGPoint.zero, zPosition: CGFloat = 0, rotationDirection: String? = nil, spaceship: SKSpriteNode) { //"left" or "right"
         self.rotationDirection = rotationDirection
-        self.asset = UIImage(systemName: systemName) ?? UIImage()
+        self.asset = UIImage(systemName: systemName)?.withTintColor(.white) ?? UIImage()
+        self.spaceship = spaceship
         let texture = SKTexture(image: self.asset)
         super.init(texture: texture, color: .clear, size: size)
         self.anchorPoint = anchorPoint
         self.position = position
         self.zPosition = zPosition
-        self.spaceship = spaceship
+        
     }
 
     required init(named: String, anchorPoint: CGPoint, size: CGSize = CGSize(width: 50, height: 50), position: CGPoint = CGPoint.zero, zPosition: CGFloat = 0, rotationDirection: String? = nil, spaceship: SKSpriteNode) {
         self.rotationDirection = rotationDirection
-        self.asset = UIImage(named: named) ?? UIImage()
+        self.asset = UIImage(named: named)?.withTintColor(.white) ?? UIImage()
         let texture = SKTexture(image: self.asset)
+        self.spaceship = spaceship
         super.init(texture: texture, color: .clear, size: size)
         self.anchorPoint = anchorPoint
         self.position = position
         self.zPosition = zPosition
-        self.spaceship = spaceship
+        
     }
 
     required init?(coder aDecoder: NSCoder) {

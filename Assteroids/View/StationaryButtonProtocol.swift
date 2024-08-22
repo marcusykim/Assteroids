@@ -19,7 +19,6 @@ protocol StationaryButtonProtocol: SKSpriteNode {
     init(systemName: String, anchorPoint: CGPoint, size: CGSize, position: CGPoint, zPosition: CGFloat, rotationDirection: String?, spaceship: SKSpriteNode)
     init(named: String, anchorPoint: CGPoint, size: CGSize, position: CGPoint, zPosition: CGFloat, rotationDirection: String?, spaceship: SKSpriteNode)
     
-    func withTintColor(_ color: UIColor) -> UIImage
 }
 
 
