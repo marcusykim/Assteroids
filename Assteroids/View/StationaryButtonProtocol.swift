@@ -9,9 +9,8 @@ import Foundation
 import SpriteKit
 
 protocol StationaryButtonProtocol: SKSpriteNode {
-    var asset: UIImage { get set }
     var anchorPoint: CGPoint { get set }
-    var size: CGSize { get set }
+    //var size: CGSize { get set }
     var position: CGPoint { get set }
     var zPosition: CGFloat { get set }
     var spaceship: SKSpriteNode { get set }
