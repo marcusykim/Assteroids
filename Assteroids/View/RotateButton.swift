@@ -65,9 +65,7 @@ class RotateButton: SKSpriteNode, StationaryButtonProtocol {
         fatalError("init(coder:) has not been implemented")
     }
     
-    //TODO: - Declare `var rotating: Bool` in SpaceShip class so that the rotate button can query the spaceship to see if it's rotating
-    // if we are adding and removing rotation animation from the spaceship, we need to declare or somehow pass a reference to a "global" aka public spaceship object that we can add an animation to (or remove from)
-    
+    //TODO: - use print statement to print out a the Left and Right rotate to see if they are instantiated correctly and go from there
     
      func rotateSpaceship() {
      
