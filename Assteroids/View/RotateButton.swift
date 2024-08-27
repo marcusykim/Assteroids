@@ -13,6 +13,8 @@ class RotateButton: SKSpriteNode, StationaryButtonProtocol {
         self.rotationDirection = rotationDirection
        // self.asset = UIImage(systemName: systemName)?.withTintColor(.white) ?? UIImage()
         self.spaceship = spaceship
+        
+        print(spaceship)
         //self.size = size
         var asset: UIImage {
             
@@ -36,9 +38,13 @@ class RotateButton: SKSpriteNode, StationaryButtonProtocol {
     }
 
     required init(named: String, anchorPoint: CGPoint, size: CGSize = CGSize(width: 50, height: 50), position: CGPoint, zPosition: CGFloat = 0, rotationDirection: String, spaceship: SKSpriteNode) {
+        
+        
         self.rotationDirection = rotationDirection
         
         self.spaceship = spaceship
+        
+        print(spaceship)
         //self.size = size
         var asset: UIImage {
             
@@ -69,11 +75,19 @@ class RotateButton: SKSpriteNode, StationaryButtonProtocol {
     
      func rotateSpaceship() {
      
-        if rotationDirection == "left" {
+         print("rotateSpaceship called")
+         
+         if rotationDirection == K.left {
+            
+            print("inside left rotation if statement in rotateSpaceship()")
+            
             let rotateAction = SKAction.rotate(byAngle: CGFloat.pi, duration: 1.0)
             let repeatAction = SKAction.repeatForever(rotateAction)
             spaceship.run(repeatAction, withKey: "rotateAction")
-        } else if rotationDirection == "right" {
+         } else if rotationDirection == K.right {
+             
+            print("inside right rotation if statement in rotateSpacehip ")
+             
             let rotateAction = SKAction.rotate(byAngle: -CGFloat.pi, duration: 1.0)
             let repeatAction = SKAction.repeatForever(rotateAction)
             spaceship.run(repeatAction, withKey: "rotateAction")

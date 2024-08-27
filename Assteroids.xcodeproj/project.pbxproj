@@ -33,6 +33,7 @@
 		E2F6342C2C1D8B3100270263 /* ScoreNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2F6342B2C1D8B3100270263 /* ScoreNode.swift */; };
 		E2F6342E2C1D8C6E00270263 /* RotateButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2F6342D2C1D8C6E00270263 /* RotateButton.swift */; };
 		E2F634302C1D8D1E00270263 /* PoopNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2F6342F2C1D8D1E00270263 /* PoopNode.swift */; };
+		E2FA2B642C7D827A00D07DF8 /* K.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2FA2B632C7D827A00D07DF8 /* K.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -83,6 +84,7 @@
 		E2F6342B2C1D8B3100270263 /* ScoreNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreNode.swift; sourceTree = "<group>"; };
 		E2F6342D2C1D8C6E00270263 /* RotateButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RotateButton.swift; sourceTree = "<group>"; };
 		E2F6342F2C1D8D1E00270263 /* PoopNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoopNode.swift; sourceTree = "<group>"; };
+		E2FA2B632C7D827A00D07DF8 /* K.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = K.swift; path = Assteroids/View/K.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -169,6 +171,7 @@
 		E2E79A0A2C101EAE00621CDA /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				E2FA2B632C7D827A00D07DF8 /* K.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -348,6 +351,7 @@
 				E291AE9B2C4C7DB300A22EE3 /* Image.swift in Sources */,
 				2CB471812AFC7FEE00151620 /* GameScene.swift in Sources */,
 				E291AE9D2C4C8BE300A22EE3 /* LibraryAssetProtocol.swift in Sources */,
+				E2FA2B642C7D827A00D07DF8 /* K.swift in Sources */,
 				2CBD46002B60C81200B5E3DA /* Asteroid.swift in Sources */,
 				E2F6342A2C1D8B0200270263 /* LivesGallery.swift in Sources */,
 				2CB471832AFC7FEE00151620 /* GameViewController.swift in Sources */,

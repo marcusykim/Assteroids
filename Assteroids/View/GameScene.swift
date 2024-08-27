@@ -124,9 +124,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let tapLocationInView = gestureRecognizer.location(in: self.view)
         let tapLocationInScene = convertPoint(fromView: tapLocationInView)
         
-        if let tappedNode = self.atPoint(tapLocationInScene) as? SKSpriteNode {
-            print("inside optional binding")
-            if leftArrowNode == tappedNode {
+        if let rotateTappedNode = self.atPoint(tapLocationInScene) as? RotateButton {
+            
+            print("inside rotation optional binding") // this is being successfully executed
+            
+            if leftArrowNode == rotateTappedNode { // this is being evaluated, so at least we know that we need to somehow downcast RotateButton into an SKSpriteNode
               
                 print("Left arrow pressed!")
                 
@@ -145,7 +147,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                         default:
                             break
                         }
-            } else if rightArrowNode == tappedNode{
+            } else if rightArrowNode == rotateTappedNode {
                 print("Right arrow pressed!")
                 
                 switch gestureRecognizer.state {
@@ -162,7 +164,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                         default:
                             break
                         }
-            } else if thrustNode == tappedNode {
+            }
+        }
+        
+        
+        if let tappedNode = self.atPoint(tapLocationInScene) as? SKSpriteNode {
+            print("inside optional binding")
+            if thrustNode == tappedNode {
                 print("thrust pressed!")
                 
                 switch gestureRecognizer.state {
@@ -435,7 +443,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             let newImage = UIImage(data: data!)
             let texture = SKTexture(image: newImage!)
             spaceship = SKSpriteNode(texture: texture)
-            
+            spaceship.name = "spaceship"
             spaceship.anchorPoint = CGPoint(x: 0.5, y: 0.5)
             //spaceship.size = CGSize(width: CGFloat(50.0), height: CGFloat(50.0))
             spaceship.position = position
@@ -714,6 +722,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
             spriteNode.physicsBody = SKPhysicsBody(rectangleOf: spriteNode.size)
             spriteNode.physicsBody?.isDynamic = true
+            spriteNode.physicsBody?.isDynamic = true
             spriteNode.physicsBody?.angularVelocity = CGFloat(integerLiteral: velocity)  // Ensure no initial angular velocity
             spriteNode.physicsBody?.categoryBitMask = smallAsteroidCategory
             spriteNode.physicsBody?.contactTestBitMask = missileCategory
@@ -737,11 +746,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func generateButtons() {
-        let leftArrowNode = RotateButton(systemName: "arrowtriangle.left.square.fill", anchorPoint: CGPoint(x: 0.5, y: 0.5), size: CGSize(width: CGFloat(30.0), height: CGFloat(30.0)), position: CGPoint(x: -312.5, y: -120), zPosition: 20, rotationDirection: "left", spaceship: spaceship)
+        let leftArrowNode = RotateButton(systemName: "arrowtriangle.left.square.fill", anchorPoint: CGPoint(x: 0.5, y: 0.5), size: CGSize(width: CGFloat(30.0), height: CGFloat(30.0)), position: CGPoint(x: -312.5, y: -120), zPosition: 20, rotationDirection: K.left, spaceship: spaceship)
             
             self.addChild(leftArrowNode)
             
-        let rightArrowNode = RotateButton(systemName: "arrowtriangle.right.square.fill", anchorPoint: CGPoint(x: 0.5, y: 0.5), size: CGSize(width: CGFloat(30.0), height: CGFloat(30.0)), position: CGPoint(x: -258, y: -120), zPosition: 20, rotationDirection: "right", spaceship: spaceship)
+        let rightArrowNode = RotateButton(systemName: "arrowtriangle.right.square.fill", anchorPoint: CGPoint(x: 0.5, y: 0.5), size: CGSize(width: CGFloat(30.0), height: CGFloat(30.0)), position: CGPoint(x: -258, y: -120), zPosition: 20, rotationDirection: K.right, spaceship: spaceship)
             
             self.addChild(rightArrowNode)
         
