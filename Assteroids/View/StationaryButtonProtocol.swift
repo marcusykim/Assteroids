@@ -15,8 +15,8 @@ protocol StationaryButtonProtocol: SKSpriteNode {
     var zPosition: CGFloat { get set }
     var spaceship: SKSpriteNode { get set }
 
-    init(systemName: String, anchorPoint: CGPoint, size: CGSize, position: CGPoint, zPosition: CGFloat, rotationDirection: String, spaceship: SKSpriteNode)
-    init(named: String, anchorPoint: CGPoint, size: CGSize, position: CGPoint, zPosition: CGFloat, rotationDirection: String, spaceship: SKSpriteNode)
+    init(systemName: String, anchorPoint: CGPoint, size: CGSize, position: CGPoint, zPosition: CGFloat, rotationDirection: String, spaceship: SKSpriteNode, name: String)
+    init(named: String, anchorPoint: CGPoint, size: CGSize, position: CGPoint, zPosition: CGFloat, rotationDirection: String, spaceship: SKSpriteNode, name: String)
     
 }
 

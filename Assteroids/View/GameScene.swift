@@ -126,9 +126,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         if let rotateTappedNode = self.atPoint(tapLocationInScene) as? RotateButton {
             
+            
             print("inside rotation optional binding") // this is being successfully executed
             
-            if leftArrowNode == rotateTappedNode { // this is being evaluated, so at least we know that we need to somehow downcast RotateButton into an SKSpriteNode
+            if rotateTappedNode.name == K.leftArrowName { // this is being evaluated, so at least we know that we need to somehow downcast RotateButton into an SKSpriteNode
               
                 print("Left arrow pressed!")
                 
@@ -136,29 +137,29 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                         case .began:
                             // Start rotating when the long press begins
                             rotating = true
-                            leftArrowNode.rotateSpaceship()
+                            rotateTappedNode.rotateSpaceship()
                         case .ended, .cancelled:
                             // Stop rotating when the long press ends or is cancelled
                             rotating = false
-                            leftArrowNode.rotateSpaceship()
+                            rotateTappedNode.rotateSpaceship()
                     
                     // rotateLeftButton.rotateSpaceship()
                     
                         default:
                             break
                         }
-            } else if rightArrowNode == rotateTappedNode {
+            } else if rotateTappedNode.name == K.rightArrowName {
                 print("Right arrow pressed!")
                 
                 switch gestureRecognizer.state {
                         case .began:
                             // Start rotating when the long press begins
                             rotating = true
-                    rightArrowNode.rotateSpaceship()
+                    rotateTappedNode.rotateSpaceship()
                         case .ended, .cancelled:
                             // Stop rotating when the long press ends or is cancelled
                             rotating = false
-                        rightArrowNode.rotateSpaceship()
+                        rotateTappedNode.rotateSpaceship()
                     
                     // rotateRightButton.rotateSpaceship()
                         default:
@@ -746,13 +747,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func generateButtons() {
-        let leftArrowNode = RotateButton(systemName: "arrowtriangle.left.square.fill", anchorPoint: CGPoint(x: 0.5, y: 0.5), size: CGSize(width: CGFloat(30.0), height: CGFloat(30.0)), position: CGPoint(x: -312.5, y: -120), zPosition: 20, rotationDirection: K.left, spaceship: spaceship)
+        let leftArrowNode = RotateButton(systemName: "arrowtriangle.left.square.fill", anchorPoint: CGPoint(x: 0.5, y: 0.5), size: CGSize(width: CGFloat(30.0), height: CGFloat(30.0)), position: CGPoint(x: -312.5, y: -120), zPosition: 20, rotationDirection: K.left, spaceship: spaceship, name: K.leftArrowName)
             
             self.addChild(leftArrowNode)
+        
+            print(leftArrowNode)
             
-        let rightArrowNode = RotateButton(systemName: "arrowtriangle.right.square.fill", anchorPoint: CGPoint(x: 0.5, y: 0.5), size: CGSize(width: CGFloat(30.0), height: CGFloat(30.0)), position: CGPoint(x: -258, y: -120), zPosition: 20, rotationDirection: K.right, spaceship: spaceship)
+        let rightArrowNode = RotateButton(systemName: "arrowtriangle.right.square.fill", anchorPoint: CGPoint(x: 0.5, y: 0.5), size: CGSize(width: CGFloat(30.0), height: CGFloat(30.0)), position: CGPoint(x: -258, y: -120), zPosition: 20, rotationDirection: K.right, spaceship: spaceship, name: K.rightArrowName)
             
             self.addChild(rightArrowNode)
+            print(rightArrowNode)
         
         //UIImage(systemName: "arrowtriangle.left.square.fill")?.withTintColor(.white) {
 //

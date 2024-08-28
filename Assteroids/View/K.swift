@@ -10,4 +10,6 @@ import Foundation
 enum K {
     static let left = "left"
     static let right = "right"
+    static let leftArrowName = "leftArrowNode"
+    static let rightArrowName = "rightArrowNode"
 }
