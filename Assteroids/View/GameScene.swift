@@ -436,6 +436,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
     }
     
+// TODO: - put all the spaceship functionality in the Spaceship Class
    
     func generateSpaceShip(position: CGPoint = CGPoint(x: 0, y: 0)) -> SKSpriteNode? {
         if let paperPlaneSymbolImage = UIImage(systemName: "hand.point.right")?.withTintColor(.white) {
