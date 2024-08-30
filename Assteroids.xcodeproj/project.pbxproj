@@ -26,6 +26,7 @@
 		E291AE9B2C4C7DB300A22EE3 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = E291AE9A2C4C7DB300A22EE3 /* Image.swift */; };
 		E291AE9D2C4C8BE300A22EE3 /* LibraryAssetProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E291AE9C2C4C8BE300A22EE3 /* LibraryAssetProtocol.swift */; };
 		E2AE714E2C5093AB00E541FB /* SystemAssetProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2AE714D2C5093AB00E541FB /* SystemAssetProtocol.swift */; };
+		E2B3C13A2C817A34001F7264 /* PhysicsNodeProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2B3C1392C817A34001F7264 /* PhysicsNodeProtocol.swift */; };
 		E2F634242C1D8A3500270263 /* SpaceshipNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2F634232C1D8A3500270263 /* SpaceshipNode.swift */; };
 		E2F634262C1D8A6200270263 /* MissileNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2F634252C1D8A6200270263 /* MissileNode.swift */; };
 		E2F634282C1D8AC200270263 /* Assteroid.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2F634272C1D8AC200270263 /* Assteroid.swift */; };
@@ -77,6 +78,7 @@
 		E291AE9A2C4C7DB300A22EE3 /* Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
 		E291AE9C2C4C8BE300A22EE3 /* LibraryAssetProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryAssetProtocol.swift; sourceTree = "<group>"; };
 		E2AE714D2C5093AB00E541FB /* SystemAssetProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemAssetProtocol.swift; sourceTree = "<group>"; };
+		E2B3C1392C817A34001F7264 /* PhysicsNodeProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhysicsNodeProtocol.swift; sourceTree = "<group>"; };
 		E2F634232C1D8A3500270263 /* SpaceshipNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceshipNode.swift; sourceTree = "<group>"; };
 		E2F634252C1D8A6200270263 /* MissileNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissileNode.swift; sourceTree = "<group>"; };
 		E2F634272C1D8AC200270263 /* Assteroid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assteroid.swift; sourceTree = "<group>"; };
@@ -201,6 +203,7 @@
 				E291AE9A2C4C7DB300A22EE3 /* Image.swift */,
 				E28D5AFC2C2B9AFE0015FD7E /* ThrustButton.swift */,
 				E28D5AFE2C2B9BF60015FD7E /* PhysicsBodies.swift */,
+				E2B3C1392C817A34001F7264 /* PhysicsNodeProtocol.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -349,6 +352,7 @@
 				E2F634302C1D8D1E00270263 /* PoopNode.swift in Sources */,
 				2CBD45FE2B60C7BD00B5E3DA /* CustomContainerNode.swift in Sources */,
 				E291AE9B2C4C7DB300A22EE3 /* Image.swift in Sources */,
+				E2B3C13A2C817A34001F7264 /* PhysicsNodeProtocol.swift in Sources */,
 				2CB471812AFC7FEE00151620 /* GameScene.swift in Sources */,
 				E291AE9D2C4C8BE300A22EE3 /* LibraryAssetProtocol.swift in Sources */,
 				E2FA2B642C7D827A00D07DF8 /* K.swift in Sources */,

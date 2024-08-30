@@ -452,6 +452,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             spaceship.zRotation = CGFloat.pi / 2
             
             spaceship.physicsBody = SKPhysicsBody(rectangleOf: spaceship.size)
+            
+            //init(physicsBody: SKPhysicsBody(rectangleOf: ))
+            
             spaceship.physicsBody?.isDynamic = true
             spaceship.physicsBody?.linearDamping = 1.0
             spaceship.physicsBody?.velocity = CGVector(dx: 0, dy: 0)  // Ensure no initial velocity
