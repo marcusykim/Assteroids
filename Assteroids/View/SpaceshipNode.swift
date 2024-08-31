@@ -8,14 +8,9 @@
 import Foundation
 import SpriteKit
 
-class SpaceshipNode: SKSpriteNode {
-    required init(systemName: String, anchorPoint: CGPoint, size: CGSize = CGSize(width: 50, height: 50), position: CGPoint, zPosition: CGFloat = 0, rotationDirection: String, spaceship: SKSpriteNode, name: String) {
-        self.rotationDirection = rotationDirection
-       // self.asset = UIImage(systemName: systemName)?.withTintColor(.white) ?? UIImage()
-        self.spaceship = spaceship
-        
-        
-        //self.size = size
+class SpaceshipNode: SKSpriteNode, PhysicsNodeProtocol{
+    
+    required init(systemName: String, anchorPoint: CGPoint, size: CGSize, position: CGPoint, zPosition: CGFloat, zRotation: CGFloat, name: String) {
         var asset: UIImage {
             
             var newImage = UIImage()
@@ -28,7 +23,6 @@ class SpaceshipNode: SKSpriteNode {
             
             return newImage
         }
-        
         let texture = SKTexture(image: asset)
         super.init(texture: texture, color: .white, size: size)
         self.anchorPoint = anchorPoint
@@ -37,16 +31,8 @@ class SpaceshipNode: SKSpriteNode {
         self.name = name
         
     }
-
-    required init(named: String, anchorPoint: CGPoint, size: CGSize = CGSize(width: 50, height: 50), position: CGPoint, zPosition: CGFloat = 0, rotationDirection: String, spaceship: SKSpriteNode, name: String) {
-        
-        
-        self.rotationDirection = rotationDirection
-        
-        self.spaceship = spaceship
-        
-        print(spaceship)
-        //self.size = size
+    
+    required init(named: String, anchorPoint: CGPoint, size: CGSize, position: CGPoint, zPosition: CGFloat, zRotation: CGFloat, name: String) {
         var asset: UIImage {
             
             var newImage = UIImage()
@@ -60,6 +46,7 @@ class SpaceshipNode: SKSpriteNode {
             return newImage
         }
         
+        
         let texture = SKTexture(image: asset)
         super.init(texture: texture, color: .white, size: size)
         self.anchorPoint = anchorPoint
@@ -67,8 +54,22 @@ class SpaceshipNode: SKSpriteNode {
         self.zPosition = zPosition
         self.name = name
     }
-
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    func createPhysicsBody(size: CGSize) {
+        self.physicsBody = SKPhysicsBody(rectangleOf: self.size)
+        
+        //init(physicsBody: SKPhysicsBody(rectangleOf: ))
+        
+        self.physicsBody?.isDynamic = true
+        self.physicsBody?.linearDamping = 1.0
+        self.physicsBody?.velocity = CGVector(dx: 0, dy: 0)  // Ensure no initial velocity
+        self.physicsBody?.angularVelocity = 0  // Ensure no initial angular velocity
+        self.physicsBody?.affectedByGravity = false
+    }
+    
+    
 }

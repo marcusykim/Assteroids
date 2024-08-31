@@ -10,9 +10,6 @@ import SpriteKit
 
 protocol PhysicsNodeProtocol: SKSpriteNode {
     
-    var systemName: String {get set}
-    var named: String {get set}
-    
     init(systemName: String, anchorPoint: CGPoint, size: CGSize, position: CGPoint, zPosition: CGFloat, zRotation: CGFloat, name: String)
     init(named: String, anchorPoint: CGPoint, size: CGSize, position: CGPoint, zPosition: CGFloat, zRotation: CGFloat, name: String)
     
