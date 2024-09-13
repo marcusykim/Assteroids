@@ -30,6 +30,8 @@ class SpaceshipNode: SKSpriteNode, PhysicsNodeProtocol{
         self.zPosition = zPosition
         self.name = name
         
+        createPhysicsBody(size: size)
+        
     }
     
     required init(named: String, anchorPoint: CGPoint, size: CGSize, position: CGPoint, zPosition: CGFloat, zRotation: CGFloat, name: String) {
@@ -53,6 +55,8 @@ class SpaceshipNode: SKSpriteNode, PhysicsNodeProtocol{
         self.position = position
         self.zPosition = zPosition
         self.name = name
+    
+        createPhysicsBody(size: size)
     }
     
     required init?(coder aDecoder: NSCoder) {
