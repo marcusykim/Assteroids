@@ -36,7 +36,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var rotating = false
     var thrusting = false
     var firing = false
-    var flame: SKSpriteNode!
+   // var flame: SKSpriteNode!
     var velocity: CGVector!
     var missile: [Int: SKSpriteNode?] = [:]
     var whenMissileFired: Date!
@@ -83,7 +83,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             self.size = view.bounds.size
         }
        
-        self.addChild(generateSpaceShip()!)
+        //self.addChild(generateSpaceShip()!)
+        
+        spaceship = SpaceshipNode(systemName: K.spaceshipAssetName)
+        
+        self.addChild(spaceship)
         
         scoreLabel = SKLabelNode(text: "99990")
         scoreLabel.fontSize = 30
@@ -398,11 +402,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         
         if thrusting == true {
-            flame.isHidden.toggle()
+            spaceship.childNode(withName: "flame")?.isHidden.toggle()
         }
         
         if thrusting == false {
-            flame.isHidden = true
+            spaceship.childNode(withName: "flame")?.isHidden = true
         }
  
         
@@ -438,56 +442,56 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
 // TODO: - put all the spaceship functionality in the Spaceship Class
    
-    func generateSpaceShip(position: CGPoint = CGPoint(x: 0, y: 0)) -> SKSpriteNode? {
-        if let paperPlaneSymbolImage = UIImage(systemName: "hand.point.right")?.withTintColor(.white) {
-            
-            let data = paperPlaneSymbolImage.pngData()
-            let newImage = UIImage(data: data!)
-            let texture = SKTexture(image: newImage!)
-            spaceship = SKSpriteNode(texture: texture)
-            spaceship.name = "spaceship"
-            spaceship.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-            //spaceship.size = CGSize(width: CGFloat(50.0), height: CGFloat(50.0))
-            spaceship.position = position
-            spaceship.zRotation = CGFloat.pi / 2
-            
-            spaceship.physicsBody = SKPhysicsBody(rectangleOf: spaceship.size)
-            
-            //init(physicsBody: SKPhysicsBody(rectangleOf: ))
-            
-            spaceship.physicsBody?.isDynamic = true
-            spaceship.physicsBody?.linearDamping = 1.0
-            spaceship.physicsBody?.velocity = CGVector(dx: 0, dy: 0)  // Ensure no initial velocity
-            spaceship.physicsBody?.angularVelocity = 0  // Ensure no initial angular velocity
-            spaceship.physicsBody?.affectedByGravity = false
-            
-            if let flameImage = UIImage(systemName: "flame")?.withTintColor(.white) {
-                
-                let data = flameImage.pngData()
-                let newImage = UIImage(data: data!)
-                let texture = SKTexture(image: newImage!)
-                flame = SKSpriteNode(texture: texture)
-                flame.scale(to: CGSize(width: 32.0, height: 48.0))
-                
-                flame.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-                //spaceship.size = CGSize(width: CGFloat(50.0), height: CGFloat(50.0))
-                
-                flame.position = spaceship.position
-                //flame.position.y -= 5
-                
-                flame.position = CGPoint(x: -50, y: 0)
-                flame.zRotation = spaceship.zRotation
-                flame.isHidden = true
-                spaceship.addChild(flame)
-                
-            }
-            
-            return spaceship
-            
-        }
-        
-        return nil
-    }
+//    func generateSpaceShip(position: CGPoint = CGPoint(x: 0, y: 0)) -> SKSpriteNode? {
+//        if let paperPlaneSymbolImage = UIImage(systemName: "hand.point.right")?.withTintColor(.white) {
+//            
+//            let data = paperPlaneSymbolImage.pngData()
+//            let newImage = UIImage(data: data!)
+//            let texture = SKTexture(image: newImage!)
+//            spaceship = SKSpriteNode(texture: texture)
+//            spaceship.name = "spaceship"
+//            spaceship.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+//            //spaceship.size = CGSize(width: CGFloat(50.0), height: CGFloat(50.0))
+//            spaceship.position = position
+//            spaceship.zRotation = CGFloat.pi / 2
+//            
+//            spaceship.physicsBody = SKPhysicsBody(rectangleOf: spaceship.size)
+//            
+//            //init(physicsBody: SKPhysicsBody(rectangleOf: ))
+//            
+//            spaceship.physicsBody?.isDynamic = true
+//            spaceship.physicsBody?.linearDamping = 1.0
+//            spaceship.physicsBody?.velocity = CGVector(dx: 0, dy: 0)  // Ensure no initial velocity
+//            spaceship.physicsBody?.angularVelocity = 0  // Ensure no initial angular velocity
+//            spaceship.physicsBody?.affectedByGravity = false
+//            
+//            if let flameImage = UIImage(systemName: "flame")?.withTintColor(.white) {
+//                
+//                let data = flameImage.pngData()
+//                let newImage = UIImage(data: data!)
+//                let texture = SKTexture(image: newImage!)
+//                flame = SKSpriteNode(texture: texture)
+//                flame.scale(to: CGSize(width: 32.0, height: 48.0))
+//                
+//                flame.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+//                //spaceship.size = CGSize(width: CGFloat(50.0), height: CGFloat(50.0))
+//                
+//                flame.position = spaceship.position
+//                //flame.position.y -= 5
+//                
+//                flame.position = CGPoint(x: -50, y: 0)
+//                flame.zRotation = spaceship.zRotation
+//                flame.isHidden = true
+//                spaceship.addChild(flame)
+//                
+//            }
+//            
+//            return spaceship
+//            
+//        }
+//        
+//        return nil
+//    }
     
     func generateLife() {
         if let paperPlaneSymbolImage = UIImage(systemName: "paperplane")?.withTintColor(.white) {
