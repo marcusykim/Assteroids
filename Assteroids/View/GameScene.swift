@@ -36,7 +36,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var rotating = false
     var thrusting = false
     var firing = false
-   // var flame: SKSpriteNode!
+    //var flame: SKSpriteNode!
     var velocity: CGVector!
     var missile: [Int: SKSpriteNode?] = [:]
     var whenMissileFired: Date!
@@ -336,11 +336,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     
     override func update(_ currentTime: TimeInterval) {
-        // Check if the spaceship is out of bounds
-        
-        // Call all methods from here?
-        
-        
+       
         checkOutOfBounds(for: self.spaceship)
         
         var counter: Int = 1
@@ -401,13 +397,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
         }
         
-        if thrusting == true {
-            spaceship.childNode(withName: "flame")?.isHidden.toggle()
-        }
-        
-        if thrusting == false {
-            spaceship.childNode(withName: "flame")?.isHidden = true
-        }
+//        if thrusting == true {
+//            spaceship.childNode(withName: "flame")?.isHidden.toggle()
+//        }
+//        
+//        if thrusting == false {
+//            spaceship.childNode(withName: "flame")?.isHidden = true
+//        }
  
         
     }

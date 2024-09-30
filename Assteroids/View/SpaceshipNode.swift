@@ -83,8 +83,7 @@ class SpaceshipNode: SKSpriteNode, PhysicsNodeProtocol{
         self.zRotation = zRotation
         self.name = name
         
-        
-        
+        createFlame()
         createPhysicsBody(size: size)
         
     }
@@ -110,6 +109,7 @@ class SpaceshipNode: SKSpriteNode, PhysicsNodeProtocol{
         self.zRotation = zRotation
         self.name = name
         
+        createFlame()
         createPhysicsBody(size: size)
         
     }
@@ -131,12 +131,12 @@ class SpaceshipNode: SKSpriteNode, PhysicsNodeProtocol{
     }
     
     func createFlame() {
-        if let flameImage = UIImage(systemName: "flame")?.withTintColor(.white) {
+        if let flameImage = UIImage(systemName: K.flameAssetName)?.withTintColor(.white) {
             
             let data = flameImage.pngData()
             let newImage = UIImage(data: data!)
             let texture = SKTexture(image: newImage!)
-            var flame = SKSpriteNode(texture: texture)
+            let flame = SKSpriteNode(texture: texture)
             flame.scale(to: CGSize(width: 32.0, height: 48.0))
             flame.anchorPoint = CGPoint(x: 0.5, y: 0.5)
             //spaceship.size = CGSize(width: CGFloat(50.0), height: CGFloat(50.0))
@@ -146,8 +146,8 @@ class SpaceshipNode: SKSpriteNode, PhysicsNodeProtocol{
             
             flame.position = CGPoint(x: -50, y: 0)
             flame.zRotation = self.zRotation
-            flame.isHidden = true
-            flame.name = "flame"
+            flame.isHidden = false
+            flame.name = K.flameAssetName
             
             self.addChild(flame)
             
