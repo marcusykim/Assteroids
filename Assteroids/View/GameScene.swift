@@ -397,13 +397,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             }
         }
         
-//        if thrusting == true {
-//            spaceship.childNode(withName: "flame")?.isHidden.toggle()
-//        }
-//        
-//        if thrusting == false {
-//            spaceship.childNode(withName: "flame")?.isHidden = true
-//        }
+        if thrusting == true {
+            spaceship.childNode(withName: "flame")?.isHidden.toggle()
+        }
+        
+        if thrusting == false {
+            spaceship.childNode(withName: "flame")?.isHidden = true
+        }
  
         
     }
