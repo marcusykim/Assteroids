@@ -236,7 +236,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     
     
-    
+    //TODO: - Put this activateThrust() method inside SpaceshipNode class. Make sure it works
     func activateThrust(thrustNode: SKSpriteNode) {
         guard thrusting else {
             spaceship.removeAllActions()
@@ -266,6 +266,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             spaceship.run(accelerationAction)
         }
     }
+    
+    // TODO: - Move this handleFiring() method into SpaceshipNode class
     
     func handleFiring() {
         // Create a missile
@@ -302,6 +304,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         print(self.missile.keys.max()!)
         
     }
+    
+    // TODO: - move this createMissile() method to SpaceshipNode class
     
     func createMissile() -> SKSpriteNode? {
         

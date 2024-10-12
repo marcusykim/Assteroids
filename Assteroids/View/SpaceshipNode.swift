@@ -8,6 +8,10 @@
 import Foundation
 import SpriteKit
 
+// TODO: - move this createMissile() method to SpaceshipNode class
+// TODO: - Move this handleFiring() method into SpaceshipNode class
+// TODO: - Put this activateThrust() method inside SpaceshipNode class. Make sure it works
+
 class SpaceshipNode: SKSpriteNode, PhysicsNodeProtocol{
     
    // func generateSpaceShip(position: CGPoint = CGPoint(x: 0, y: 0)) -> SKSpriteNode? {
