@@ -66,6 +66,8 @@ class SpaceshipNode: SKSpriteNode, PhysicsNodeProtocol{
     //    }
     
     
+    var velocity: CGVector = CGVector(dx: 0, dy: 0)
+    
     required init(systemName: String = K.spaceshipAssetName, anchorPoint: CGPoint = CGPoint(x: 0.5, y: 0.5), size: CGSize = CGSize(width: 50.0, height: 50.0), position: CGPoint = CGPoint(x: 0, y: 0), zPosition: CGFloat = 10, zRotation: CGFloat = CGFloat.pi / 2, name: String = "spaceship") {
         var asset: UIImage {
             
@@ -129,9 +131,38 @@ class SpaceshipNode: SKSpriteNode, PhysicsNodeProtocol{
         
         self.physicsBody?.isDynamic = true
         self.physicsBody?.linearDamping = 1.0
-        self.physicsBody?.velocity = CGVector(dx: 0, dy: 0)  // Ensure no initial velocity
+        self.physicsBody?.velocity = CGVector(dx: 0, dy: 0) // Ensure no initial velocity
         self.physicsBody?.angularVelocity = 0  // Ensure no initial angular velocity
         self.physicsBody?.affectedByGravity = false
+    }
+    
+    func activateThrust(thrusting: Bool) {
+        guard thrusting else {
+            self.removeAllActions()
+            return
+        }
+
+            let distance: CGFloat = 200.0
+
+            // Function to update acceleration direction based on current rotation
+            func updateAccelerationDirection(_ elapsedTime: CGFloat) {
+                let angleInRadians = self.zRotation
+                let deltaX = distance * cos(angleInRadians)
+                let deltaY = distance * sin(angleInRadians)
+
+                self.velocity = CGVector(dx: deltaX * elapsedTime, dy: deltaY * elapsedTime)
+                self.physicsBody?.velocity = self.velocity
+            }
+
+            // Continuous acceleration
+            let accelerationAction = SKAction.repeatForever(SKAction.customAction(withDuration: 99999.9) { _, elapsedTime in
+                // Adjust acceleration based on the current rotation
+                updateAccelerationDirection(elapsedTime)
+            })
+
+            // Run the custom action
+            self.run(accelerationAction)
+    
     }
     
     func createFlame() {

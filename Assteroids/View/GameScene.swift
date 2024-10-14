@@ -32,7 +32,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var entities = [GKEntity]()
     var graphs = [String : GKGraph]()
     let imageName = "FlippedButt"
-    var spaceship: SKSpriteNode!
+    var spaceship: SpaceshipNode!
     var rotating = false
     var thrusting = false
     var firing = false
@@ -60,12 +60,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
          didSet {
              scoreLabel.text = "Score: \(score)"
          }
-        
-        //modifier1
-        //modifier2
-        // scoreNode object
-        
-        // return score node object
      }
     
     override func didMove(to view: SKView) {
@@ -182,13 +176,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                         case .began:
                             // Start rotating when the long press begins
                             thrusting = true
-                            activateThrust(thrustNode: thrustNode)
+                    spaceship.activateThrust(thrusting: thrusting)
                         case .ended, .cancelled:
                             // Stop rotating when the long press ends or is cancelled
                     
                             print("thrust ended")
                             thrusting = false
-                            activateThrust(thrustNode: thrustNode)
+                    spaceship.activateThrust(thrusting: thrusting)
                         default:
                             break
                         }
@@ -237,35 +231,35 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     
     //TODO: - Put this activateThrust() method inside SpaceshipNode class. Make sure it works
-    func activateThrust(thrustNode: SKSpriteNode) {
-        guard thrusting else {
-            spaceship.removeAllActions()
-            return
-        }
-
-        if thrustNode == self.thrustNode {
-            let distance: CGFloat = 200.0
-
-            // Function to update acceleration direction based on current rotation
-            func updateAccelerationDirection(_ elapsedTime: CGFloat) {
-                let angleInRadians = spaceship.zRotation
-                let deltaX = distance * cos(angleInRadians)
-                let deltaY = distance * sin(angleInRadians)
-
-                self.velocity = CGVector(dx: deltaX * elapsedTime, dy: deltaY * elapsedTime)
-                self.spaceship.physicsBody?.velocity = self.velocity
-            }
-
-            // Continuous acceleration
-            let accelerationAction = SKAction.repeatForever(SKAction.customAction(withDuration: 99999.9) { _, elapsedTime in
-                // Adjust acceleration based on the current rotation
-                updateAccelerationDirection(elapsedTime)
-            })
-
-            // Run the custom action
-            spaceship.run(accelerationAction)
-        }
-    }
+//    func activateThrust(thrustNode: SKSpriteNode) {
+//        guard thrusting else {
+//            spaceship.removeAllActions()
+//            return
+//        }
+//
+//        if thrustNode == self.thrustNode {
+//            let distance: CGFloat = 200.0
+//
+//            // Function to update acceleration direction based on current rotation
+//            func updateAccelerationDirection(_ elapsedTime: CGFloat) {
+//                let angleInRadians = spaceship.zRotation
+//                let deltaX = distance * cos(angleInRadians)
+//                let deltaY = distance * sin(angleInRadians)
+//
+//                self.velocity = CGVector(dx: deltaX * elapsedTime, dy: deltaY * elapsedTime)
+//                self.spaceship.physicsBody?.velocity = self.velocity
+//            }
+//
+//            // Continuous acceleration
+//            let accelerationAction = SKAction.repeatForever(SKAction.customAction(withDuration: 99999.9) { _, elapsedTime in
+//                // Adjust acceleration based on the current rotation
+//                updateAccelerationDirection(elapsedTime)
+//            })
+//
+//            // Run the custom action
+//            spaceship.run(accelerationAction)
+//        }
+//    }
     
     // TODO: - Move this handleFiring() method into SpaceshipNode class
     
