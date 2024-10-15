@@ -8,6 +8,22 @@
 import Foundation
 import SpriteKit
 
-class Assteroid: PhysicsBodies {
+class Assteroid: SKSpriteNode, PhysicsNodeProtocol {
+    required init(systemName: String, anchorPoint: CGPoint, size: CGSize, position: CGPoint, zPosition: CGFloat, zRotation: CGFloat, name: String) {
+        <#code#>
+    }
+    
+    required init(named: String, anchorPoint: CGPoint, size: CGSize, position: CGPoint, zPosition: CGFloat, zRotation: CGFloat, name: String) {
+        <#code#>
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func createPhysicsBody(size: CGSize) {
+        <#code#>
+    }
+    
     
 }

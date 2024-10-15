@@ -10,61 +10,9 @@ import SpriteKit
 
 // TODO: - move this createMissile() method to SpaceshipNode class
 // TODO: - Move this handleFiring() method into SpaceshipNode class
-// TODO: - Put this activateThrust() method inside SpaceshipNode class. Make sure it works
+// TODO: - Done. Put this activateThrust() method inside SpaceshipNode class. Make sure it works
 
 class SpaceshipNode: SKSpriteNode, PhysicsNodeProtocol{
-    
-   // func generateSpaceShip(position: CGPoint = CGPoint(x: 0, y: 0)) -> SKSpriteNode? {
-    //        if let paperPlaneSymbolImage = UIImage(systemName: "hand.point.right")?.withTintColor(.white) {
-    //
-    //            let data = paperPlaneSymbolImage.pngData()
-    //            let newImage = UIImage(data: data!)
-    //            let texture = SKTexture(image: newImage!)
-    //            spaceship = SKSpriteNode(texture: texture)
-    //            spaceship.name = "spaceship"
-    //            spaceship.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-    //            //spaceship.size = CGSize(width: CGFloat(50.0), height: CGFloat(50.0))
-    //            spaceship.position = position
-    //            spaceship.zRotation = CGFloat.pi / 2
-    //
-    //            spaceship.physicsBody = SKPhysicsBody(rectangleOf: spaceship.size)
-    //
-    //            //init(physicsBody: SKPhysicsBody(rectangleOf: ))
-    //
-    //            spaceship.physicsBody?.isDynamic = true
-    //            spaceship.physicsBody?.linearDamping = 1.0
-    //            spaceship.physicsBody?.velocity = CGVector(dx: 0, dy: 0)  // Ensure no initial velocity
-    //            spaceship.physicsBody?.angularVelocity = 0  // Ensure no initial angular velocity
-    //            spaceship.physicsBody?.affectedByGravity = false
-    //
-    //            if let flameImage = UIImage(systemName: "flame")?.withTintColor(.white) {
-    //
-    //                let data = flameImage.pngData()
-    //                let newImage = UIImage(data: data!)
-    //                let texture = SKTexture(image: newImage!)
-    //                flame = SKSpriteNode(texture: texture)
-    //                flame.scale(to: CGSize(width: 32.0, height: 48.0))
-    //
-    //                flame.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-    //                //spaceship.size = CGSize(width: CGFloat(50.0), height: CGFloat(50.0))
-    //
-    //                flame.position = spaceship.position
-    //                //flame.position.y -= 5
-    //
-    //                flame.position = CGPoint(x: -50, y: 0)
-    //                flame.zRotation = spaceship.zRotation
-    //                flame.isHidden = true
-    //                spaceship.addChild(flame)
-    //
-    //            }
-    //
-    //            return spaceship
-    //
-    //        }
-    //
-    //        return nil
-    //    }
-    
     
     var velocity: CGVector = CGVector(dx: 0, dy: 0)
     

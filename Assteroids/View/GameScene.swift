@@ -38,7 +38,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var firing = false
     //var flame: SKSpriteNode!
     var velocity: CGVector!
-    var missile: [Int: SKSpriteNode?] = [:]
+    var missileDictionary: [Int: SKSpriteNode?] = [:]
     var whenMissileFired: Date!
     let maxSecondsForMissiles: Double = 1.25
     
@@ -193,6 +193,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                         case .began:
                             // Start rotating when the long press begins
                             firing = true
+                            //missile = MissileNode()
+                            //missile.fire()
+                    
                             handleFiring()
                         case .ended, .cancelled:
                             // Stop rotating when the long press ends or is cancelled
@@ -205,67 +208,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
            
         }
     
-    
-    //TODO: - Package UILongPressGestureRecognizer along with the rotation functionality
-    
-//    func rotateSpaceship(direction: SKSpriteNode) {
-//            // Check if rotating is enabled
-//            guard rotating else {
-//                spaceship.removeAction(forKey: "rotateAction")
-//                return
-//            }
-//        
-//        if direction == leftArrowNode {
-//            let rotateAction = SKAction.rotate(byAngle: CGFloat.pi, duration: 1.0)
-//            let repeatAction = SKAction.repeatForever(rotateAction)
-//            spaceship.run(repeatAction, withKey: "rotateAction")
-//        } else if direction == rightArrowNode {
-//            let rotateAction = SKAction.rotate(byAngle: -CGFloat.pi, duration: 1.0)
-//            let repeatAction = SKAction.repeatForever(rotateAction)
-//            spaceship.run(repeatAction, withKey: "rotateAction")
-//        }
-//        
-//        }
-    
-    
-    
-    
-    //TODO: - Put this activateThrust() method inside SpaceshipNode class. Make sure it works
-//    func activateThrust(thrustNode: SKSpriteNode) {
-//        guard thrusting else {
-//            spaceship.removeAllActions()
-//            return
-//        }
-//
-//        if thrustNode == self.thrustNode {
-//            let distance: CGFloat = 200.0
-//
-//            // Function to update acceleration direction based on current rotation
-//            func updateAccelerationDirection(_ elapsedTime: CGFloat) {
-//                let angleInRadians = spaceship.zRotation
-//                let deltaX = distance * cos(angleInRadians)
-//                let deltaY = distance * sin(angleInRadians)
-//
-//                self.velocity = CGVector(dx: deltaX * elapsedTime, dy: deltaY * elapsedTime)
-//                self.spaceship.physicsBody?.velocity = self.velocity
-//            }
-//
-//            // Continuous acceleration
-//            let accelerationAction = SKAction.repeatForever(SKAction.customAction(withDuration: 99999.9) { _, elapsedTime in
-//                // Adjust acceleration based on the current rotation
-//                updateAccelerationDirection(elapsedTime)
-//            })
-//
-//            // Run the custom action
-//            spaceship.run(accelerationAction)
-//        }
-//    }
-    
     // TODO: - Move this handleFiring() method into SpaceshipNode class
     
     func handleFiring() {
+        
+        //missile = MissileNode()
+        //missile.fire()
+        
+        
+        
         // Create a missile
-        let tempMissile = createMissile()!
+        let tempMissile = createMissile()! //MissileNode()
         tempMissile.position = spaceship.position
         addChild(tempMissile)
 
@@ -289,23 +242,32 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 
         whenMissileFired = Date()
         
-        if missile.isEmpty {
-            missile[1] = tempMissile
+        
+    //TODO: - create MissileNode class, add the following logic too handleLongPress()
+        
+        // can we add this to handleLongPress()
+        
+        // 1. triggerNode pressed
+        // 2. var missile = MissileNode()
+        // 3. missile.fire()
+        // 4. this immediately below \/
+        if missileDictionary.isEmpty {
+            missileDictionary[1] = tempMissile
         } else {
-            missile[missile.keys.max()! + 1] = tempMissile
+            missileDictionary[missileDictionary.keys.max()! + 1] = tempMissile
         }
         
-        print(self.missile.keys.max()!)
+        print(self.missileDictionary.keys.max()!)
         
     }
     
-    // TODO: - move this createMissile() method to SpaceshipNode class
+    // TODO: - move this createMissile() method to MissileNode class
     
     func createMissile() -> SKSpriteNode? {
         
-        if let paperPlaneSymbolImage = UIImage(systemName: "hand.point.right.fill")?.withTintColor(.white) {
+        if let missileImage = UIImage(systemName: "hand.point.right.fill")?.withTintColor(.white) {
             
-            let data = paperPlaneSymbolImage.pngData()
+            let data = missileImage.pngData()
             let newImage = UIImage(data: data!)
             let texture = SKTexture(image: newImage!)
             let missile = SKSpriteNode(texture: texture)
@@ -339,8 +301,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         var counter: Int = 1
         
-        for _ in missile {
-            checkOutOfBounds(for: self.missile[counter]!!)
+        for _ in missileDictionary {
+            checkOutOfBounds(for: self.missileDictionary[counter]!!)
             
             let removeAction = SKAction.sequence([
                         SKAction.wait(forDuration: maxSecondsForMissiles),
@@ -348,24 +310,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                         
                     ])
 
-            if let safeMissile = self.missile[counter] {
+            if let safeMissile = self.missileDictionary[counter] {
                 safeMissile!.run(removeAction)
                 
             }
             counter += 1
         }
         
-        if !missile.isEmpty {
+        if !missileDictionary.isEmpty {
             
             let elapsedTime = Date().timeIntervalSince(whenMissileFired)
-            
-            //print("elapsedTime: \(elapsedTime)")
-            //print("maxSecondsForMissiles: \(maxSecondsForMissiles)")
             
             if elapsedTime > maxSecondsForMissiles {
                 
                 print("inside elapsedTime if statement")
-                self.missile.removeValue(forKey: self.missile.keys.max()!)
+                self.missileDictionary.removeValue(forKey: self.missileDictionary.keys.max()!)
             }
         }
         
