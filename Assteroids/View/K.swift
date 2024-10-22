@@ -14,4 +14,5 @@ enum K {
     static let rightArrowName = "rightArrowNode"
     static let spaceshipAssetName = "hand.point.right"
     static let flameAssetName = "flame"
+    static let missileAssetName = "hand.point.right.fill"
 }

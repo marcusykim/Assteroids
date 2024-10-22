@@ -191,12 +191,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 
                 switch gestureRecognizer.state {
                         case .began:
-                            // Start rotating when the long press begins
                             firing = true
-                            //missile = MissileNode()
-                            //missile.fire()
+                            var missile = MissileNode(size: spaceship.size, position: spaceship.position, zRotation: spaceship.zRotation)
+                            addChild(missile)
+                            whenMissileFired = missile.fireMissile(missileCategory, asteroidCategory, missileCategory) // returns a Date data type
                     
-                            handleFiring()
+                            if missileDictionary.isEmpty {
+                                missileDictionary[1] = missile
+                            } else {
+                                missileDictionary[missileDictionary.keys.max()! + 1] = missile
+                            }
+                    
+                            print(self.missileDictionary.keys.max()!)
+                    
                         case .ended, .cancelled:
                             // Stop rotating when the long press ends or is cancelled
                             thrusting = false
@@ -210,62 +217,60 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     // TODO: - Move this handleFiring() method into SpaceshipNode class
     
-    func handleFiring() {
-        
-        //missile = MissileNode()
-        //missile.fire()
-        
-        
-        
-        // Create a missile
-        let tempMissile = createMissile()! //MissileNode()
-        tempMissile.position = spaceship.position
-        addChild(tempMissile)
-
-        let angleInRadians = spaceship.zRotation
-        
-        let forceMagnitude: CGFloat = 2500.0
-        
-        let deltaX = forceMagnitude * cos(angleInRadians)
-        let deltaY = forceMagnitude * sin(angleInRadians)
-        
-        // Apply an upward force to the missile
-        
-        let force = CGVector(dx: deltaX, dy: deltaY)
-        
-        // Apply the force to the missile's physics body
-        tempMissile.physicsBody?.applyForce(force)
-        tempMissile.physicsBody?.categoryBitMask = missileCategory
-        tempMissile.physicsBody?.contactTestBitMask = asteroidCategory | mediumAsteroidCategory
-        //tempMissile.physicsBody?.contactTestBitMask = asteroidCategory
-        tempMissile.physicsBody?.affectedByGravity = false
-
-        whenMissileFired = Date()
-        
-        
-    //TODO: - create MissileNode class, add the following logic too handleLongPress()
-        
-        // can we add this to handleLongPress()
-        
-        // 1. triggerNode pressed
-        // 2. var missile = MissileNode()
-        // 3. missile.fire()
-        // 4. this immediately below \/
-        if missileDictionary.isEmpty {
-            missileDictionary[1] = tempMissile
-        } else {
-            missileDictionary[missileDictionary.keys.max()! + 1] = tempMissile
-        }
-        
-        print(self.missileDictionary.keys.max()!)
-        
-    }
+//    func fireMissile() { // put into MissileNode class
+//        
+//        //missile = MissileNode()
+//        //missile.fire()
+//        
+//        // Create a missile
+//        let tempMissile = createMissile()! //MissileNode()
+//        tempMissile.position = spaceship.position
+//        addChild(tempMissile)
+//
+//        let angleInRadians = spaceship.zRotation
+//        
+//        let forceMagnitude: CGFloat = 2500.0
+//        
+//        let deltaX = forceMagnitude * cos(angleInRadians)
+//        let deltaY = forceMagnitude * sin(angleInRadians)
+//        
+//        // Apply an upward force to the missile
+//        
+//        let force = CGVector(dx: deltaX, dy: deltaY)
+//        
+//        // Apply the force to the missile's physics body
+//        tempMissile.physicsBody?.applyForce(force)
+//        tempMissile.physicsBody?.categoryBitMask = missileCategory
+//        tempMissile.physicsBody?.contactTestBitMask = asteroidCategory | mediumAsteroidCategory
+//        //tempMissile.physicsBody?.contactTestBitMask = asteroidCategory
+//        tempMissile.physicsBody?.affectedByGravity = false
+//
+//        whenMissileFired = Date()
+//        
+//        
+//    //TODO: - create MissileNode class, add the following logic to handleLongPress()
+//        
+//        // can we add this to handleLongPress()
+//        
+//        // 1. triggerNode pressed
+//        // 2. var missile = MissileNode()
+//        // 3. missile.fire()
+//        // 4. this immediately below \/
+////        if missileDictionary.isEmpty {
+////            missileDictionary[1] = tempMissile
+////        } else {
+////            missileDictionary[missileDictionary.keys.max()! + 1] = tempMissile
+////        }
+////        
+//        print(self.missileDictionary.keys.max()!)
+//        
+//    }
     
     // TODO: - move this createMissile() method to MissileNode class
     
     func createMissile() -> SKSpriteNode? {
         
-        if let missileImage = UIImage(systemName: "hand.point.right.fill")?.withTintColor(.white) {
+        if let missileImage = UIImage(systemName: K.missileAssetName)?.withTintColor(.white) {
             
             let data = missileImage.pngData()
             let newImage = UIImage(data: data!)
