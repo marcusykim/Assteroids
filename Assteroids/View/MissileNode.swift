@@ -87,7 +87,16 @@ class MissileNode: SKSpriteNode, PhysicsNodeProtocol {
         let force = CGVector(dx: deltaX, dy: deltaY)
         
         // Apply the force to the missile's physics body
-        self.physicsBody?.applyForce(force)
+        
+        func applyCustomForce(_ force: CGVector) {
+                print("Applying force: \(force) to missile at position: \(self.position)")
+                
+                // Apply the force to the physics body
+                self.physicsBody?.applyForce(force)
+            }
+        
+        //self.physicsBody?.applyForce(force)
+        applyCustomForce(force)
         self.physicsBody?.categoryBitMask = missileCategory
         self.physicsBody?.contactTestBitMask = asteroidCategory | mediumAsteroidCategory
         //tempMissile.physicsBody?.contactTestBitMask = asteroidCategory
