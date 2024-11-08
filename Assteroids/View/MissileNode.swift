@@ -35,6 +35,8 @@ class MissileNode: SKSpriteNode, PhysicsNodeProtocol {
         self.zRotation = zRotation
         self.name = name
         
+        createPhysicsBody(size: size)
+        
         
     }
     
@@ -60,6 +62,8 @@ class MissileNode: SKSpriteNode, PhysicsNodeProtocol {
         self.zRotation = zRotation
         self.name = name
         
+        createPhysicsBody(size: size)
+        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -79,7 +83,7 @@ class MissileNode: SKSpriteNode, PhysicsNodeProtocol {
 
         let angleInRadians = self.zRotation
         
-        let forceMagnitude: CGFloat = 2500.0
+        let forceMagnitude: CGFloat = 7500.0
         
         let deltaX = forceMagnitude * cos(angleInRadians)
         let deltaY = forceMagnitude * sin(angleInRadians)

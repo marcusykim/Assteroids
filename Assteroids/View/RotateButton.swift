@@ -95,4 +95,9 @@ class RotateButton: SKSpriteNode, StationaryButtonProtocol {
         }
      
      }
+    
+    func stopRotation() {
+        spaceship.removeAllActions()
+    }
+    
 }

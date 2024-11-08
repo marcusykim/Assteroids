@@ -139,7 +139,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                         case .ended, .cancelled:
                             // Stop rotating when the long press ends or is cancelled
                             rotating = false
-                            rotateTappedNode.rotateSpaceship()
+                            rotateTappedNode.stopRotation()
                     
                     // rotateLeftButton.rotateSpaceship()
                     
@@ -157,7 +157,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                         case .ended, .cancelled:
                             // Stop rotating when the long press ends or is cancelled
                             rotating = false
-                        rotateTappedNode.rotateSpaceship()
+                        rotateTappedNode.stopRotation()
                     
                     // rotateRightButton.rotateSpaceship()
                         default:
