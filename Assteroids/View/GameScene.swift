@@ -10,8 +10,6 @@ import GameplayKit
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
-    
-    
     //MARK: - TODOS
     
     //TODO: Create subclasses of of SKSpriteNode in their own files/classes and instantiate the classes with the variable names below
@@ -31,7 +29,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var customContainer: CustomContainerNode!
     var entities = [GKEntity]()
     var graphs = [String : GKGraph]()
-    let imageName = "FlippedButt"
+    let imageName = "FlippedAss"
     var spaceship: SpaceshipNode!
     var rotating = false
     var thrusting = false
@@ -46,11 +44,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var rightArrowNode: RotateButton!
     var thrustNode: SKSpriteNode!
     var triggerNode: SKSpriteNode!
-    var buttNode: [Int: SKSpriteNode] = [:]
-    var mediumButtNode: [Int: SKSpriteNode] = [:]
-    var smallButtNode: [Int: SKSpriteNode] = [:]
+    var assNode: [Int: SKSpriteNode] = [:]
+    var mediumAssNode: [Int: SKSpriteNode] = [:]
+    var smallAssNode: [Int: SKSpriteNode] = [:]
     
-    let buttNodeMax: Int = 9
+    let assNodeMax: Int = 9
     let missileCategory: UInt32 = 0b0001
     let asteroidCategory: UInt32 = 0b0010
     let mediumAsteroidCategory: UInt32 = 0b0100
@@ -97,7 +95,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         self.addChild(generatePoop(position: CGPoint(x: 150, y: 0))!)
         
-        generateButt()
+        generateAssteroids()
         
         // makeButton(node: SKSpriteNode) pass the data to this method and pass in a different node for each button
         generateButtons()
@@ -296,8 +294,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func removeMissile(_ missile: SKSpriteNode) {
         missile.removeFromParent()
     }
-    var mediumButtNodeCounter = 0
-    var smallButtNodeCounter = 0
+    var mediumAssNodeCounter = 0
+    var smallAssNodeCounter = 0
     
     
     override func update(_ currentTime: TimeInterval) {
@@ -335,27 +333,27 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         counter = 0
         
-        for counter in 0...buttNodeMax {
-            //print("buttNode: ", buttNode)
-            checkOutOfBounds(for: self.buttNode[counter]!)
+        for counter in 0...assNodeMax {
+            //print("assNode: ", assNode)
+            checkOutOfBounds(for: self.assNode[counter]!)
         }
         
         
         
-        for mediumButtNodeCounter in 0...self.mediumButtNode.count {
+        for mediumAssNodeCounter in 0...self.mediumAssNode.count {
             
-            if mediumButtNode[mediumButtNodeCounter] != nil {
-                //print("mediumButtNode in update: ", mediumButtNode)
-                checkOutOfBounds(for: self.mediumButtNode[mediumButtNodeCounter]!)
+            if mediumAssNode[mediumAssNodeCounter] != nil {
+                //print("mediumAssNode in update: ", mediumAssNode)
+                checkOutOfBounds(for: self.mediumAssNode[mediumAssNodeCounter]!)
             }
         }
         
         
-        for smallButtNodeCounter in 0...self.mediumButtNode.count {
+        for smallAssNodeCounter in 0...self.mediumAssNode.count {
             
-            if smallButtNode[smallButtNodeCounter] != nil {
-                //print("mediumButtNode in update: ", mediumButtNode)
-                checkOutOfBounds(for: self.smallButtNode[smallButtNodeCounter]!)
+            if smallAssNode[smallAssNodeCounter] != nil {
+                //print("mediumAssNode in update: ", mediumAssNode)
+                checkOutOfBounds(for: self.smallAssNode[smallAssNodeCounter]!)
             }
         }
         
@@ -492,14 +490,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
 
-    func generateButt(position: CGPoint = CGPoint(x: 0, y: 0))// -> SKSpriteNode?
-    {
+    func generateAssteroids(position: CGPoint = CGPoint(x: 0, y: 0)) {
         
-        for counter in 0...buttNodeMax {
+        for counter in 0...assNodeMax {
             
-            if let butt = UIImage(named: "FlippedButt")?.withTintColor(.white) {
+            //TODO: - get the loop to be like this line
+            //self.assNode[counter] = Assteroid()
+            
+            if let ass = UIImage(named: "FlippedAss")?.withTintColor(.white) {
                 
-                let texture = SKTexture(image: butt)
+                let texture = SKTexture(image: ass)
                 let spriteNode = SKSpriteNode(texture: texture)
                 
                 spriteNode.anchorPoint = CGPoint(x: 0.5, y: 0.5)
@@ -527,7 +527,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 spriteNode.physicsBody?.affectedByGravity = false
                 
                 self.addChild(spriteNode)
-                self.buttNode[counter] = spriteNode
+                self.assNode[counter] = spriteNode
                 
                 
                 
@@ -542,21 +542,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let collisionMask = contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask
 
                 if collisionMask == (missileCategory | asteroidCategory) {
-                    if let collidedMissileNode = contact.bodyA.node as? SKSpriteNode, let collidedButtNode = contact.bodyB.node as? SKSpriteNode {
+                    if let collidedMissileNode = contact.bodyA.node as? SKSpriteNode, let collidedAssNode = contact.bodyB.node as? SKSpriteNode {
                     
-                        missileDidCollideWithAsteroid(missile: collidedMissileNode, asteroid: collidedButtNode)
+                        missileDidCollideWithAsteroid(missile: collidedMissileNode, asteroid: collidedAssNode)
                     }
                 } else if collisionMask == (missileCategory | mediumAsteroidCategory) {
                     // Handle collision between missile and medium asteroid
-                    if let collidedMissileNode = contact.bodyA.node as? SKSpriteNode, let collidedButtNode = contact.bodyB.node as? SKSpriteNode {
+                    if let collidedMissileNode = contact.bodyA.node as? SKSpriteNode, let collidedAssNode = contact.bodyB.node as? SKSpriteNode {
                                            
-                        missileDidCollideWithMediumAsteroid(missile: collidedMissileNode, asteroid: collidedButtNode)
+                        missileDidCollideWithMediumAsteroid(missile: collidedMissileNode, asteroid: collidedAssNode)
                     }
                     
                 } else if collisionMask == (missileCategory | smallAsteroidCategory) {
-                    if let collidedMissileNode = contact.bodyA.node as? SKSpriteNode, let collidedButtNode = contact.bodyB.node as? SKSpriteNode {
+                    if let collidedMissileNode = contact.bodyA.node as? SKSpriteNode, let collidedAssNode = contact.bodyB.node as? SKSpriteNode {
                                            
-                        missileDidCollideWithSmallAsteroid(missile: collidedMissileNode, asteroid: collidedButtNode)
+                        missileDidCollideWithSmallAsteroid(missile: collidedMissileNode, asteroid: collidedAssNode)
                     }
                 }
         }
@@ -574,7 +574,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         originalAsteroid.removeFromParent()
 
   
-        if let mediumAsteroid1 = UIImage(named: "FlippedButt")?.withTintColor(.white) {
+        if let mediumAsteroid1 = UIImage(named: "FlippedAss")?.withTintColor(.white) {
             
             let texture = SKTexture(image: mediumAsteroid1)
             let spriteNode = SKSpriteNode(texture: texture)
@@ -594,15 +594,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             spriteNode.physicsBody?.contactTestBitMask = missileCategory
             spriteNode.physicsBody?.affectedByGravity = false
             
-            mediumButtNode[self.mediumButtNodeCounter] = spriteNode
-            print("mediumButtNodeCounter: ", mediumButtNodeCounter)
-            print("mediumButtNode: ", mediumButtNode)
+            mediumAssNode[self.mediumAssNodeCounter] = spriteNode
+            print("mediumAssNodeCounter: ", mediumAssNodeCounter)
+            print("mediumAssNode: ", mediumAssNode)
             addChild(spriteNode)
-            self.mediumButtNodeCounter += 1
+            self.mediumAssNodeCounter += 1
         }
 
 
-        if let mediumAsteroid2 = UIImage(named: "FlippedButt")?.withTintColor(.white) {
+        if let mediumAsteroid2 = UIImage(named: "FlippedAss")?.withTintColor(.white) {
             
             let texture = SKTexture(image: mediumAsteroid2)
             let spriteNode = SKSpriteNode(texture: texture)
@@ -621,9 +621,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             spriteNode.physicsBody?.contactTestBitMask = missileCategory
             spriteNode.physicsBody?.affectedByGravity = false
             
-            mediumButtNode[mediumButtNodeCounter] = spriteNode
+            mediumAssNode[mediumAssNodeCounter] = spriteNode
             addChild(spriteNode)
-            mediumButtNodeCounter += 1
+            mediumAssNodeCounter += 1
             
         }
         
@@ -645,7 +645,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         originalAsteroid.removeFromParent()
 
         
-        if let smallAsteroid1 = UIImage(named: "FlippedButt")?.withTintColor(.white) {
+        if let smallAsteroid1 = UIImage(named: "FlippedAss")?.withTintColor(.white) {
             
             let texture = SKTexture(image: smallAsteroid1)
             let spriteNode = SKSpriteNode(texture: texture)
@@ -667,15 +667,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             spriteNode.physicsBody?.contactTestBitMask = missileCategory
             spriteNode.physicsBody?.affectedByGravity = false
             
-            smallButtNode[self.smallButtNodeCounter] = spriteNode
-//            print("mediumButtNodeCounter: ", mediumButtNodeCounter)
-//            print("mediumButtNode: ", mediumButtNode)
+            smallAssNode[self.smallAssNodeCounter] = spriteNode
+//            print("mediumAssNodeCounter: ", mediumAssNodeCounter)
+//            print("mediumAssNode: ", mediumAssNode)
             addChild(spriteNode)
-            self.smallButtNodeCounter += 1
+            self.smallAssNodeCounter += 1
         }
      
 
-        if let smallAsteroid2 = UIImage(named: "FlippedButt")?.withTintColor(.white) {
+        if let smallAsteroid2 = UIImage(named: "FlippedAss")?.withTintColor(.white) {
             
             let texture = SKTexture(image: smallAsteroid2)
             let spriteNode = SKSpriteNode(texture: texture)
@@ -695,9 +695,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             spriteNode.physicsBody?.contactTestBitMask = missileCategory
             spriteNode.physicsBody?.affectedByGravity = false
             
-            smallButtNode[smallButtNodeCounter] = spriteNode
+            smallAssNode[smallAssNodeCounter] = spriteNode
             addChild(spriteNode)
-            smallButtNodeCounter += 1
+            smallAssNodeCounter += 1
             
         }
         
