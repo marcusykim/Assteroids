@@ -44,9 +44,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var rightArrowNode: RotateButton!
     var thrustNode: SKSpriteNode!
     var triggerNode: SKSpriteNode!
-    var assNode: [Int: SKSpriteNode] = [:]
-    var mediumAssNode: [Int: SKSpriteNode] = [:]
-    var smallAssNode: [Int: SKSpriteNode] = [:]
+    var largeAssNodesInAction: [Int: SKSpriteNode] = [:]
+    var mediumAssNodesInAction: [Int: SKSpriteNode] = [:]
+    var smallAssNodesInAction: [Int: SKSpriteNode] = [:]
     
     let assNodeMax: Int = 9
     let missileCategory: UInt32 = 0b0001
@@ -335,25 +335,25 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         for counter in 0...assNodeMax {
             //print("assNode: ", assNode)
-            checkOutOfBounds(for: self.assNode[counter]!)
+            checkOutOfBounds(for: self.largeAssNodesInAction[counter]!)
         }
         
         
         
-        for mediumAssNodeCounter in 0...self.mediumAssNode.count {
+        for mediumAssNodeCounter in 0...self.mediumAssNodesInAction.count {
             
-            if mediumAssNode[mediumAssNodeCounter] != nil {
+            if mediumAssNodesInAction[mediumAssNodeCounter] != nil {
                 //print("mediumAssNode in update: ", mediumAssNode)
-                checkOutOfBounds(for: self.mediumAssNode[mediumAssNodeCounter]!)
+                checkOutOfBounds(for: self.mediumAssNodesInAction[mediumAssNodeCounter]!)
             }
         }
         
         
-        for smallAssNodeCounter in 0...self.mediumAssNode.count {
+        for smallAssNodeCounter in 0...self.mediumAssNodesInAction.count {
             
-            if smallAssNode[smallAssNodeCounter] != nil {
+            if smallAssNodesInAction[smallAssNodeCounter] != nil {
                 //print("mediumAssNode in update: ", mediumAssNode)
-                checkOutOfBounds(for: self.smallAssNode[smallAssNodeCounter]!)
+                checkOutOfBounds(for: self.smallAssNodesInAction[smallAssNodeCounter]!)
             }
         }
         
@@ -477,7 +477,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 spriteNode.physicsBody?.affectedByGravity = false
                 
                 self.addChild(spriteNode)
-                self.assNode[counter] = spriteNode
+                self.largeAssNodesInAction[counter] = spriteNode
                 
                 
                 
@@ -544,9 +544,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             spriteNode.physicsBody?.contactTestBitMask = missileCategory
             spriteNode.physicsBody?.affectedByGravity = false
             
-            mediumAssNode[self.mediumAssNodeCounter] = spriteNode
+            mediumAssNodesInAction[self.mediumAssNodeCounter] = spriteNode
             print("mediumAssNodeCounter: ", mediumAssNodeCounter)
-            print("mediumAssNode: ", mediumAssNode)
+            print("mediumAssNode: ", mediumAssNodesInAction)
             addChild(spriteNode)
             self.mediumAssNodeCounter += 1
         }
@@ -571,7 +571,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             spriteNode.physicsBody?.contactTestBitMask = missileCategory
             spriteNode.physicsBody?.affectedByGravity = false
             
-            mediumAssNode[mediumAssNodeCounter] = spriteNode
+            mediumAssNodesInAction[mediumAssNodeCounter] = spriteNode
             addChild(spriteNode)
             mediumAssNodeCounter += 1
             
@@ -617,7 +617,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             spriteNode.physicsBody?.contactTestBitMask = missileCategory
             spriteNode.physicsBody?.affectedByGravity = false
             
-            smallAssNode[self.smallAssNodeCounter] = spriteNode
+            smallAssNodesInAction[self.smallAssNodeCounter] = spriteNode
 //            print("mediumAssNodeCounter: ", mediumAssNodeCounter)
 //            print("mediumAssNode: ", mediumAssNode)
             addChild(spriteNode)
@@ -645,7 +645,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             spriteNode.physicsBody?.contactTestBitMask = missileCategory
             spriteNode.physicsBody?.affectedByGravity = false
             
-            smallAssNode[smallAssNodeCounter] = spriteNode
+            smallAssNodesInAction[smallAssNodeCounter] = spriteNode
             addChild(spriteNode)
             smallAssNodeCounter += 1
             
