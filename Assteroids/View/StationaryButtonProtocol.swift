@@ -21,27 +21,3 @@ protocol StationaryButtonProtocol: SKSpriteNode {
 }
 
 
-/*
- 
- stationary button protocol has init methods for size, position, anchorpoint, image, etc. all necessary for buttons
- 
- class Rotate: StationaryButtonProtocol {
- 
-    //required properties
- 
- 
-    init(systemName: String, anchorPoint: CGPoint, size: CGSize, position: CGPoint, zPosition: CGFloat) {
-        // initialization
-    }
-    init(named: String, anchorPoint: CGPoint, size: CGSize, position: CGPoint, zPosition: CGFloat) {
-        // initialization
-    }
- 
-    init(rotationDirection: String, systemName: String, anchorPoint: CGPoint, size: CGSize, position: CGPoint, zPosition: CGFloat) {
-        // initialization
-    }
- 
- 
- }
- 
- */

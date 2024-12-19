@@ -8,10 +8,6 @@
 import Foundation
 import SpriteKit
 
-
-// TODO: - fix position of missile to match spaceship
-// TODO: - fix applyForce() method so that missile is propelled
-
 class MissileNode: SKSpriteNode, PhysicsNodeProtocol {
     required init(systemName: String = K.missileAssetName, anchorPoint: CGPoint = CGPoint(x: 0, y: 0), size: CGSize, position: CGPoint, zPosition: CGFloat = 10.0, zRotation: CGFloat, name: String = "missile") {
         var asset: UIImage {
