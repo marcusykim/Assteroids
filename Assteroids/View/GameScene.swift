@@ -445,9 +445,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         for counter in 0...assNodeMax {
             
             //TODO: - get the loop to be like this line
-            //self.assNode[counter] = Assteroid()
             
-            if let ass = UIImage(named: "FlippedAss")?.withTintColor(.white) {
+            /*
+             // loop 0...assNodesMax
+                 // Assteroids()
+             */
+            
+           
+            
+            //print(largeAssNodesInAction)
+            
+            if let ass = UIImage(named: "flippedAss")?.withTintColor(.white) {
+                
+                print(largeAssNodesInAction)
                 
                 let texture = SKTexture(image: ass)
                 let spriteNode = SKSpriteNode(texture: texture)
