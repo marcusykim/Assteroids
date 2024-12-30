@@ -27,7 +27,13 @@ import SpriteKit
 
 
 class Assteroid: SKSpriteNode, PhysicsNodeProtocol {
-    required init(systemName: String, anchorPoint: CGPoint, size: CGSize, position: CGPoint, zPosition: CGFloat, zRotation: CGFloat, name: String) {
+    
+    var assteroidCategory: UInt32 = 
+    var missileCategory: UInt32 = K.missileCategory
+    
+    //TODO: - figure out how to flexibly create small, medium, or large assteroid depending on some certain parameter that we pass during instiation of the Assteroid object. 
+    
+    required init(systemName: String, anchorPoint: CGPoint, size: CGSize, position: CGPoint, zPosition: CGFloat, zRotation: CGFloat, name: String, _ assteroidType: String) {
         var asset: UIImage {
             
             var newImage = UIImage()
@@ -47,11 +53,12 @@ class Assteroid: SKSpriteNode, PhysicsNodeProtocol {
         self.zPosition = zPosition
         self.zRotation = zRotation
         self.name = name
+        self.assteroidCategory = assteroidCategory
         
         createPhysicsBody(size: size)
     }
     
-    required init(named: String, anchorPoint: CGPoint, size: CGSize, position: CGPoint, zPosition: CGFloat, zRotation: CGFloat, name: String) {
+    required init(named: String, anchorPoint: CGPoint, size: CGSize, position: CGPoint, zPosition: CGFloat, zRotation: CGFloat, name: String, _ assteroidCategory: UInt32) {
         var asset: UIImage {
             
             var newImage = UIImage()
@@ -71,6 +78,7 @@ class Assteroid: SKSpriteNode, PhysicsNodeProtocol {
         self.zPosition = zPosition
         self.zRotation = zRotation
         self.name = name
+        self.assteroidCategory = assteroidCategory
         
         createPhysicsBody(size: size)
     }
@@ -81,6 +89,16 @@ class Assteroid: SKSpriteNode, PhysicsNodeProtocol {
     
     func createPhysicsBody(size: CGSize) {
         
+        let velocity = Int.random(in: 1...3)
+        
+        self.physicsBody = SKPhysicsBody(rectangleOf: self.size)
+        self.physicsBody?.isDynamic = true
+        self.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
+        self.physicsBody?.velocity = CGVector(dx: velocity, dy: velocity)  // Ensure no initial velocity
+        self.physicsBody?.angularVelocity = CGFloat(integerLiteral: velocity)  // Ensure no initial angular velocity
+        self.physicsBody?.categoryBitMask = assteroidCategory
+        self.physicsBody?.contactTestBitMask = missileCategory
+        self.physicsBody?.affectedByGravity = false
     }
     
     

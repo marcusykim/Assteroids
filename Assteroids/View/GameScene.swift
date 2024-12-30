@@ -49,10 +49,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var smallAssNodesInAction: [Int: SKSpriteNode] = [:]
     
     let assNodeMax: Int = 9
-    let missileCategory: UInt32 = 0b0001
-    let asteroidCategory: UInt32 = 0b0010
-    let mediumAsteroidCategory: UInt32 = 0b0100
-    let smallAsteroidCategory: UInt32 = 0b1000
+    let missileCategory: UInt32 = K.missileCategory
+    let largeAssteroidCategory: UInt32 = K.largeAssteroidCategory
+    let mediumAssteroidCategory: UInt32 = K.mediumAssteroidCategory
+    let smallAssteroidCategory: UInt32 = K.smallAssteroidCategory
     
     var score: Int = 0 {
          didSet {
@@ -190,9 +190,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 switch gestureRecognizer.state {
                         case .began:
                             firing = true
-                            var missile = MissileNode(size: spaceship.size, position: spaceship.position, zRotation: spaceship.zRotation)
+                            let missile = MissileNode(size: spaceship.size, position: spaceship.position, zRotation: spaceship.zRotation)
                             addChild(missile)
-                            whenMissileFired = missile.fireMissile(missileCategory, asteroidCategory, missileCategory) // returns a Date data type
+                            whenMissileFired = missile.fireMissile(missileCategory, largeAssteroidCategory, mediumAssteroidCategory, smallAssteroidCategory) // returns a Date data type
                     
                             if missileDictionary.isEmpty {
                                 missileDictionary[1] = missile
@@ -442,6 +442,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 
     func generateAssteroids(position: CGPoint = CGPoint(x: 0, y: 0)) {
         
+        
+        //TODO: - figure out how to flexibly create small, medium, or large assteroid depending on some certain parameter that we pass during instiation of the Assteroid object.
+        
+        
         for counter in 0...assNodeMax {
             
             //TODO: - get the loop to be like this line
@@ -482,7 +486,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 spriteNode.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
                 spriteNode.physicsBody?.velocity = CGVector(dx: velocity, dy: velocity)  // Ensure no initial velocity
                 spriteNode.physicsBody?.angularVelocity = CGFloat(integerLiteral: velocity)  // Ensure no initial angular velocity
-                spriteNode.physicsBody?.categoryBitMask = asteroidCategory
+                spriteNode.physicsBody?.categoryBitMask = largeAssteroidCategory
                 spriteNode.physicsBody?.contactTestBitMask = missileCategory
                 spriteNode.physicsBody?.affectedByGravity = false
                 
@@ -501,19 +505,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
           
         let collisionMask = contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask
 
-                if collisionMask == (missileCategory | asteroidCategory) {
+                if collisionMask == (missileCategory | largeAssteroidCategory) {
                     if let collidedMissileNode = contact.bodyA.node as? SKSpriteNode, let collidedAssNode = contact.bodyB.node as? SKSpriteNode {
                     
                         missileDidCollideWithAsteroid(missile: collidedMissileNode, asteroid: collidedAssNode)
                     }
-                } else if collisionMask == (missileCategory | mediumAsteroidCategory) {
+                } else if collisionMask == (missileCategory | mediumAssteroidCategory) {
                     // Handle collision between missile and medium asteroid
                     if let collidedMissileNode = contact.bodyA.node as? SKSpriteNode, let collidedAssNode = contact.bodyB.node as? SKSpriteNode {
                                            
                         missileDidCollideWithMediumAsteroid(missile: collidedMissileNode, asteroid: collidedAssNode)
                     }
                     
-                } else if collisionMask == (missileCategory | smallAsteroidCategory) {
+                } else if collisionMask == (missileCategory | smallAssteroidCategory) {
                     if let collidedMissileNode = contact.bodyA.node as? SKSpriteNode, let collidedAssNode = contact.bodyB.node as? SKSpriteNode {
                                            
                         missileDidCollideWithSmallAsteroid(missile: collidedMissileNode, asteroid: collidedAssNode)
@@ -550,7 +554,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             spriteNode.physicsBody?.isDynamic = true
             spriteNode.physicsBody?.velocity = CGVector(dx: velocity, dy: velocity)  // Ensure no initial velocity
             spriteNode.physicsBody?.angularVelocity = CGFloat(integerLiteral: velocity)  // Ensure no initial angular velocity
-            spriteNode.physicsBody?.categoryBitMask = mediumAsteroidCategory
+            spriteNode.physicsBody?.categoryBitMask = mediumAssteroidCategory
             spriteNode.physicsBody?.contactTestBitMask = missileCategory
             spriteNode.physicsBody?.affectedByGravity = false
             
@@ -577,7 +581,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             spriteNode.physicsBody?.isDynamic = true
             spriteNode.physicsBody?.velocity = CGVector(dx: velocity, dy: velocity)  // Ensure no initial velocity
             spriteNode.physicsBody?.angularVelocity = CGFloat(integerLiteral: velocity)  // Ensure no initial angular velocity
-            spriteNode.physicsBody?.categoryBitMask = mediumAsteroidCategory
+            spriteNode.physicsBody?.categoryBitMask = mediumAssteroidCategory
             spriteNode.physicsBody?.contactTestBitMask = missileCategory
             spriteNode.physicsBody?.affectedByGravity = false
             
@@ -623,7 +627,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             spriteNode.physicsBody?.isDynamic = true
             spriteNode.physicsBody?.velocity = CGVector(dx: velocity, dy: velocity)  // Ensure no initial velocity
             spriteNode.physicsBody?.angularVelocity = CGFloat(integerLiteral: velocity)  // Ensure no initial angular velocity
-            spriteNode.physicsBody?.categoryBitMask = smallAsteroidCategory
+            spriteNode.physicsBody?.categoryBitMask = smallAssteroidCategory
             spriteNode.physicsBody?.contactTestBitMask = missileCategory
             spriteNode.physicsBody?.affectedByGravity = false
             
@@ -651,7 +655,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             spriteNode.physicsBody?.isDynamic = true
             spriteNode.physicsBody?.isDynamic = true
             spriteNode.physicsBody?.angularVelocity = CGFloat(integerLiteral: velocity)  // Ensure no initial angular velocity
-            spriteNode.physicsBody?.categoryBitMask = smallAsteroidCategory
+            spriteNode.physicsBody?.categoryBitMask = smallAssteroidCategory
             spriteNode.physicsBody?.contactTestBitMask = missileCategory
             spriteNode.physicsBody?.affectedByGravity = false
             

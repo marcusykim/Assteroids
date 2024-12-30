@@ -9,6 +9,12 @@ import Foundation
 import SpriteKit
 
 class MissileNode: SKSpriteNode, PhysicsNodeProtocol {
+    
+    let missileCategory: UInt32 = K.missileCategory
+    let largeAssteroidCategory: UInt32 = K.largeAssteroidCategory
+    let mediumAssteroidCategory: UInt32 = K.mediumAssteroidCategory
+    let smallAssteroidCategory: UInt32 = K.smallAssteroidCategory
+    
     required init(systemName: String = K.missileAssetName, anchorPoint: CGPoint = CGPoint(x: 0, y: 0), size: CGSize, position: CGPoint, zPosition: CGFloat = 10.0, zRotation: CGFloat, name: String = "missile") {
         var asset: UIImage {
             
@@ -75,8 +81,8 @@ class MissileNode: SKSpriteNode, PhysicsNodeProtocol {
         self.physicsBody?.affectedByGravity = false
     }
     
-    func fireMissile(_ missileCategory: UInt32, _ asteroidCategory: UInt32, _ mediumAsteroidCategory: UInt32) -> Date { // put into MissileNode class
-
+    func fireMissile(_ missileCategory: UInt32, _ largeAssteroidCategory: UInt32, _ mediumAssteroidCategory: UInt32, _ smallAssteroidCategory: UInt32) -> Date { // put into MissileNode class
+        
         let angleInRadians = self.zRotation
         
         let forceMagnitude: CGFloat = 7500.0
@@ -86,31 +92,20 @@ class MissileNode: SKSpriteNode, PhysicsNodeProtocol {
         
         let force = CGVector(dx: deltaX, dy: deltaY)
         
-        // Apply the force to the missile's physics body
-        
         func applyCustomForce(_ force: CGVector) {
-                print("Applying force: \(force) to missile at position: \(self.position)")
-                
-                // Apply the force to the physics body
-                self.physicsBody?.applyForce(force)
-            }
+            print("Applying force: \(force) to missile at position: \(self.position)")
+            
+            self.physicsBody?.applyForce(force)
+        }
         
-        //self.physicsBody?.applyForce(force)
         applyCustomForce(force)
         self.physicsBody?.categoryBitMask = missileCategory
-        self.physicsBody?.contactTestBitMask = asteroidCategory | mediumAsteroidCategory
-        //tempMissile.physicsBody?.contactTestBitMask = asteroidCategory
+        self.physicsBody?.contactTestBitMask = largeAssteroidCategory | mediumAssteroidCategory | smallAssteroidCategory
         self.physicsBody?.affectedByGravity = false
 
         return Date()
         
-        
-    //TODO: - create MissileNode class, add the following logic to handleLongPress()
-        
-        
     }
-    
-    
 }
 
 
