@@ -28,12 +28,12 @@ import SpriteKit
 
 class Assteroid: SKSpriteNode, PhysicsNodeProtocol {
     
-    var assteroidCategory: UInt32 = 
+    var assteroidCategory: UInt32 = K.largeAssteroidCategory
     var missileCategory: UInt32 = K.missileCategory
     
     //TODO: - figure out how to flexibly create small, medium, or large assteroid depending on some certain parameter that we pass during instiation of the Assteroid object. 
     
-    required init(systemName: String, anchorPoint: CGPoint, size: CGSize, position: CGPoint, zPosition: CGFloat, zRotation: CGFloat, name: String, _ assteroidType: String) {
+    required init(systemName: String, anchorPoint: CGPoint, size: CGSize, position: CGPoint = CGPoint(x: 0.0, y: 0.0), zPosition: CGFloat, zRotation: CGFloat, name: String, _ assteroidCategory: UInt32) {
         var asset: UIImage {
             
             var newImage = UIImage()
@@ -48,17 +48,25 @@ class Assteroid: SKSpriteNode, PhysicsNodeProtocol {
         }
         let texture = SKTexture(image: asset)
         super.init(texture: texture, color: .white, size: texture.size())
-        self.anchorPoint = anchorPoint
-        self.position = position
+        
+        let randomNegX = Int.random(in: -426 ... -150)
+        let randomPosX = Int.random(in: 150...426)
+        let randomNegY = Int.random(in: -196 ... -75)
+        let randomPosY = Int.random(in: 75...196)
+        
+        let xCoordinate = [randomNegX, randomPosX]
+        let yCoordinate = [randomNegY, randomPosY]
+        self.position = CGPoint(x: xCoordinate[Int.random(in: 0...1)], y: yCoordinate[Int.random(in: 0...1)])
         self.zPosition = zPosition
         self.zRotation = zRotation
+        self.anchorPoint = anchorPoint
         self.name = name
         self.assteroidCategory = assteroidCategory
         
         createPhysicsBody(size: size)
     }
     
-    required init(named: String, anchorPoint: CGPoint, size: CGSize, position: CGPoint, zPosition: CGFloat, zRotation: CGFloat, name: String, _ assteroidCategory: UInt32) {
+    required init(named: String = K.assAssetName, anchorPoint: CGPoint = CGPoint(x: 0.5, y: 0.5), size: CGSize = CGSize(width: CGFloat(75.0), height: CGFloat(75.0)), position: CGPoint = CGPoint(x: 0.0, y: 0.0), zPosition: CGFloat = CGFloat(10.0), zRotation: CGFloat = CGFloat(10.0), name: String = "assteroid", _ assteroidCategory: UInt32 = K.largeAssteroidCategory) {
         var asset: UIImage {
             
             var newImage = UIImage()
@@ -73,10 +81,18 @@ class Assteroid: SKSpriteNode, PhysicsNodeProtocol {
         }
         let texture = SKTexture(image: asset)
         super.init(texture: texture, color: .white, size: texture.size())
-        self.anchorPoint = anchorPoint
-        self.position = position
+        
+        let randomNegX = Int.random(in: -426 ... -150)
+        let randomPosX = Int.random(in: 150...426)
+        let randomNegY = Int.random(in: -196 ... -75)
+        let randomPosY = Int.random(in: 75...196)
+        
+        let xCoordinate = [randomNegX, randomPosX]
+        let yCoordinate = [randomNegY, randomPosY]
+        self.position = CGPoint(x: xCoordinate[Int.random(in: 0...1)], y: yCoordinate[Int.random(in: 0...1)])
         self.zPosition = zPosition
         self.zRotation = zRotation
+        self.anchorPoint = anchorPoint
         self.name = name
         self.assteroidCategory = assteroidCategory
         
@@ -89,7 +105,7 @@ class Assteroid: SKSpriteNode, PhysicsNodeProtocol {
     
     func createPhysicsBody(size: CGSize) {
         
-        let velocity = Int.random(in: 1...3)
+        let velocity = 1 //Int.random(in: 1...2)
         
         self.physicsBody = SKPhysicsBody(rectangleOf: self.size)
         self.physicsBody?.isDynamic = true

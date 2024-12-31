@@ -15,7 +15,7 @@ class MissileNode: SKSpriteNode, PhysicsNodeProtocol {
     let mediumAssteroidCategory: UInt32 = K.mediumAssteroidCategory
     let smallAssteroidCategory: UInt32 = K.smallAssteroidCategory
     
-    required init(systemName: String = K.missileAssetName, anchorPoint: CGPoint = CGPoint(x: 0, y: 0), size: CGSize, position: CGPoint, zPosition: CGFloat = 10.0, zRotation: CGFloat, name: String = "missile") {
+    required init(systemName: String = K.missileAssetName, anchorPoint: CGPoint = CGPoint(x: 0, y: 0), size: CGSize, position: CGPoint, zPosition: CGFloat = 10.0, zRotation: CGFloat, name: String = "missile", _ assteroidCategory: UInt32 = K.largeAssteroidCategory) {
         var asset: UIImage {
             
             var newImage = UIImage()
@@ -42,7 +42,7 @@ class MissileNode: SKSpriteNode, PhysicsNodeProtocol {
         
     }
     
-    required init(named: String, anchorPoint: CGPoint = CGPoint(x: 0, y: 0), size: CGSize, position: CGPoint, zPosition: CGFloat = 10.0, zRotation: CGFloat, name: String = "missile") {
+    required init(named: String, anchorPoint: CGPoint = CGPoint(x: 0, y: 0), size: CGSize, position: CGPoint, zPosition: CGFloat = 10.0, zRotation: CGFloat, name: String = "missile", _ assteroidCategory: UInt32 = K.largeAssteroidCategory) {
         var asset: UIImage {
             
             var newImage = UIImage()

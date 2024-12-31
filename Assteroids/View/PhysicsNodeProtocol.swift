@@ -10,8 +10,8 @@ import SpriteKit
 
 protocol PhysicsNodeProtocol: SKSpriteNode {
     
-    init(systemName: String, anchorPoint: CGPoint, size: CGSize, position: CGPoint, zPosition: CGFloat, zRotation: CGFloat, name: String, _ assteroidType: String)
-    init(named: String, anchorPoint: CGPoint, size: CGSize, position: CGPoint, zPosition: CGFloat, zRotation: CGFloat, name: String, _ assteroidType: String)
+    init(systemName: String, anchorPoint: CGPoint, size: CGSize, position: CGPoint, zPosition: CGFloat, zRotation: CGFloat, name: String, _ assteroidCategory: UInt32)
+    init(named: String, anchorPoint: CGPoint, size: CGSize, position: CGPoint, zPosition: CGFloat, zRotation: CGFloat, name: String, _ assteroidCategory: UInt32)
     
     func createPhysicsBody(size: CGSize) // create SKPhysicsBody and customize
     

@@ -16,7 +16,7 @@ class SpaceshipNode: SKSpriteNode, PhysicsNodeProtocol{
     
     var velocity: CGVector = CGVector(dx: 0, dy: 0)
     
-    required init(systemName: String = K.spaceshipAssetName, anchorPoint: CGPoint = CGPoint(x: 0.5, y: 0.5), size: CGSize = CGSize(width: 50.0, height: 50.0), position: CGPoint = CGPoint(x: 0, y: 0), zPosition: CGFloat = 10, zRotation: CGFloat = CGFloat.pi / 2, name: String = "spaceship") {
+    required init(systemName: String = K.spaceshipAssetName, anchorPoint: CGPoint = CGPoint(x: 0.5, y: 0.5), size: CGSize = CGSize(width: 50.0, height: 50.0), position: CGPoint = CGPoint(x: 0, y: 0), zPosition: CGFloat = 10, zRotation: CGFloat = CGFloat.pi / 2, name: String = "spaceship", _ assteroidCategory: UInt32 = K.largeAssteroidCategory) {
         var asset: UIImage {
             
             var newImage = UIImage()
@@ -42,7 +42,7 @@ class SpaceshipNode: SKSpriteNode, PhysicsNodeProtocol{
         
     }
     
-    required init(named: String = K.spaceshipAssetName, anchorPoint: CGPoint = CGPoint(x: 0.5, y: 0.5), size: CGSize = CGSize(width: 50.0, height: 50.0), position: CGPoint = CGPoint(x: 0.0, y: 0.0), zPosition: CGFloat = 10, zRotation: CGFloat = CGFloat.pi / 2, name: String = "spaceship") {
+    required init(named: String = K.spaceshipAssetName, anchorPoint: CGPoint = CGPoint(x: 0.5, y: 0.5), size: CGSize = CGSize(width: 50.0, height: 50.0), position: CGPoint = CGPoint(x: 0.0, y: 0.0), zPosition: CGFloat = 10, zRotation: CGFloat = CGFloat.pi / 2, name: String = "spaceship", _ assteroidCategory: UInt32 = K.largeAssteroidCategory) {
         var asset: UIImage {
             
             var newImage = UIImage()

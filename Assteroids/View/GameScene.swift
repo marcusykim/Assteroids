@@ -440,62 +440,60 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
 
-    func generateAssteroids(position: CGPoint = CGPoint(x: 0, y: 0)) {
-        
-        
-        //TODO: - figure out how to flexibly create small, medium, or large assteroid depending on some certain parameter that we pass during instiation of the Assteroid object.
-        
+    func generateAssteroids() {
         
         for counter in 0...assNodeMax {
             
-            //TODO: - get the loop to be like this line
+            var assteroid: Assteroid = Assteroid()
             
-            /*
-             // loop 0...assNodesMax
-                 // Assteroids()
-             */
+            self.addChild(assteroid)
+            self.largeAssNodesInAction[counter] = assteroid
             
-           
+            
+            
+            
+            
+            
             
             //print(largeAssNodesInAction)
             
-            if let ass = UIImage(named: "flippedAss")?.withTintColor(.white) {
-                
-                print(largeAssNodesInAction)
-                
-                let texture = SKTexture(image: ass)
-                let spriteNode = SKSpriteNode(texture: texture)
-                
-                spriteNode.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-                spriteNode.size = CGSize(width: CGFloat(100.0), height: CGFloat(100.0))
-                
-                let randomNegX = Int.random(in: -426 ... -150)
-                let randomPosX = Int.random(in: 150...426)
-                let randomNegY = Int.random(in: -196 ... -75)
-                let randomPosY = Int.random(in: 75...196)
-                
-                let xCoordinate = [randomNegX, randomPosX]
-                let yCoordinate = [randomNegY, randomPosY]
-                
-                spriteNode.position = CGPoint(x: xCoordinate[Int.random(in: 0...1)], y: yCoordinate[Int.random(in: 0...1)])
-                
-                let velocity = Int.random(in: 1...3)
-                
-                spriteNode.physicsBody = SKPhysicsBody(rectangleOf: spriteNode.size)
-                spriteNode.physicsBody?.isDynamic = true
-                spriteNode.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
-                spriteNode.physicsBody?.velocity = CGVector(dx: velocity, dy: velocity)  // Ensure no initial velocity
-                spriteNode.physicsBody?.angularVelocity = CGFloat(integerLiteral: velocity)  // Ensure no initial angular velocity
-                spriteNode.physicsBody?.categoryBitMask = largeAssteroidCategory
-                spriteNode.physicsBody?.contactTestBitMask = missileCategory
-                spriteNode.physicsBody?.affectedByGravity = false
-                
-                self.addChild(spriteNode)
-                self.largeAssNodesInAction[counter] = spriteNode
-                
-                
-                
-            }
+//            if let ass = UIImage(named: "flippedAss")?.withTintColor(.white) {
+//                
+//                print(largeAssNodesInAction)
+//                
+//                let texture = SKTexture(image: ass)
+//                let spriteNode = SKSpriteNode(texture: texture)
+//                
+//                spriteNode.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+//                spriteNode.size = CGSize(width: CGFloat(100.0), height: CGFloat(100.0))
+//                
+//                let randomNegX = Int.random(in: -426 ... -150)
+//                let randomPosX = Int.random(in: 150...426)
+//                let randomNegY = Int.random(in: -196 ... -75)
+//                let randomPosY = Int.random(in: 75...196)
+//                
+//                let xCoordinate = [randomNegX, randomPosX]
+//                let yCoordinate = [randomNegY, randomPosY]
+//                
+//                spriteNode.position = CGPoint(x: xCoordinate[Int.random(in: 0...1)], y: yCoordinate[Int.random(in: 0...1)])
+//                
+//                let velocity = Int.random(in: 1...3)
+//                
+//                spriteNode.physicsBody = SKPhysicsBody(rectangleOf: spriteNode.size)
+//                spriteNode.physicsBody?.isDynamic = true
+//                spriteNode.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
+//                spriteNode.physicsBody?.velocity = CGVector(dx: velocity, dy: velocity)  // Ensure no initial velocity
+//                spriteNode.physicsBody?.angularVelocity = CGFloat(integerLiteral: velocity)  // Ensure no initial angular velocity
+//                spriteNode.physicsBody?.categoryBitMask = largeAssteroidCategory
+//                spriteNode.physicsBody?.contactTestBitMask = missileCategory
+//                spriteNode.physicsBody?.affectedByGravity = false
+//                
+//                self.addChild(spriteNode)
+//                self.largeAssNodesInAction[counter] = spriteNode
+//                
+//                
+//                
+//            }
             
             
         }
