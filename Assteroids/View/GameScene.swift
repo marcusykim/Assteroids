@@ -439,7 +439,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         return nil
     }
     
+    
+  
+    // TODO: - We want the below generateAssteroids() method to handle the creation of assteroids of all sizes
+    
+    /*
+        we might call this method repeatedly from a loop elsewhere. That way, we can dedicate this method to just one purpose, which is to create a single assteroid of a specified size each time it's called. we were able to specify different sizes with a switch statement, see Assteroid class
+     
+        for medium assteroids: we'll need to call this method twice when a missile collides with a large, once for each medium assteroid. we'll need to pass into the initializer the mediumAssteroidCategory variable. From there we'll need to create an assteroid of a smaller size by adjusting the size: CGSize() during instantiation
+     
+        
+     
+     */
 
+    
     func generateAssteroids() {
         
         for counter in 0...assNodeMax {

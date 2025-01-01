@@ -20,4 +20,7 @@ enum K {
     static let largeAssteroidCategory: UInt32 = 0b0010
     static let mediumAssteroidCategory: UInt32 = 0b0100
     static let smallAssteroidCategory: UInt32 = 0b1000
+    static let largeAssteroidSize: CGSize = CGSize(width: 75.0, height: 75.0)
+    static let mediumAssteroidSize: CGSize = CGSize(width: 50.0, height: 50.0)
+    static let smallAssteroidSize: CGSize = CGSize(width: 25.0, height: 25.0)
 }
