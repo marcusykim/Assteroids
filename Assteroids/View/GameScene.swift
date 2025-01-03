@@ -1,4 +1,4 @@
-//
+
 //  GameScene.swift
 //  Assteroids
 //
@@ -53,6 +53,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     let largeAssteroidCategory: UInt32 = K.largeAssteroidCategory
     let mediumAssteroidCategory: UInt32 = K.mediumAssteroidCategory
     let smallAssteroidCategory: UInt32 = K.smallAssteroidCategory
+    var currentAssteroidCategory: UInt32 = K.largeAssteroidCategory
     
     var score: Int = 0 {
          didSet {
@@ -95,7 +96,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         self.addChild(generatePoop(position: CGPoint(x: 150, y: 0))!)
         
-        generateAssteroids()
+        for _ in 0...assNodeMax {
+            generateAssteroids(K.largeAssteroidCategory)
+        }
         
         // makeButton(node: SKSpriteNode) pass the data to this method and pass in a different node for each button
         generateButtons()
@@ -333,6 +336,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         counter = 0
         
+        
+        // TODO: - The below loop throws an exception. We are currently checking the dictionary for entries that have not been created yet
+        
         for counter in 0...assNodeMax {
             //print("assNode: ", assNode)
             checkOutOfBounds(for: self.largeAssNodesInAction[counter]!)
@@ -446,26 +452,50 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     /*
         we might call this method repeatedly from a loop elsewhere. That way, we can dedicate this method to just one purpose, which is to create a single assteroid of a specified size each time it's called. we were able to specify different sizes with a switch statement, see Assteroid class
      
-        for medium assteroids: we'll need to call this method twice when a missile collides with a large, once for each medium assteroid. we'll need to pass into the initializer the mediumAssteroidCategory variable. From there we'll need to create an assteroid of a smaller size by adjusting the size: CGSize() during instantiation
+        for medium assteroids: we'll need to call this method twice when a missile collides with a large assteroid, once for each medium assteroid being created. we'll need to pass into the initializer the mediumAssteroidCategory variable. From there we'll need to create an assteroid of a smaller size by adjusting the size: CGSize() during instantiation. we did this as mentioned before with a switch statement 
      
         
      
      */
 
-    
-    func generateAssteroids() {
+    func generateAssteroids(_ currentAssteroidCategory: UInt32) {
+            
+        var currentAssteroid: Assteroid
         
-        for counter in 0...assNodeMax {
-            
-            var assteroid: Assteroid = Assteroid()
-            
-            self.addChild(assteroid)
-            self.largeAssNodesInAction[counter] = assteroid
-            
-            
-            
-            
-            
+        switch currentAssteroidCategory {
+            case K.largeAssteroidCategory:
+                do {
+                    let highestKey = self.largeAssNodesInAction.keys.max() ?? 0
+                    let nextKey = highestKey + 1
+                    
+                    currentAssteroid = Assteroid(K.largeAssteroidCategory)
+                    addChild(currentAssteroid)
+                    
+                    largeAssNodesInAction[nextKey] = currentAssteroid
+                }
+            case K.mediumAssteroidCategory:
+                do {
+                    let highestKey = self.mediumAssNodesInAction.keys.max() ?? 0
+                    let nextKey = highestKey + 1
+                    
+                    currentAssteroid = Assteroid(K.mediumAssteroidCategory)
+                    addChild(currentAssteroid)
+                    
+                    mediumAssNodesInAction[nextKey] = currentAssteroid
+                }
+            case K.smallAssteroidCategory:
+                do {
+                    let highestKey = self.smallAssNodesInAction.keys.max() ?? 0
+                    let nextKey = highestKey + 1
+                    
+                    currentAssteroid = Assteroid(K.smallAssteroidCategory)
+                    addChild(currentAssteroid)
+                    
+                    smallAssNodesInAction[nextKey] = currentAssteroid
+                }
+            default:
+                return
+        }
             
             
             //print(largeAssNodesInAction)
@@ -509,7 +539,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 //            }
             
             
-        }
+        
         
     }
     func didBegin(_ contact: SKPhysicsContact) {

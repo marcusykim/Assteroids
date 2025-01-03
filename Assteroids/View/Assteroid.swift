@@ -66,7 +66,7 @@ class Assteroid: SKSpriteNode, PhysicsNodeProtocol {
         createPhysicsBody(size: size)
     }
     
-    required init(named: String = K.assAssetName, anchorPoint: CGPoint = CGPoint(x: 0.5, y: 0.5), size: CGSize = K.largeAssteroidSize, height: CGFloat(75.0)), position: CGPoint = CGPoint(x: 0.0, y: 0.0), zPosition: CGFloat = CGFloat(10.0), zRotation: CGFloat = CGFloat(10.0), name: String = "assteroid", _ assteroidCategory: UInt32) {
+    required init(named: String = K.assAssetName, anchorPoint: CGPoint = CGPoint(x: 0.5, y: 0.5), size: CGSize = K.largeAssteroidSize, position: CGPoint = CGPoint(x: 0.0, y: 0.0), zPosition: CGFloat = CGFloat(10.0), zRotation: CGFloat = CGFloat(10.0), name: String = "assteroid", _ assteroidCategory: UInt32) {
         var asset: UIImage {
             
             var newImage = UIImage()
