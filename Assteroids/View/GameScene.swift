@@ -48,7 +48,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var mediumAssNodesInAction: [Int: SKSpriteNode] = [:]
     var smallAssNodesInAction: [Int: SKSpriteNode] = [:]
     
-    let assNodeMax: Int = 9
+    let assNodeMax: Int = 10
     let missileCategory: UInt32 = K.missileCategory
     let largeAssteroidCategory: UInt32 = K.largeAssteroidCategory
     let mediumAssteroidCategory: UInt32 = K.mediumAssteroidCategory
@@ -339,7 +339,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         // TODO: - The below loop throws an exception. We are currently checking the dictionary for entries that have not been created yet
         
-        for counter in 0...assNodeMax {
+        for counter in 1...assNodeMax {
             //print("assNode: ", assNode)
             checkOutOfBounds(for: self.largeAssNodesInAction[counter]!)
         }
@@ -459,8 +459,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
      */
 
     func generateAssteroids(_ currentAssteroidCategory: UInt32) {
-            
+        
         var currentAssteroid: Assteroid
+        
+        print("0b" + String(currentAssteroidCategory, radix: 2))
         
         switch currentAssteroidCategory {
             case K.largeAssteroidCategory:
@@ -472,6 +474,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     addChild(currentAssteroid)
                     
                     largeAssNodesInAction[nextKey] = currentAssteroid
+                    
+                    print("key \(nextKey): \(String(describing: largeAssNodesInAction[nextKey]))")
                 }
             case K.mediumAssteroidCategory:
                 do {
