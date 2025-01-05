@@ -458,6 +458,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
      
      */
 
+    
+    //TODO: - in the below generateAssteroids() method. we should be able to know what the position of the large assteroid that has been collided with so that we can generate two medium assteroids at that position. The same thing needs to happen when medium goes to small assteroids. we should call this method twice each time a medium or small assteroid need to be generated.  we should manage the removal of the assteroids here because the removal is simply remove the node by using removeChild().
+    
     func generateAssteroids(_ currentAssteroidCategory: UInt32) {
         
         var currentAssteroid: Assteroid
@@ -549,6 +552,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func didBegin(_ contact: SKPhysicsContact) {
           
         let collisionMask = contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask
+        
+        // TODO: - we need to finish creating the switch statement here that handles the different cases of large, medium, or small assteroid collisions. In each case, we should call the generateAssteroids() method which in turn should create assteroid of the next size down or remove the small assteroid from the screen. This means we will need to pass to the generateAssteroids() the exact Assteroid object that was involved in the collision
+        switch collisionMask {
+        case (missileCategory | largeAssteroidCategory):
+            
+            do {
+                
+                if let collidedMissileNode = contact.bodyA.node as? SKSpriteNode, let collidedAssNode = contact.bodyB.node as? SKSpriteNode {
+                        
+                }
+            }
+        default:
+            return
+        }
 
                 if collisionMask == (missileCategory | largeAssteroidCategory) {
                     if let collidedMissileNode = contact.bodyA.node as? SKSpriteNode, let collidedAssNode = contact.bodyB.node as? SKSpriteNode {
