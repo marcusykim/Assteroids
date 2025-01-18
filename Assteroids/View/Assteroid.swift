@@ -33,7 +33,7 @@ class Assteroid: SKSpriteNode, PhysicsNodeProtocol {
     
     //TODO: - figure out how to flexibly create small, medium, or large assteroid depending on some certain parameter that we pass during instiation of the Assteroid object. 
     
-    required init(systemName: String, anchorPoint: CGPoint, size: CGSize, position: CGPoint = CGPoint(x: 0.0, y: 0.0), zPosition: CGFloat, zRotation: CGFloat, name: String, _ assteroidCategory: UInt32) {
+    required init(systemName: String, anchorPoint: CGPoint, size: CGSize, position: CGPoint = CGPoint(x: 0.0, y: 0.0), zPosition: CGFloat, zRotation: CGFloat, name: String, category: UInt32) {
         var asset: UIImage {
             
             var newImage = UIImage()
@@ -61,12 +61,12 @@ class Assteroid: SKSpriteNode, PhysicsNodeProtocol {
         self.zRotation = zRotation
         self.anchorPoint = anchorPoint
         self.name = name
-        self.assteroidCategory = assteroidCategory
+        self.assteroidCategory = category
         
         createPhysicsBody(size: size)
     }
     
-    required init(named: String = K.assAssetName, anchorPoint: CGPoint = CGPoint(x: 0.5, y: 0.5), size: CGSize = K.largeAssteroidSize, position: CGPoint = CGPoint(x: 0.0, y: 0.0), zPosition: CGFloat = CGFloat(10.0), zRotation: CGFloat = CGFloat(10.0), name: String = "assteroid", _ assteroidCategory: UInt32) {
+    required init(named: String = K.assAssetName, anchorPoint: CGPoint = CGPoint(x: 0.5, y: 0.5), size: CGSize = K.largeAssteroidSize, position: CGPoint = CGPoint(x: 0.0, y: 0.0), zPosition: CGFloat = CGFloat(10.0), zRotation: CGFloat = CGFloat(10.0), name: String = "assteroid", category: UInt32) {
         var asset: UIImage {
             
             var newImage = UIImage()
@@ -82,23 +82,36 @@ class Assteroid: SKSpriteNode, PhysicsNodeProtocol {
         let texture = SKTexture(image: asset)
         super.init(texture: texture, color: .white, size: texture.size())
         
-        let randomNegX = Int.random(in: -426 ... -150)
-        let randomPosX = Int.random(in: 150...426)
-        let randomNegY = Int.random(in: -196 ... -75)
-        let randomPosY = Int.random(in: 75...196)
+        //TODO: - the below randomization of position should be moved to the gameScene class because we only want to randomize positions when we first call the didMove() method
         
-        let xCoordinate = [randomNegX, randomPosX]
-        let yCoordinate = [randomNegY, randomPosY]
-        self.position = CGPoint(x: xCoordinate[Int.random(in: 0...1)], y: yCoordinate[Int.random(in: 0...1)])
+//        let randomNegX = Int.random(in: -426 ... -150)
+//        let randomPosX = Int.random(in: 150...426)
+//        let randomNegY = Int.random(in: -196 ... -75)
+//        let randomPosY = Int.random(in: 75...196)
+//        
+//        let xCoordinate = [randomNegX, randomPosX]
+//        let yCoordinate = [randomNegY, randomPosY]
+//        self.position = CGPoint(x: xCoordinate[Int.random(in: 0...1)], y: yCoordinate[Int.random(in: 0...1)])
+        self.position = position
         self.zPosition = zPosition
         self.zRotation = zRotation
         self.anchorPoint = anchorPoint
         self.name = name
-        self.assteroidCategory = assteroidCategory
+        self.assteroidCategory = category
         
         switch assteroidCategory {
-            case K.largeAssteroidCategory:
+        case K.largeAssteroidCategory:
+            do {
                 self.size = K.largeAssteroidSize
+                let randomNegX = Int.random(in: -426 ... -150)
+                let randomPosX = Int.random(in: 150...426)
+                let randomNegY = Int.random(in: -196 ... -75)
+                let randomPosY = Int.random(in: 75...196)
+                
+                let xCoordinate = [randomNegX, randomPosX]
+                let yCoordinate = [randomNegY, randomPosY]
+                self.position = CGPoint(x: xCoordinate[Int.random(in: 0...1)], y: yCoordinate[Int.random(in: 0...1)])
+            }
             case K.mediumAssteroidCategory:
                 self.size = K.mediumAssteroidSize
             case K.smallAssteroidCategory:

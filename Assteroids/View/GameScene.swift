@@ -53,7 +53,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     let largeAssteroidCategory: UInt32 = K.largeAssteroidCategory
     let mediumAssteroidCategory: UInt32 = K.mediumAssteroidCategory
     let smallAssteroidCategory: UInt32 = K.smallAssteroidCategory
-    var currentAssteroidCategory: UInt32 = K.largeAssteroidCategory
+   // var currentAssteroidCategory: UInt32 = K.largeAssteroidCategory
     
     var score: Int = 0 {
          didSet {
@@ -97,7 +97,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.addChild(generatePoop(position: CGPoint(x: 150, y: 0))!)
         
         for _ in 0...assNodeMax {
-            generateAssteroids(K.largeAssteroidCategory)
+            generateAssteroids(category: K.largeAssteroidCategory)
         }
         
         // makeButton(node: SKSpriteNode) pass the data to this method and pass in a different node for each button
@@ -461,22 +461,22 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     //TODO: - in the below generateAssteroids() method. we should be able to know what the position of the large assteroid that has been collided with so that we can generate two medium assteroids at that position. The same thing needs to happen when medium goes to small assteroids. we should call this method twice each time a medium or small assteroid need to be generated.  we should manage the removal of the assteroids here because the removal is simply remove the node by using removeChild().
     
-    func generateAssteroids(_ currentAssteroidCategory: UInt32) {
+    func generateAssteroids(category: UInt32, assteroidCollidedWith: Assteroid? = nil) {
         
-        var currentAssteroid: Assteroid
+        var assteroidToBeGenerated: Assteroid
         
-        print("0b" + String(currentAssteroidCategory, radix: 2))
+        //print("0b" + String(currentAssteroidCategory, radix: 2))
         
-        switch currentAssteroidCategory {
+        switch category {
             case K.largeAssteroidCategory:
                 do {
                     let highestKey = self.largeAssNodesInAction.keys.max() ?? 0
                     let nextKey = highestKey + 1
                     
-                    currentAssteroid = Assteroid(K.largeAssteroidCategory)
-                    addChild(currentAssteroid)
+                    assteroidToBeGenerated = Assteroid(category: K.largeAssteroidCategory)
+                    addChild(assteroidToBeGenerated)
                     
-                    largeAssNodesInAction[nextKey] = currentAssteroid
+                    largeAssNodesInAction[nextKey] = assteroidToBeGenerated
                     
                     print("key \(nextKey): \(String(describing: largeAssNodesInAction[nextKey]))")
                 }
@@ -485,106 +485,118 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     let highestKey = self.mediumAssNodesInAction.keys.max() ?? 0
                     let nextKey = highestKey + 1
                     
-                    currentAssteroid = Assteroid(K.mediumAssteroidCategory)
-                    addChild(currentAssteroid)
+                    assteroidToBeGenerated = Assteroid(position: assteroidCollidedWith!.position, category: K.mediumAssteroidCategory)
+                    addChild(assteroidToBeGenerated)
+                    assteroidCollidedWith?.removeFromParent()
                     
-                    mediumAssNodesInAction[nextKey] = currentAssteroid
+                    mediumAssNodesInAction[nextKey] = assteroidToBeGenerated
                 }
             case K.smallAssteroidCategory:
                 do {
                     let highestKey = self.smallAssNodesInAction.keys.max() ?? 0
                     let nextKey = highestKey + 1
                     
-                    currentAssteroid = Assteroid(K.smallAssteroidCategory)
-                    addChild(currentAssteroid)
-                    
-                    smallAssNodesInAction[nextKey] = currentAssteroid
+                    assteroidToBeGenerated = Assteroid(position: assteroidCollidedWith!.position, category: K.smallAssteroidCategory)
+                    addChild(assteroidToBeGenerated)
+                    assteroidCollidedWith?.removeFromParent()
+                    smallAssNodesInAction[nextKey] = assteroidToBeGenerated
                 }
             default:
                 return
         }
-            
-            
-            //print(largeAssNodesInAction)
-            
-//            if let ass = UIImage(named: "flippedAss")?.withTintColor(.white) {
-//                
-//                print(largeAssNodesInAction)
-//                
-//                let texture = SKTexture(image: ass)
-//                let spriteNode = SKSpriteNode(texture: texture)
-//                
-//                spriteNode.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-//                spriteNode.size = CGSize(width: CGFloat(100.0), height: CGFloat(100.0))
-//                
-//                let randomNegX = Int.random(in: -426 ... -150)
-//                let randomPosX = Int.random(in: 150...426)
-//                let randomNegY = Int.random(in: -196 ... -75)
-//                let randomPosY = Int.random(in: 75...196)
-//                
-//                let xCoordinate = [randomNegX, randomPosX]
-//                let yCoordinate = [randomNegY, randomPosY]
-//                
-//                spriteNode.position = CGPoint(x: xCoordinate[Int.random(in: 0...1)], y: yCoordinate[Int.random(in: 0...1)])
-//                
-//                let velocity = Int.random(in: 1...3)
-//                
-//                spriteNode.physicsBody = SKPhysicsBody(rectangleOf: spriteNode.size)
-//                spriteNode.physicsBody?.isDynamic = true
-//                spriteNode.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
-//                spriteNode.physicsBody?.velocity = CGVector(dx: velocity, dy: velocity)  // Ensure no initial velocity
-//                spriteNode.physicsBody?.angularVelocity = CGFloat(integerLiteral: velocity)  // Ensure no initial angular velocity
-//                spriteNode.physicsBody?.categoryBitMask = largeAssteroidCategory
-//                spriteNode.physicsBody?.contactTestBitMask = missileCategory
-//                spriteNode.physicsBody?.affectedByGravity = false
-//                
-//                self.addChild(spriteNode)
-//                self.largeAssNodesInAction[counter] = spriteNode
-//                
-//                
-//                
-//            }
-            
-            
-        
         
     }
     func didBegin(_ contact: SKPhysicsContact) {
           
         let collisionMask = contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask
         
-        // TODO: - we need to finish creating the switch statement here that handles the different cases of large, medium, or small assteroid collisions. In each case, we should call the generateAssteroids() method which in turn should create assteroid of the next size down or remove the small assteroid from the screen. This means we will need to pass to the generateAssteroids() the exact Assteroid object that was involved in the collision
+        // TODO: - we need to finish creating the switch statement here that handles the different cases of large, medium, or small assteroid collisions. In each case, we should call the generateAssteroids() method which in turn should create an assteroid of the next size down or remove the small assteroid from the screen. This means we will need to pass to the generateAssteroids() the exact Assteroid object that was involved in the collision. and that's because we need the exact position where we will generate the next-size-down assteroid
+        
+        
         switch collisionMask {
-        case (missileCategory | largeAssteroidCategory):
-            
-            do {
-                
-                if let collidedMissileNode = contact.bodyA.node as? SKSpriteNode, let collidedAssNode = contact.bodyB.node as? SKSpriteNode {
+            case (missileCategory | largeAssteroidCategory):
+                do {
+                    if let collidedMissileNode = contact.bodyA.node as? MissileNode, let collidedAssNode = contact.bodyB.node as? Assteroid {
+                        for _ in 1...2 {
+                            if let largeAssteroidCollidedWith = contact.bodyB.node as? Assteroid {
+                                generateAssteroids(category: mediumAssteroidCategory, assteroidCollidedWith: largeAssteroidCollidedWith)
+                                
+                                //TODO: - add logic to remove the assteroid from the dictionary. remove missile from parents as well as dictionary
+                                
+                            }
+                        }
                         
+                    } else {
+                        if let largeAssteroidCollidedWith = contact.bodyA.node as? Assteroid {
+                            generateAssteroids(category: mediumAssteroidCategory, assteroidCollidedWith: largeAssteroidCollidedWith)
+                            
+                            //TODO: - add logic to remove the assteroid from the dictionary. remove missile from parents as well as dictionary
+                            
+                            
+                        }
+                    }
+                }
+        case (missileCategory | mediumAssteroidCategory):
+            do {
+                if let collidedMissileNode = contact.bodyA.node as? MissileNode, let collidedAssNode = contact.bodyB.node as? Assteroid {
+                    for _ in 1...2 {
+                        if let mediumAssteroidCollidedWith = contact.bodyB.node as? Assteroid {
+                            generateAssteroids(category: smallAssteroidCategory, assteroidCollidedWith: mediumAssteroidCollidedWith)
+                            
+                            //TODO: - add logic to remove the assteroid from the dictionary. remove missile from parents as well as dictionary
+                            
+                            
+                        }
+                    }
+                    
+                } else {
+                    if let mediumAssteroidCollidedWith = contact.bodyA.node as? Assteroid {
+                        generateAssteroids(category: smallAssteroidCategory, assteroidCollidedWith: mediumAssteroidCollidedWith)
+                        //TODO: - add logic to remove the assteroid from the dictionary. remove missile from parents as well as dictionary
+                        
+                        
+                        
+                    }
                 }
             }
-        default:
-            return
-        }
-
-                if collisionMask == (missileCategory | largeAssteroidCategory) {
-                    if let collidedMissileNode = contact.bodyA.node as? SKSpriteNode, let collidedAssNode = contact.bodyB.node as? SKSpriteNode {
+        case (missileCategory | smallAssteroidCategory):
+            do {
+                if let collidedMissileNode = contact.bodyA.node as? MissileNode, let collidedAssNode = contact.bodyB.node as? Assteroid {
+                    collidedAssNode.removeFromParent()
+                    //TODO: - add logic to remove the assteroid from the dictionary. remove missile from parents as well as dictionary
                     
-                        missileDidCollideWithAsteroid(missile: collidedMissileNode, asteroid: collidedAssNode)
-                    }
-                } else if collisionMask == (missileCategory | mediumAssteroidCategory) {
-                    // Handle collision between missile and medium asteroid
-                    if let collidedMissileNode = contact.bodyA.node as? SKSpriteNode, let collidedAssNode = contact.bodyB.node as? SKSpriteNode {
-                                           
-                        missileDidCollideWithMediumAsteroid(missile: collidedMissileNode, asteroid: collidedAssNode)
-                    }
                     
-                } else if collisionMask == (missileCategory | smallAssteroidCategory) {
-                    if let collidedMissileNode = contact.bodyA.node as? SKSpriteNode, let collidedAssNode = contact.bodyB.node as? SKSpriteNode {
-                                           
-                        missileDidCollideWithSmallAsteroid(missile: collidedMissileNode, asteroid: collidedAssNode)
+                } else {
+                    if let smallAssteroidCollidedWith = contact.bodyA.node as? Assteroid {
+                        smallAssteroidCollidedWith.removeFromParent()
+                        //TODO: - add logic to remove the assteroid from the dictionary. remove missile from parents as well as dictionary
+                        
+                        
                     }
                 }
+            }
+            default:
+                return
+        }
+
+//                if collisionMask == (missileCategory | largeAssteroidCategory) {
+//                    if let collidedMissileNode = contact.bodyA.node as? SKSpriteNode, let collidedAssNode = contact.bodyB.node as? SKSpriteNode {
+//                    
+//                        missileDidCollideWithAsteroid(missile: collidedMissileNode, asteroid: collidedAssNode)
+//                    }
+//                } else if collisionMask == (missileCategory | mediumAssteroidCategory) {
+//                    // Handle collision between missile and medium asteroid
+//                    if let collidedMissileNode = contact.bodyA.node as? SKSpriteNode, let collidedAssNode = contact.bodyB.node as? SKSpriteNode {
+//                                           
+//                        missileDidCollideWithMediumAsteroid(missile: collidedMissileNode, asteroid: collidedAssNode)
+//                    }
+//                    
+//                } else if collisionMask == (missileCategory | smallAssteroidCategory) {
+//                    if let collidedMissileNode = contact.bodyA.node as? SKSpriteNode, let collidedAssNode = contact.bodyB.node as? SKSpriteNode {
+//                                           
+//                        missileDidCollideWithSmallAsteroid(missile: collidedMissileNode, asteroid: collidedAssNode)
+//                    }
+//                }
         }
     
     func missileDidCollideWithAsteroid(missile: SKSpriteNode, asteroid: SKSpriteNode) {
