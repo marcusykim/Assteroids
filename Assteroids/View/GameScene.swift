@@ -482,24 +482,28 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 }
             case K.mediumAssteroidCategory:
                 do {
-                    let highestKey = self.mediumAssNodesInAction.keys.max() ?? 0
-                    let nextKey = highestKey + 1
-                    
-                    assteroidToBeGenerated = Assteroid(position: assteroidCollidedWith!.position, category: K.mediumAssteroidCategory)
-                    addChild(assteroidToBeGenerated)
-                    assteroidCollidedWith?.removeFromParent()
-                    
-                    mediumAssNodesInAction[nextKey] = assteroidToBeGenerated
+                    for _ in 1...2 {
+                        let highestKey = self.mediumAssNodesInAction.keys.max() ?? 0
+                        let nextKey = highestKey + 1
+                        
+                        assteroidToBeGenerated = Assteroid(position: assteroidCollidedWith!.position, category: K.mediumAssteroidCategory)
+                        addChild(assteroidToBeGenerated)
+                        assteroidCollidedWith?.removeFromParent()
+                        
+                        mediumAssNodesInAction[nextKey] = assteroidToBeGenerated
+                    }
                 }
             case K.smallAssteroidCategory:
                 do {
-                    let highestKey = self.smallAssNodesInAction.keys.max() ?? 0
-                    let nextKey = highestKey + 1
-                    
-                    assteroidToBeGenerated = Assteroid(position: assteroidCollidedWith!.position, category: K.smallAssteroidCategory)
-                    addChild(assteroidToBeGenerated)
-                    assteroidCollidedWith?.removeFromParent()
-                    smallAssNodesInAction[nextKey] = assteroidToBeGenerated
+                    for _ in 1...2 {
+                        let highestKey = self.smallAssNodesInAction.keys.max() ?? 0
+                        let nextKey = highestKey + 1
+                        
+                        assteroidToBeGenerated = Assteroid(position: assteroidCollidedWith!.position, category: K.smallAssteroidCategory)
+                        addChild(assteroidToBeGenerated)
+                        assteroidCollidedWith?.removeFromParent()
+                        smallAssNodesInAction[nextKey] = assteroidToBeGenerated
+                    }
                 }
             default:
                 return
@@ -517,29 +521,36 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             case (missileCategory | largeAssteroidCategory):
                 do {
                     if let collidedMissileNode = contact.bodyA.node as? MissileNode, let collidedAssNode = contact.bodyB.node as? Assteroid {
-                        for _ in 1...2 {
+                        //for _ in 1...2 {
                             if let largeAssteroidCollidedWith = contact.bodyB.node as? Assteroid {
                                 generateAssteroids(category: mediumAssteroidCategory, assteroidCollidedWith: largeAssteroidCollidedWith)
                                 
                                 //TODO: - add logic to remove the assteroid from the dictionary. remove missile from parents as well as dictionary
                                 
                             }
-                        }
+                        
+                        collidedMissileNode.removeFromParent()
+                        
+                        //}
                         
                     } else {
                         if let largeAssteroidCollidedWith = contact.bodyA.node as? Assteroid {
                             generateAssteroids(category: mediumAssteroidCategory, assteroidCollidedWith: largeAssteroidCollidedWith)
                             
                             //TODO: - add logic to remove the assteroid from the dictionary. remove missile from parents as well as dictionary
-                            
-                            
                         }
+                        
+                        let collidedMissileNode = contact.bodyB.node as? MissileNode
+                        collidedMissileNode?.removeFromParent()
+                            
+                        
+
                     }
                 }
         case (missileCategory | mediumAssteroidCategory):
             do {
                 if let collidedMissileNode = contact.bodyA.node as? MissileNode, let collidedAssNode = contact.bodyB.node as? Assteroid {
-                    for _ in 1...2 {
+                    //for _ in 1...2 {
                         if let mediumAssteroidCollidedWith = contact.bodyB.node as? Assteroid {
                             generateAssteroids(category: smallAssteroidCategory, assteroidCollidedWith: mediumAssteroidCollidedWith)
                             
@@ -547,16 +558,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                             
                             
                         }
-                    }
+                    collidedMissileNode.removeFromParent()
+                   // }
                     
                 } else {
                     if let mediumAssteroidCollidedWith = contact.bodyA.node as? Assteroid {
                         generateAssteroids(category: smallAssteroidCategory, assteroidCollidedWith: mediumAssteroidCollidedWith)
                         //TODO: - add logic to remove the assteroid from the dictionary. remove missile from parents as well as dictionary
                         
-                        
-                        
                     }
+                    
+                    let collidedMissileNode = contact.bodyB.node as? MissileNode
+                    collidedMissileNode?.removeFromParent()
                 }
             }
         case (missileCategory | smallAssteroidCategory):
@@ -565,7 +578,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     collidedAssNode.removeFromParent()
                     //TODO: - add logic to remove the assteroid from the dictionary. remove missile from parents as well as dictionary
                     
-                    
+                    collidedMissileNode.removeFromParent()
                 } else {
                     if let smallAssteroidCollidedWith = contact.bodyA.node as? Assteroid {
                         smallAssteroidCollidedWith.removeFromParent()
@@ -573,6 +586,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                         
                         
                     }
+                    
+                    let collidedMissileNode = contact.bodyB.node as? MissileNode
+                    collidedMissileNode?.removeFromParent()
                 }
             }
             default:
